@@ -17,23 +17,31 @@ class hudSetup: UIView {
     @IBAction func menuButtonPressed(sender: AnyObject) {
         
         print("Menu Button Pressed")
-        
-        //Call function
         menuPressed()
+    
     }
     
     
     @IBAction func shopButtonPressed(sender: AnyObject) {
         
         print("Shop Button Pressed")
+        shopPressed()
+        
     }
     
     
     @IBAction func upgradeButtonPressed(sender: AnyObject) {
         
         print("Upgrade Button Pressed")
+        upgradePressed()
     }
     
+    @IBAction func capPressed(sender: AnyObject) {
+        
+        print("Captain pressed!")
+        GameScene().spawnCaptain()
+        
+    }
     
     override func didAddSubview(subview: UIView) {
         

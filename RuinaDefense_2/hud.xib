@@ -100,6 +100,16 @@
                         <action selector="upgradeButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="2Ma-3d-QiP"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucJ-9i-Thu">
+                    <rect key="frame" x="586" y="323" width="53" height="30"/>
+                    <animations/>
+                    <state key="normal" title="Captain">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="capPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Rbq-H0-F9H"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <constraints>
