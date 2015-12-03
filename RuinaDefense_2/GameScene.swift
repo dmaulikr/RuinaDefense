@@ -18,7 +18,7 @@ class GameScene: SKScene {
         //Shows the hud
         showHud()
         
-        //Create Hud
+        //Creates a label in the middle of the screen
         myLabel.name = "label"
         myLabel.fontSize = 35
         myLabel.position = CGPoint(x: frameW / 2, y: frameH / 2)
