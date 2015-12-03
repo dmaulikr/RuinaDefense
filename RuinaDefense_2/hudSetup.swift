@@ -39,7 +39,7 @@ class hudSetup: UIView {
     @IBAction func capPressed(sender: AnyObject) {
         
         print("Captain pressed!")
-        GameScene().spawnCaptain()
+        //scene!.spawnCaptain() 
         
     }
     

@@ -25,67 +25,66 @@ class GameScene: SKScene {
         myLabel.fontSize = 35
         myLabel.position = CGPoint(x: frameW / 2, y: frameH / 2)
         
-        self.addChild(myLabel)
+        //self.addChild(myLabel)
 
-        
-        //----------------------------SPAWN CAPTAIN-----------------
-        let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
-        var runFrames = [SKTexture]()
-        
-        let numImages = captainAnimatedAtlas.textureNames.count
-        
-        for var i=1; i <= numImages; i++ {
-            let captainTextureName = "cap\(i)"
-            runFrames.append(captainAnimatedAtlas.textureNamed(captainTextureName))
-            print(captainTextureName)
-        }
-        
-        captainRunningFrames = runFrames
-        
-        let firstFrame = captainRunningFrames[0]
-        captain = SKSpriteNode(texture: firstFrame)
-        captain.position = CGPoint(x: 500, y: 500)
-        captain.zPosition = 5;
-        self.addChild(captain)
-        
-        //start animation
-        self.runningCaptain()
-        
-        //NOTE: WHY DOES THIS WORK BUT NOT THE BELOW FUNCTION -- THEY ARE IDENTICAL BESIDES SPAWN LOCATION
+        //Create button
+        spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
+        spawnButton.setScale(0.5)
+        // Put it in the center of the scene
+        spawnButton.position = CGPoint(x:1050, y:100)
+        spawnButton.zPosition = 5
+        self.addChild(spawnButton)
         
     }
     
     
     //If captain PRESSED. SPAWN CAPTAIN AND ANIMATE!--------------------------
-     func spawnCaptain() {
-        print("spawnCaptainCalled")
+    //Captain does NOT spawn if button from hud is pressed.
+    //Captain DOES spawn if spritenode button from scene is pressed.
+      func spawnCaptain() {
+        print("Spawning Captain")
         let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
         var runFrames = [SKTexture]()
-        
         let numImages = captainAnimatedAtlas.textureNames.count
         
+        //Loop through each image name and append into frames
         for var i=1; i <= numImages; i++ {
             let captainTextureName = "cap\(i)"
             runFrames.append(captainAnimatedAtlas.textureNamed(captainTextureName))
             print(captainTextureName)
         }
-        
+    
         captainRunningFrames = runFrames
         
         let firstFrame = captainRunningFrames[0]
+       
+        //Create captain sprite with initial texture
         captain = SKSpriteNode(texture: firstFrame)
-        captain.position = CGPoint(x: 300, y: 300)
-        captain.zPosition = 5;
+        
+        //Positioned on bottom left of screen
+        captain.position = CGPoint(x: 1, y: 200)
+        captain.zPosition = 3;
+        
+        print("Add Captain")
         self.addChild(captain)
-        //-----------------------end captain test-----------------
         
         //start animation
+        print("Start animation")
         self.runningCaptain()
+        
+        //Move captain rightward
+        let moveRight = SKAction.moveByX(1340, y:0, duration:5.0)
+        //Removes node from scene
+        let finishedRunning = SKAction.removeFromParent()
+        
+        //Moves captain right, when move is finished, remove node.
+        let sequence = SKAction.sequence([moveRight,finishedRunning])
+        captain.runAction(sequence)
         
     }
     
+    //Animates the captain sprite with running
     func runningCaptain() {
-        //This is our general runAction method to make our bear walk.
         captain.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(captainRunningFrames,
                 timePerFrame: 0.1,
@@ -96,12 +95,26 @@ class GameScene: SKScene {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
+
         
-//        for touch: AnyObject in touches {
-//            let location = touch.locationInNode(self)
-//            
-//            
-//        }
+        
+        
+        
+    }
+    
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // Loop over all the touches in this event
+        for touch: AnyObject in touches {
+            // Get the location of the touch in this scene
+            let location = touch.locationInNode(self)
+            
+            // Check if the location of the touch is within the button's bounds
+            if spawnButton.containsPoint(location) {
+                print("Spawn Button Pressed!")
+                spawnCaptain()
+            }
+        }
     }
     
     override func update(currentTime: CFTimeInterval) {

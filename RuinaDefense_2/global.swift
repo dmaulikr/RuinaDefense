@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 //Contains all global parameters
-var gameScene: SKScene!
+//var gameScene: SKScene!
 
 //For testing
 var myLabel = SKLabelNode(text: "Just a random SKLabel -- NOT PART OF HUD")
@@ -18,3 +18,5 @@ var myLabel = SKLabelNode(text: "Just a random SKLabel -- NOT PART OF HUD")
 //Captain stuff
 var captain : SKSpriteNode!
 var captainRunningFrames : [SKTexture]!
+let scene = GameScene(fileNamed: "GameScene")
+var spawnButton: SKNode!
