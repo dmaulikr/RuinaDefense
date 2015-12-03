@@ -27,4 +27,14 @@ func menuPressed() {
         Gold = true
         
     }
-}
+    
+    func shopPressed() {
+        
+    }
+    
+    func upgradePressed() {
+        
+    }
+    
+    
+ }
