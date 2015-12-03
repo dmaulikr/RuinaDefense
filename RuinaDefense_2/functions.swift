@@ -14,17 +14,7 @@ import SpriteKit
 //Contains all functions
 
 //Changes text from Gold to Not Gold -- for testing (can be used to open menu, etc)
-func menuPressed() {
-    
-    if Gold == true {
-        
-        myLabel.text = "Not Gold"
-        Gold = false
-        
-    } else {
-        
-        myLabel.text = "Gold"
-        Gold = true
+    func menuPressed() {
         
     }
     
@@ -35,6 +25,6 @@ func menuPressed() {
     func upgradePressed() {
         
     }
+
     
-    
- }
+ 

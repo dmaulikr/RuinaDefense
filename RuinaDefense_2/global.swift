@@ -13,5 +13,8 @@ import SpriteKit
 var gameScene: SKScene!
 
 //For testing
-var myLabel = SKLabelNode(text: "Gold")
-var Gold: Bool = true
+var myLabel = SKLabelNode(text: "Just a random SKLabel -- NOT PART OF HUD")
+
+//Captain stuff
+var captain : SKSpriteNode!
+var captainRunningFrames : [SKTexture]!
