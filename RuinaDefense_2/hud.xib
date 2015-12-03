@@ -12,10 +12,9 @@
             <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZ4-pB-EYp">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZ4-pB-EYp">
                     <rect key="frame" x="0.0" y="300" width="667" height="75"/>
                     <animations/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -80,7 +79,7 @@
                         <action selector="menuButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="D75-G1-puT"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pd-n0-gx0">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pd-n0-gx0">
                     <rect key="frame" x="75" y="323" width="36" height="30"/>
                     <animations/>
                     <state key="normal" title="Shop">
@@ -90,7 +89,7 @@
                         <action selector="shopButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Y6w-og-X1I"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKO-NV-jrQ">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKO-NV-jrQ">
                     <rect key="frame" x="119" y="323" width="60" height="30"/>
                     <animations/>
                     <state key="normal" title="Upgrade">
@@ -100,8 +99,8 @@
                         <action selector="upgradeButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="2Ma-3d-QiP"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucJ-9i-Thu">
-                    <rect key="frame" x="586" y="323" width="53" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucJ-9i-Thu">
+                    <rect key="frame" x="551" y="323" width="53" height="30"/>
                     <animations/>
                     <state key="normal" title="Captain">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,18 +114,24 @@
             <constraints>
                 <constraint firstItem="LxI-3b-sg1" firstAttribute="centerX" secondItem="KtS-5g-lgr" secondAttribute="centerX" constant="286" id="5HG-at-sEh"/>
                 <constraint firstItem="yGm-oc-033" firstAttribute="centerY" secondItem="4Zg-gl-yKw" secondAttribute="centerY" constant="0.5" id="Asu-eL-E21"/>
+                <constraint firstItem="ucJ-9i-Thu" firstAttribute="leading" secondItem="RKO-NV-jrQ" secondAttribute="trailing" constant="372" id="Cp5-cc-w4c"/>
                 <constraint firstItem="4Zg-gl-yKw" firstAttribute="top" secondItem="Jbw-sz-fM6" secondAttribute="bottom" constant="8" symbolic="YES" id="DOB-Fp-RnZ"/>
+                <constraint firstItem="ucJ-9i-Thu" firstAttribute="baseline" secondItem="RKO-NV-jrQ" secondAttribute="baseline" id="O13-F5-mKM"/>
                 <constraint firstItem="YSN-hD-zoV" firstAttribute="firstBaseline" secondItem="Jbw-sz-fM6" secondAttribute="firstBaseline" id="RK7-9M-Job"/>
                 <constraint firstItem="yGm-oc-033" firstAttribute="leading" secondItem="4Zg-gl-yKw" secondAttribute="trailing" constant="8" id="RZO-dm-a3y"/>
                 <constraint firstItem="KtS-5g-lgr" firstAttribute="top" secondItem="Jbw-sz-fM6" secondAttribute="top" constant="315" id="VTY-g3-VXZ"/>
+                <constraint firstItem="ucJ-9i-Thu" firstAttribute="baseline" secondItem="7pd-n0-gx0" secondAttribute="baseline" id="YNN-1D-yV9"/>
                 <constraint firstAttribute="trailing" secondItem="YSN-hD-zoV" secondAttribute="trailing" id="dkk-Iq-KLH"/>
                 <constraint firstItem="4Zg-gl-yKw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="ePk-Z2-FGv"/>
                 <constraint firstItem="Jbw-sz-fM6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="f0O-wX-vy5"/>
                 <constraint firstItem="YSN-hD-zoV" firstAttribute="baseline" secondItem="Jbw-sz-fM6" secondAttribute="baseline" id="h6y-Ih-5Y4"/>
                 <constraint firstItem="LxI-3b-sg1" firstAttribute="top" secondItem="Jbw-sz-fM6" secondAttribute="top" id="hWp-wt-SCM"/>
+                <constraint firstItem="ucJ-9i-Thu" firstAttribute="centerY" secondItem="uZ4-pB-EYp" secondAttribute="centerY" id="j83-lv-r0f"/>
                 <constraint firstItem="Jbw-sz-fM6" firstAttribute="leading" secondItem="4Zg-gl-yKw" secondAttribute="leading" id="lnW-4n-X1b"/>
                 <constraint firstItem="KtS-5g-lgr" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" constant="-592" id="niJ-ic-hun"/>
+                <constraint firstItem="ucJ-9i-Thu" firstAttribute="baseline" secondItem="KtS-5g-lgr" secondAttribute="baseline" id="oyH-FP-mVZ"/>
                 <constraint firstItem="yGm-oc-033" firstAttribute="top" secondItem="Jbw-sz-fM6" secondAttribute="bottom" constant="7" id="rRp-UI-JaR"/>
+                <constraint firstItem="ucJ-9i-Thu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="551" id="vMg-Yl-f7G"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
