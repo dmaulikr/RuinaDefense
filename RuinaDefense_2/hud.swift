@@ -33,7 +33,7 @@ import UIKit
         
         //Size of hud in game. Not sure difference between this and the one in gamescene
         //But this one changes the actual visible borders and where labels are
-        view.frame = CGRect(x: 0, y: 0, width: 667, height: 100)
+        view.frame = CGRect(x: 0, y: 0, width: 667, height: 375)
         //Also not sure why isn't the same as the frame 1337 x 750. If I do that it's too large. This is the cause of why middle label is not really middle.
         
         //  CHANGE COLOR OF VIEW BACKGROUND THING TO SEE ACTUAL SIZE OF VIEW

@@ -21,6 +21,20 @@ class hudSetup: UIView {
         //Call function
         menuPressed()
     }
+    
+    
+    @IBAction func shopButtonPressed(sender: AnyObject) {
+        
+        print("Shop Button Pressed")
+    }
+    
+    
+    @IBAction func upgradeButtonPressed(sender: AnyObject) {
+        
+        print("Upgrade Button Pressed")
+    }
+    
+    
     override func didAddSubview(subview: UIView) {
         
         
