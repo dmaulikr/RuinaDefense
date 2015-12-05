@@ -1,10 +1,10 @@
-//
-//  hud.swift
-//  RuinaDefense_2
-//
-//  Created by Student on 12/2/15.
+//--------------------------------------------------------------
+//  Class: hud.swift
+//  RuinaDefense
+
+//  Created by Ricardo Guntur on 12/2/15.
 //  Copyright © 2015 Ricardo Guntur. All rights reserved.
-//
+//--------------------------------------------------------------
 
 import Foundation
 import UIKit
