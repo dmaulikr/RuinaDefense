@@ -1,10 +1,10 @@
-//
-//  hudSetup.swift
-//  RuinaDefense_2
-//
-//  Created by Student on 12/2/15.
+//--------------------------------------------------------------
+//  Class: hudSetup.swift
+//  RuinaDefense
+
+//  Created by Ricardo Guntur on 12/2/15.
 //  Copyright © 2015 Ricardo Guntur. All rights reserved.
-//
+//--------------------------------------------------------------
 
 import UIKit
 import SpriteKit
@@ -39,7 +39,7 @@ class hudSetup: UIView {
     @IBAction func capPressed(sender: AnyObject) {
         
         print("Captain pressed!")
-        //scene!.spawnCaptain() 
+        scene!.spawnCaptain() 
         
     }
     

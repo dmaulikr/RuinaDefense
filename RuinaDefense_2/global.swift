@@ -10,13 +10,20 @@ import Foundation
 import SpriteKit
 
 //Contains all global parameters
-//var gameScene: SKScene!
 
 //For testing
 var myLabel = SKLabelNode(text: "Just a random SKLabel -- NOT PART OF HUD")
 
-//Captain stuff
+//Captain Variables
 var captain : SKSpriteNode!
 var captainRunningFrames : [SKTexture]!
+
+//Scene Variables
 let scene = GameScene(fileNamed: "GameScene")
+
 var spawnButton: SKNode!
+
+var selectedNode = SKSpriteNode()
+
+let foreground = SKSpriteNode(imageNamed: "foreground") //Front of background
+let skyline = SKSpriteNode(imageNamed: "skyline")       //Back of background
