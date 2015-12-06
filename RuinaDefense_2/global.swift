@@ -27,3 +27,10 @@ var selectedNode = SKSpriteNode()
 
 let foreground = SKSpriteNode(imageNamed: "foreground") //Front of background
 let skyline = SKSpriteNode(imageNamed: "skyline")       //Back of background
+
+//HUD
+var goldCount = 0
+
+
+
+

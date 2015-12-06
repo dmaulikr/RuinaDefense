@@ -17,7 +17,10 @@ import UIKit
     override init(frame: CGRect) { // programmer creates our custom View
         super.init(frame: frame)
         
+        print("setup hud")
         setupHud()
+        
+        hudSetup().updateGold()
     }
     
     
