@@ -20,8 +20,26 @@ class MenuScene: SKScene {
     override func didMoveToView(view: SKView) {
         
         print("moved to menu view")
-        //Background
-        self.backgroundColor = SKColor(red: 0.15, green:0.15, blue:0.3, alpha: 1.0)
+        
+        //Background---------------------------------------------------------
+        let menuBackground = SKSpriteNode(imageNamed: "menuBackground.png")
+        menuBackground.name = "menuBackground"
+        menuBackground.anchorPoint = CGPointZero
+        menuBackground.size.width = 1334
+        menuBackground.size.height = 750
+        menuBackground.zPosition = 0
+        self.addChild(menuBackground)
+        
+        //Add clouds
+        addClouds()
+        NSTimer.every(15.0 .seconds) {
+        self.addClouds()
+        }
+        
+        //Background Music----------------------------------------------------
+        let backgroundMusic = SKAudioNode(fileNamed: "Dystopia_Background_Music.wav")
+        backgroundMusic.autoplayLooped = true
+        addChild(backgroundMusic)
         
         //Add all the buttons
         addButtons()
@@ -61,6 +79,34 @@ class MenuScene: SKScene {
         print("add statistics button")
         self.addChild(statistics_button)
     }
+    
+    //Add moving cloud----------------------------------------------------
+    private func addClouds() {
+        
+        //Create cloud
+        let Cloud1 = SKSpriteNode(imageNamed: "Cloud1.png")
+        Cloud1.name = "Cloud1"
+        Cloud1.anchorPoint = CGPointZero
+        
+        //Set cloud position between y coordinates 200 and 275
+        let randomHeight = CGFloat(arc4random_uniform(200) + 100)
+        Cloud1.position = CGPointMake(-300, CGRectGetMidY(self.frame) + randomHeight)
+        
+        Cloud1.zPosition = 1
+        Cloud1.setScale(2.0)
+        
+        //Add Cloud to scene
+        self.addChild(Cloud1)
+        
+        //Movement
+        let floatRight = SKAction.moveByX(1600, y: 0, duration: 30)
+        let finishedMoving = SKAction.removeFromParent()
+        let moveCloud = SKAction.sequence([floatRight, finishedMoving])
+        Cloud1.runAction(moveCloud)
+        
+    }
+
+    
     
     //Handle button touches
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
