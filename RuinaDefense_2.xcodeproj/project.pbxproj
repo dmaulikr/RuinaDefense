@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */; settings = {ASSET_TAGS = (); }; };
 		3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7383031C13FA7E004335BA /* MenuScene.swift */; settings = {ASSET_TAGS = (); }; };
+		3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */; settings = {ASSET_TAGS = (); }; };
 		3FE65CF91C0FF3A200E4AA88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */; };
 		3FE65CFB1C0FF3A200E4AA88 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */; };
 		3FE65CFD1C0FF3A200E4AA88 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE65CFC1C0FF3A200E4AA88 /* GameScene.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTimer.swift; sourceTree = "<group>"; };
 		3F7383031C13FA7E004335BA /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dystopia_Background_Music.wav; sourceTree = "<group>"; };
 		3FE65CF51C0FF3A200E4AA88 /* RuinaDefense_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuinaDefense_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				3FE65D161C10015300E4AA88 /* global.swift */,
 				3FE65D181C10016A00E4AA88 /* functions.swift */,
 				3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */,
+				3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */,
 			);
 			path = RuinaDefense_2;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 				3FE65D041C0FF3A200E4AA88 /* Assets.xcassets in Resources */,
 				3FE65D021C0FF3A200E4AA88 /* Main.storyboard in Resources */,
 				3FE65D111C0FFC9F00E4AA88 /* hud.xib in Resources */,
+				3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
