@@ -13,6 +13,22 @@ import SpriteKit
 
 class hudSetup: UIView {
     
+    //Gold Label
+    @IBOutlet weak var goldLabel: UITextField!
+
+    
+    //Increment Gold and display on label
+    func updateGold() {
+        
+        print("Start incrementing gold per second")
+        NSTimer.every(1.0 .seconds) {
+            goldCount = goldCount + 1
+            print(goldCount)
+            
+            //self.goldLabel.text = "text" //ERROR HERE WTF
+        }
+    }
+    
     //menu pressed action
     @IBAction func menuButtonPressed(sender: AnyObject) {
         
@@ -39,7 +55,7 @@ class hudSetup: UIView {
     @IBAction func capPressed(sender: AnyObject) {
         
         print("Captain pressed!")
-        scene!.spawnCaptain() 
+        //scene!.spawnCaptain()
         
     }
     
@@ -47,4 +63,10 @@ class hudSetup: UIView {
         
         
     }
+
+    
+    
+    
+    
+    
 }

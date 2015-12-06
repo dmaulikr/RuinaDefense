@@ -13,8 +13,9 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let scene = GameScene(fileNamed:"GameScene") {
+        
+        //Show the menu scene first
+        if let scene = MenuScene(fileNamed: "GameScene") {
             // Configure the view.
             let skView = self.view as! SKView
             skView.showsFPS = true
@@ -30,6 +31,7 @@ class GameViewController: UIViewController {
         }
     }
 
+    
     override func shouldAutorotate() -> Bool {
         return true
     }

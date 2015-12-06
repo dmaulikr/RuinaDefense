@@ -40,15 +40,6 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yGm-oc-033">
-                    <rect key="frame" x="52" y="36" width="37" height="24"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="37" id="taN-JD-zuu"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Gold" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Zg-gl-yKw">
                     <rect key="frame" x="8" y="37" width="36" height="21"/>
                     <animations/>
@@ -109,16 +100,20 @@
                         <action selector="capPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Rbq-H0-F9H"/>
                     </connections>
                 </button>
+                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kt4-xH-Ref">
+                    <rect key="frame" x="59" y="33" width="97" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <animations/>
             <constraints>
                 <constraint firstItem="LxI-3b-sg1" firstAttribute="centerX" secondItem="KtS-5g-lgr" secondAttribute="centerX" constant="286" id="5HG-at-sEh"/>
-                <constraint firstItem="yGm-oc-033" firstAttribute="centerY" secondItem="4Zg-gl-yKw" secondAttribute="centerY" constant="0.5" id="Asu-eL-E21"/>
                 <constraint firstItem="ucJ-9i-Thu" firstAttribute="leading" secondItem="RKO-NV-jrQ" secondAttribute="trailing" constant="372" id="Cp5-cc-w4c"/>
                 <constraint firstItem="4Zg-gl-yKw" firstAttribute="top" secondItem="Jbw-sz-fM6" secondAttribute="bottom" constant="8" symbolic="YES" id="DOB-Fp-RnZ"/>
                 <constraint firstItem="ucJ-9i-Thu" firstAttribute="baseline" secondItem="RKO-NV-jrQ" secondAttribute="baseline" id="O13-F5-mKM"/>
                 <constraint firstItem="YSN-hD-zoV" firstAttribute="firstBaseline" secondItem="Jbw-sz-fM6" secondAttribute="firstBaseline" id="RK7-9M-Job"/>
-                <constraint firstItem="yGm-oc-033" firstAttribute="leading" secondItem="4Zg-gl-yKw" secondAttribute="trailing" constant="8" id="RZO-dm-a3y"/>
                 <constraint firstItem="KtS-5g-lgr" firstAttribute="top" secondItem="Jbw-sz-fM6" secondAttribute="top" constant="315" id="VTY-g3-VXZ"/>
                 <constraint firstItem="ucJ-9i-Thu" firstAttribute="baseline" secondItem="7pd-n0-gx0" secondAttribute="baseline" id="YNN-1D-yV9"/>
                 <constraint firstAttribute="trailing" secondItem="YSN-hD-zoV" secondAttribute="trailing" id="dkk-Iq-KLH"/>
@@ -130,11 +125,13 @@
                 <constraint firstItem="Jbw-sz-fM6" firstAttribute="leading" secondItem="4Zg-gl-yKw" secondAttribute="leading" id="lnW-4n-X1b"/>
                 <constraint firstItem="KtS-5g-lgr" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" constant="-592" id="niJ-ic-hun"/>
                 <constraint firstItem="ucJ-9i-Thu" firstAttribute="baseline" secondItem="KtS-5g-lgr" secondAttribute="baseline" id="oyH-FP-mVZ"/>
-                <constraint firstItem="yGm-oc-033" firstAttribute="top" secondItem="Jbw-sz-fM6" secondAttribute="bottom" constant="7" id="rRp-UI-JaR"/>
                 <constraint firstItem="ucJ-9i-Thu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="551" id="vMg-Yl-f7G"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <connections>
+                <outlet property="goldLabel" destination="kt4-xH-Ref" id="V3t-5V-Rl1"/>
+            </connections>
             <point key="canvasLocation" x="731.5" y="502.5"/>
         </view>
     </objects>

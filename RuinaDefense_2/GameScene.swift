@@ -13,6 +13,7 @@ class GameScene: SKScene {
     
     
     override func didMoveToView(view: SKView) {
+        
         /* Setup your scene here */
         let frameW = self.frame.size.width  //Size of frame's width
         let frameH = self.frame.size.height //Size of frame's height
