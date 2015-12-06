@@ -21,7 +21,7 @@ class MenuScene: SKScene {
         
         print("moved to menu view")
         
-        //Background---------------------------------------------------------
+        //-------------------------------Background-------------------------------
         let menuBackground = SKSpriteNode(imageNamed: "menuBackground.png")
         menuBackground.name = "menuBackground"
         menuBackground.anchorPoint = CGPointZero
@@ -36,7 +36,7 @@ class MenuScene: SKScene {
         self.addClouds()
         }
         
-        //Background Music----------------------------------------------------
+        //-------------------------------Background Music-------------------------------
         let backgroundMusic = SKAudioNode(fileNamed: "Dystopia_Background_Music.wav")
         backgroundMusic.autoplayLooped = true
         addChild(backgroundMusic)
@@ -46,7 +46,7 @@ class MenuScene: SKScene {
     }
     
     
-    //Creates All the buttons on the menu scene
+    //----------------------Creates All the buttons on the menu scene------------------------
     private func addButtons() {
 
         //Start button
@@ -80,7 +80,7 @@ class MenuScene: SKScene {
         self.addChild(statistics_button)
     }
     
-    //Add moving cloud----------------------------------------------------
+    //----------------------------------Add moving cloud--------------------------------------
     private func addClouds() {
         
         //Create cloud
@@ -108,7 +108,7 @@ class MenuScene: SKScene {
 
     
     
-    //Handle button touches
+    //----------------------------------Handle button touches----------------------------------
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches
         let location = touch.first!.locationInNode(self)
@@ -134,7 +134,7 @@ class MenuScene: SKScene {
     }
     
     
-    //Function to transition to gamescene
+    //----------------------------Handle transition to gamescene-------------------------
     private func startGame() {
         let Game_Scene = GameScene(size: self.size)
         let transition = SKTransition.fadeWithDuration(1.0)
@@ -146,4 +146,3 @@ class MenuScene: SKScene {
     }
 }
 
-//TODO: Add musics, animated background
