@@ -14,17 +14,6 @@ import SpriteKit
 //Contains all functions
 
 //Changes text from Gold to Not Gold -- for testing (can be used to open menu, etc)
-    func menuPressed() {
-        
-    }
-    
-    func shopPressed() {
-        
-    }
-    
-    func upgradePressed() {
-        
-    }
 
     
  

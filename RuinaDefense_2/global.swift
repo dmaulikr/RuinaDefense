@@ -11,8 +11,6 @@ import SpriteKit
 
 //Contains all global parameters
 
-//For testing
-var myLabel = SKLabelNode(text: "Just a random SKLabel -- NOT PART OF HUD")
 
 //Captain Variables
 var captain : SKSpriteNode!
@@ -21,15 +19,25 @@ var captainRunningFrames : [SKTexture]!
 //Scene Variables
 let scene = GameScene(fileNamed: "GameScene")
 
-var spawnButton: SKNode!
 
 var selectedNode = SKSpriteNode()
 
 let foreground = SKSpriteNode(imageNamed: "foreground") //Front of background
 let skyline = SKSpriteNode(imageNamed: "skyline")       //Back of background
 
-//HUD
+//HUD labels/buttons
+var spawnButton: SKNode!
+var MenuLabel = SKLabelNode(text: "Menu")
+var UsernameLabel = SKLabelNode(text: "Username")
+var EnemynameLabel = SKLabelNode(text: "Enemy")
+var OptionLabel = SKLabelNode(text: "Option")
+var UpgradeLabel = SKLabelNode(text: "Upgrade")
+var VSLabel = SKLabelNode(text: "VS")
+var GoldLabel = SKLabelNode(text: "Gold")
+
 var goldCount = 0
+
+
 
 
 
