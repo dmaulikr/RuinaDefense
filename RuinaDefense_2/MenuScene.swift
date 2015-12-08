@@ -67,14 +67,14 @@ class MenuScene: SKScene {
         self.addChild(start_button)
         
         //Option button
-        let options_button = SKSpriteNode(imageNamed: "options.png")
-        options_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-240)
-        options_button.setScale(0.5)
-        options_button.zPosition = 1;
-        options_button.name = "optionButton"
+        let menu_optionsButton = SKSpriteNode(imageNamed: "options.png")
+        menu_optionsButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-240)
+        menu_optionsButton.setScale(0.5)
+        menu_optionsButton.zPosition = 1;
+        menu_optionsButton.name = "optionButton"
         
         print("add option button")
-        self.addChild(options_button)
+        self.addChild(menu_optionsButton)
         
         //Stats button
         let statistics_button = SKSpriteNode(imageNamed: "statistics.png")
@@ -129,7 +129,7 @@ class MenuScene: SKScene {
         // If option button is touched go to options scene
         if (node.name == "optionButton") {
             
-            print("Options button pressed")
+            print("Menu Options button pressed")
         }
         
         // If stastistics button is touched go to statistics scene
