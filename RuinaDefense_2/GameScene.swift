@@ -271,6 +271,7 @@ class GameScene: SKScene {
             if upgradeClose.containsPoint(location) {
                 
                 //Remove all nodes associated with upgrade menu
+                print("upgrade close button pressed")
                 upgradeClose.removeFromParent()
                 upgradeBG.removeFromParent()
             }
