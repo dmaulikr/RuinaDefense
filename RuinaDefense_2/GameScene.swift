@@ -15,8 +15,8 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         
         /* Setup your scene here */
-        let frameW = self.frame.size.width  //Size of frame's width
-        let frameH = self.frame.size.height //Size of frame's height
+        //let frameW = self.frame.size.width  //Size of frame's width
+        //let frameH = self.frame.size.height //Size of frame's height
         
         //Handle touches
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFrom:"))
@@ -37,7 +37,7 @@ class GameScene: SKScene {
         self.scene?.addChild(foreground) //Currently, the foreground is not transparent. Need to stitch original photo correctly
         
         //Shows the hud
-        showHud()
+        //showHud()
         
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
@@ -53,23 +53,80 @@ class GameScene: SKScene {
         physicsWorld.gravity = CGVectorMake(0, -9.8);
         //---------------------------------------------------------------
         
+        //Add HUD Buttons
+        addHud()
         
-        //Creates a label in the middle of the screen
-//        myLabel.name = "label"
-//        myLabel.fontSize = 35
-//        myLabel.position = CGPoint(x: frameW / 2, y: frameH / 2)
-//        self.addChild(myLabel)
-
+    }
+    
+    //Create hud labels, buttons, health, username, etc
+    func addHud() {
+        
         //Create spawn button
         spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
         spawnButton.setScale(0.5)
         
         spawnButton.position = CGPoint(x:1050, y:100)
-        spawnButton.zPosition = 5
+        spawnButton.zPosition = 3
         self.addChild(spawnButton)
         
+        //ON THE BOTTOM
+        //Menu button
+        MenuLabel.name = "menu"
+        MenuLabel.fontColor = SKColor .blackColor()
+        MenuLabel.fontSize = 35
+        MenuLabel.position = CGPoint(x:100, y:50)
+        MenuLabel.zPosition = 3
+        self.addChild(MenuLabel)
+        
+        //Options Label
+        OptionLabel.name = "option"
+        OptionLabel.fontColor = SKColor .blackColor()
+        OptionLabel.fontSize = 35
+        OptionLabel.position = CGPoint(x:200, y:50)
+        OptionLabel.zPosition = 3
+        self.addChild(OptionLabel)
+        
+        //Upgrade label
+        UpgradeLabel.name = "upgrade"
+        UpgradeLabel.fontColor = SKColor .blackColor()
+        UpgradeLabel.fontSize = 35
+        UpgradeLabel.position = CGPoint(x:340, y:50)
+        UpgradeLabel.zPosition = 3
+        self.addChild(UpgradeLabel)
+        
+        //ON THE TOP
+        //Username label -- should get information when game starts
+        UsernameLabel.fontColor = SKColor .blackColor()
+        UsernameLabel.fontSize = 35
+        UsernameLabel.position = CGPoint(x:100, y:500)
+        UsernameLabel.zPosition = 3
+        self.addChild(UsernameLabel)
+        
+        //Enemyname label
+        EnemynameLabel.fontColor = SKColor .blackColor()
+        EnemynameLabel.fontSize = 35
+        EnemynameLabel.position = CGPoint(x:100, y:500)
+        EnemynameLabel.zPosition = 3
+        self.addChild(EnemynameLabel)
+        
+        //VS label
+        VSLabel.fontColor = SKColor .blackColor()
+        VSLabel.fontSize = 35
+        VSLabel.position = CGPoint(x:100, y:500)
+        VSLabel.zPosition = 3
+        self.addChild(VSLabel)
+        
+        //Gold label -- should start incrementing when game scene starts
+        GoldLabel.fontColor = SKColor .blackColor()
+        GoldLabel.fontSize = 35
+        GoldLabel.position = CGPoint(x:100, y:500)
+        GoldLabel.zPosition = 3
+        self.addChild(GoldLabel)
+        
+        //Border for the lower part of the scene for buttons and minion shop
+        
     }
-    
+
     
     //If captain PRESSED. SPAWN CAPTAIN AND ANIMATE!--------------------------
     //Captain does NOT spawn if button from hud is pressed.
@@ -141,17 +198,7 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
     }
     
-    //Creates Hud
-    func showHud() {
-        
-        //Creates hud with starting coordinates 0,0 and size of ihpone 6 frame
-        let myHud = hud(frame: CGRect(x: 0, y: 0, width: 1337, height: 750))
-        
-        self.view?.addSubview(myHud)
-        
-        
-    }
-    
+
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // Loop over all the touches in this event
@@ -163,6 +210,19 @@ class GameScene: SKScene {
             if spawnButton.containsPoint(location) {
                 print("Spawn Button Pressed!")
                 spawnCaptain()
+            }
+            
+            //If menu button is pressed -- delete all nodes and go to menu
+            if MenuLabel.containsPoint(location) {
+                print("Menu Button Pressed")
+                let Menu_scene = MenuScene(size: self.size)
+                let transition = SKTransition.fadeWithDuration(1.0)
+                
+                Menu_scene.scaleMode = SKSceneScaleMode.AspectFill
+                
+                
+                self.scene!.view?.presentScene(Menu_scene, transition: transition)
+                
             }
         }
     }

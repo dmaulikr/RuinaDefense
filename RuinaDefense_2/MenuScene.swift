@@ -30,6 +30,13 @@ class MenuScene: SKScene {
         menuBackground.zPosition = 0
         self.addChild(menuBackground)
         
+        //Add Logo
+        let logo = SKSpriteNode(imageNamed: "RuinaDefenseLogo")
+        logo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-250)
+        logo.setScale(0.5)
+        logo.zPosition = 1
+        self.addChild(logo)
+        
         //Add clouds
         addClouds()
         NSTimer.every(15.0 .seconds) {
@@ -51,7 +58,7 @@ class MenuScene: SKScene {
 
         //Start button
         let start_button = SKSpriteNode(imageNamed: "Start.png")
-        start_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
+        start_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-170)
         start_button.setScale(0.5)
         start_button.zPosition = 1;
         start_button.name = "startButton"
@@ -61,7 +68,7 @@ class MenuScene: SKScene {
         
         //Option button
         let options_button = SKSpriteNode(imageNamed: "options.png")
-        options_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-70)
+        options_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-240)
         options_button.setScale(0.5)
         options_button.zPosition = 1;
         options_button.name = "optionButton"
@@ -71,7 +78,7 @@ class MenuScene: SKScene {
         
         //Stats button
         let statistics_button = SKSpriteNode(imageNamed: "statistics.png")
-        statistics_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-140)
+        statistics_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-310)
         statistics_button.setScale(0.5)
         statistics_button.zPosition = 1;
         statistics_button.name = "statisticsButton"
@@ -92,7 +99,7 @@ class MenuScene: SKScene {
         let randomHeight = CGFloat(arc4random_uniform(200) + 100)
         Cloud1.position = CGPointMake(-300, CGRectGetMidY(self.frame) + randomHeight)
         
-        Cloud1.zPosition = 1
+        Cloud1.zPosition = 2
         Cloud1.setScale(2.0)
         
         //Add Cloud to scene
