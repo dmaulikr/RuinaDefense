@@ -1,7 +1,7 @@
 //--------------------------------------------------------------
 //  Class: GameScene.swift
 //  RuinaDefense
-
+//
 //  Created by Ricardo Guntur on 12/2/15.
 //  Copyright © 2015 Ricardo Guntur. All rights reserved.
 //--------------------------------------------------------------
@@ -90,7 +90,7 @@ class GameScene: SKScene {
         UpgradeLabel.name = "upgrade"
         UpgradeLabel.fontColor = SKColor .blackColor()
         UpgradeLabel.fontSize = 35
-        UpgradeLabel.position = CGPoint(x:340, y:50)
+        UpgradeLabel.position = CGPoint(x:330, y:50)
         UpgradeLabel.zPosition = 3
         self.addChild(UpgradeLabel)
         
@@ -98,30 +98,37 @@ class GameScene: SKScene {
         //Username label -- should get information when game starts
         UsernameLabel.fontColor = SKColor .blackColor()
         UsernameLabel.fontSize = 35
-        UsernameLabel.position = CGPoint(x:100, y:500)
+        UsernameLabel.position = CGPoint(x:100, y:700)
         UsernameLabel.zPosition = 3
         self.addChild(UsernameLabel)
         
         //Enemyname label
         EnemynameLabel.fontColor = SKColor .blackColor()
         EnemynameLabel.fontSize = 35
-        EnemynameLabel.position = CGPoint(x:100, y:500)
+        EnemynameLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:700)
         EnemynameLabel.zPosition = 3
         self.addChild(EnemynameLabel)
         
         //VS label
         VSLabel.fontColor = SKColor .blackColor()
         VSLabel.fontSize = 35
-        VSLabel.position = CGPoint(x:100, y:500)
+        VSLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y: 700)
         VSLabel.zPosition = 3
         self.addChild(VSLabel)
         
         //Gold label -- should start incrementing when game scene starts
         GoldLabel.fontColor = SKColor .blackColor()
         GoldLabel.fontSize = 35
-        GoldLabel.position = CGPoint(x:100, y:500)
+        GoldLabel.position = CGPoint(x:65, y:650)
         GoldLabel.zPosition = 3
         self.addChild(GoldLabel)
+        
+//        optionsClose.fontColor = SKColor .blackColor()
+//        optionsClose.fontSize = 35
+//        optionsClose.position = CGPoint(x: CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+//        optionsClose.zPosition = 11
+//        
+//        self.addChild(optionsClose)
         
         //Border for the lower part of the scene for buttons and minion shop
         
@@ -206,13 +213,17 @@ class GameScene: SKScene {
             // Get the location of the touch in this scene
             let location = touch.locationInNode(self)
             
+            
+            //---------------HANDLE ALL SCENE BUTTONS------------
+            
+            
             // Check if the location of the touch is within the button's bounds
             if spawnButton.containsPoint(location) {
                 print("Spawn Button Pressed!")
                 spawnCaptain()
             }
             
-            //If menu button is pressed -- delete all nodes and go to menu
+            //MENU BUTTON PRESSED
             if MenuLabel.containsPoint(location) {
                 print("Menu Button Pressed")
                 let Menu_scene = MenuScene(size: self.size)
@@ -220,12 +231,91 @@ class GameScene: SKScene {
                 
                 Menu_scene.scaleMode = SKSceneScaleMode.AspectFill
                 
-                
+                //transition to scene
                 self.scene!.view?.presentScene(Menu_scene, transition: transition)
+            }
+            
+            //OPTIONS BUTTON PRESSED
+            if OptionLabel.containsPoint(location) {
+                print("game options button pressed")
                 
+                //pop up options
+                openOptionsMenu()
+            }
+            
+            
+            //UPGRADE BUTTON PRESSED
+            if UpgradeLabel.containsPoint(location) {
+                print("upgrade button pressed")
+                
+                //pop up upgrade menu
+                openUpgradeMenu()
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            //HANDLE OPTIONS MENU BUTTON TOUCHES
+            if optionsClose.containsPoint(location) {
+                print("options close button pressed")
+                
+                //Remove all nodes associated with options menu
+                optionsClose.removeFromParent()
+                optionsBG.removeFromParent()
+            }
+            
+            if upgradeClose.containsPoint(location) {
+                
+                //Remove all nodes associated with upgrade menu
+                upgradeClose.removeFromParent()
+                upgradeBG.removeFromParent()
             }
         }
     }
+    
+    //OPEN OPTIONS MENU
+    func openOptionsMenu() {
+        
+        //Options menu background -- PARENT NODE
+        optionsBG.fillColor = SKColor.blackColor()
+        optionsBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        optionsBG.zPosition = 10
+        
+        self.addChild(optionsBG)
+        
+        //CHILD NODES--------
+        
+        //Close button
+        //Can't see but exists
+        optionsClose.fontColor = SKColor.whiteColor()
+        optionsClose.fontSize = 50
+        optionsClose.position = CGPoint(x: CGRectGetMidX(optionsBG.frame), y: CGRectGetMidY(optionsBG.frame))
+        optionsClose.zPosition = 100
+        self.addChild(optionsClose) //When added as child of optionsBG -- it doesn't appear
+        
+    }
+    
+    //OPEN UPGRADE MENU
+    func openUpgradeMenu() {
+        
+        //Upgrade menu background -- PARENT NODE
+        upgradeBG.fillColor = SKColor.blackColor()
+        upgradeBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        upgradeBG.zPosition = 10
+        self.addChild(upgradeBG)
+        
+        //CHILD NODES
+        upgradeClose.fontColor = SKColor.whiteColor()
+        upgradeClose.fontSize = 50
+        upgradeClose.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame))
+        upgradeClose.zPosition = 100
+        self.addChild(upgradeClose)
+    }
+    
     
     //HANDLE Moving Scene
     
