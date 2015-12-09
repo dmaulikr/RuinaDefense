@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "foreground_2_1422x768.png",
+      "filename" : "optionButton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "foreground_2_1422x768@2x.png",
       "scale" : "2x"
     },
     {

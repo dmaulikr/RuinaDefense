@@ -27,19 +27,23 @@ let skyline = SKSpriteNode(imageNamed: "skyline")       //Back of background
 
 //HUD labels/buttons
 
-var spawnButton: SKNode!
+var hudBar = SKSpriteNode(imageNamed: "hudBar")
 
-var MenuLabel = SKLabelNode(text: "Menu")
+var hudSeparator = SKSpriteNode(imageNamed: "bar")
+
+var spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
+
+var menuButton = SKSpriteNode(imageNamed: "menuButton")
 
 var UsernameLabel = SKLabelNode(text: "Username")
 
 var EnemynameLabel = SKLabelNode(text: "Enemy")
 
-var OptionLabel = SKLabelNode(text: "Option")
+var optionButton = SKSpriteNode(imageNamed: "optionButton")
 
-var UpgradeLabel = SKLabelNode(text: "Upgrade")
+var upgradeButton = SKSpriteNode(imageNamed: "upgradeButton")
 
-var VSLabel = SKLabelNode(text: "VS")
+var VSImage = SKSpriteNode(imageNamed: "VSImage")
 
 var gold = 0
 let GoldLabel = SKLabelNode()

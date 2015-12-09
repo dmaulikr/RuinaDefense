@@ -36,13 +36,12 @@ class GameScene: SKScene {
         
         self.scene?.addChild(foreground)
         
-        //Shows the hud
-        //showHud()
         
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
-        let collisionFrame = CGRectInset(foreground.frame, 0, 150.0)    //There is a problem here. Captain does not spawn when view is to the right
+        let collisionFrame = CGRectInset(foreground.frame, -2000, 150.0)    //There is a problem here. Captain does not spawn when view is to the right
+                                                                            //might have fixed problem by changing # to -2000. Not sure the consequences tho
         physicsBody = SKPhysicsBody(edgeLoopFromRect: collisionFrame)
 
         //Set friction of the physics body to 0
@@ -64,38 +63,49 @@ class GameScene: SKScene {
         //initialize gold to 0
         gold = 0
         
-        //Create spawn button
-        spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
-        spawnButton.setScale(0.5)
+        //Add hud background
+        hudBar.position = CGPoint(x: CGRectGetMidY(self.frame)+293, y: 100)
+        hudBar.size.height = 170
+        hudBar.size.width = 1340
+        hudBar.zPosition = 2
+        hudBar.physicsBody?.velocity = CGVectorMake(0, 0) //Prevent hud to move around?
+        self.addChild(hudBar)
         
+        //Hud separator
+        hudSeparator.position = CGPoint(x: CGRectGetMidX(hudBar.frame), y: 103)
+        hudSeparator.zPosition = 4
+        hudSeparator.setScale(0.3)
+        hudSeparator.size.height = 170
+        self.addChild(hudSeparator)
+        
+        
+        //Create spawn button
+        spawnButton.setScale(0.5)
         spawnButton.position = CGPoint(x:1050, y:100)
         spawnButton.zPosition = 3
         self.addChild(spawnButton)
         
         //ON THE BOTTOM
         //Menu button
-        MenuLabel.name = "menu"
-        MenuLabel.fontColor = SKColor .blackColor()
-        MenuLabel.fontSize = 35
-        MenuLabel.position = CGPoint(x:100, y:50)
-        MenuLabel.zPosition = 3
-        self.addChild(MenuLabel)
+        menuButton.name = "menu"
+        menuButton.position = CGPoint(x:110, y:CGRectGetMidY(hudBar.frame))
+        menuButton.zPosition = 3
+        menuButton.setScale(0.2)
+        self.addChild(menuButton)
         
-        //Options Label
-        OptionLabel.name = "option"
-        OptionLabel.fontColor = SKColor .blackColor()
-        OptionLabel.fontSize = 35
-        OptionLabel.position = CGPoint(x:200, y:50)
-        OptionLabel.zPosition = 3
-        self.addChild(OptionLabel)
+        //Options Button
+        optionButton.name = "option"
+        optionButton.position = CGPoint(x:210, y:CGRectGetMidY(hudBar.frame))
+        optionButton.zPosition = 3
+        optionButton.setScale(0.2)
+        self.addChild(optionButton)
         
         //Upgrade label
-        UpgradeLabel.name = "upgrade"
-        UpgradeLabel.fontColor = SKColor .blackColor()
-        UpgradeLabel.fontSize = 35
-        UpgradeLabel.position = CGPoint(x:330, y:50)
-        UpgradeLabel.zPosition = 3
-        self.addChild(UpgradeLabel)
+        upgradeButton.name = "upgrade"
+        upgradeButton.position = CGPoint(x:310, y:CGRectGetMidY(hudBar.frame))
+        upgradeButton.zPosition = 3
+        upgradeButton.setScale(0.2)
+        self.addChild(upgradeButton)
         
         //ON THE TOP
         //Username label -- should get information when game starts
@@ -113,11 +123,10 @@ class GameScene: SKScene {
         self.addChild(EnemynameLabel)
         
         //VS label
-        VSLabel.fontColor = SKColor .blackColor()
-        VSLabel.fontSize = 35
-        VSLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y: 700)
-        VSLabel.zPosition = 3
-        self.addChild(VSLabel)
+        VSImage.position = CGPoint(x:CGRectGetMidX(self.frame), y: 670)
+        VSImage.setScale(0.70)
+        VSImage.zPosition = 3
+        self.addChild(VSImage)
         
         //Gold label -- should start incrementing when game scene starts
         GoldLabel.fontColor = SKColor .blackColor()
@@ -161,7 +170,7 @@ class GameScene: SKScene {
         captain = SKSpriteNode(texture: firstFrame)
         
         //Positioned on bottom left of screen
-        captain.position = CGPoint(x: 50, y: 400)
+        captain.position = CGPoint(x: 50, y: 430)
         
         captain.zPosition = 3;
         
@@ -226,7 +235,7 @@ class GameScene: SKScene {
             }
             
             //MENU BUTTON PRESSED
-            if MenuLabel.containsPoint(location) {
+            if menuButton.containsPoint(location) {
                 print("Menu Button Pressed")
                 let Menu_scene = MenuScene(size: self.size)
                 let transition = SKTransition.fadeWithDuration(1.0)
@@ -238,7 +247,7 @@ class GameScene: SKScene {
             }
             
             //OPTIONS BUTTON PRESSED
-            if OptionLabel.containsPoint(location) {
+            if optionButton.containsPoint(location) {
                 print("game options button pressed")
                 
                 
@@ -251,7 +260,7 @@ class GameScene: SKScene {
             
             
             //UPGRADE BUTTON PRESSED
-            if UpgradeLabel.containsPoint(location) {
+            if upgradeButton.containsPoint(location) {
                 print("upgrade button pressed")
                 
                 //pause the game
@@ -407,6 +416,8 @@ class GameScene: SKScene {
 //TODO: The options and upgrade close button exist invisibly even after being closed.
     //Maybe the method for popup menus are different?
 
+//TODO: When exiting to main menu and starting new game. Timer seams to double in speed. Altough gold resets to 0
+    //Creating bool gameRunning and putting it in the timer loop could solve this but it would be called again, so maybe no
 //TODO: Finish options menu
 //TODO: Finish upgrade menu
 //TODO: Finish HUD

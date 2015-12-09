@@ -33,9 +33,19 @@ class MenuScene: SKScene {
         //Add Logo
         let logo = SKSpriteNode(imageNamed: "RuinaDefenseLogo")
         logo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-250)
-        logo.setScale(0.5)
-        logo.zPosition = 1
+        logo.setScale(0.4)
+        logo.zPosition = 2
         self.addChild(logo)
+        
+        //Add window
+        let menuWindow = SKSpriteNode(imageNamed: "Window3")
+        menuWindow.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
+        menuWindow.setScale(0.86)
+        menuWindow.size.width = 510
+        menuWindow.size.height = 700
+        menuWindow.zPosition = 1
+        self.addChild(menuWindow)
+        
         
         //Add clouds
         addClouds()
@@ -58,9 +68,9 @@ class MenuScene: SKScene {
 
         //Start button
         let start_button = SKSpriteNode(imageNamed: "Start.png")
-        start_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-170)
+        start_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-140)
         start_button.setScale(0.5)
-        start_button.zPosition = 1;
+        start_button.zPosition = 2
         start_button.name = "startButton"
         
         print("add start button")
@@ -68,9 +78,9 @@ class MenuScene: SKScene {
         
         //Option button
         let menu_optionsButton = SKSpriteNode(imageNamed: "options.png")
-        menu_optionsButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-240)
+        menu_optionsButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-210)
         menu_optionsButton.setScale(0.5)
-        menu_optionsButton.zPosition = 1;
+        menu_optionsButton.zPosition = 2
         menu_optionsButton.name = "optionButton"
         
         print("add option button")
@@ -78,9 +88,9 @@ class MenuScene: SKScene {
         
         //Stats button
         let statistics_button = SKSpriteNode(imageNamed: "statistics.png")
-        statistics_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-310)
+        statistics_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-280)
         statistics_button.setScale(0.5)
-        statistics_button.zPosition = 1;
+        statistics_button.zPosition = 2
         statistics_button.name = "statisticsButton"
         
         print("add statistics button")
@@ -99,7 +109,7 @@ class MenuScene: SKScene {
         let randomHeight = CGFloat(arc4random_uniform(200) + 100)
         Cloud1.position = CGPointMake(-300, CGRectGetMidY(self.frame) + randomHeight)
         
-        Cloud1.zPosition = 2
+        Cloud1.zPosition = 3
         Cloud1.setScale(2.0)
         
         //Add Cloud to scene
