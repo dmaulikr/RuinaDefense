@@ -127,7 +127,7 @@ class GameScene: SKScene {
         self.addChild(GoldLabel)
         //Begin incrementing gold
         NSTimer.every(1.second) {
-            gold += 1
+            gold = gold + 1
             print("Gold: ", gold)
             GoldLabel.text = "Gold \(gold)"
         }
