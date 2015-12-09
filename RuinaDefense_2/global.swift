@@ -41,7 +41,8 @@ var UpgradeLabel = SKLabelNode(text: "Upgrade")
 
 var VSLabel = SKLabelNode(text: "VS")
 
-var GoldLabel = SKLabelNode(text: "Gold")
+var gold = 0
+let GoldLabel = SKLabelNode()
 
 var goldCount = 0
 

@@ -27,14 +27,14 @@ class GameScene: SKScene {
         skyline.anchorPoint = CGPointZero
         skyline.size.width = 2674   //Width of skyline is 2x the frame
         skyline.zPosition = 0
-        //self.addChild(skyline)
+        self.addChild(skyline)
         
         foreground.name = "foreground"
         foreground.anchorPoint = CGPointZero
         foreground.size.width = 2674    //Width of foreground is 2x the frame
         foreground.zPosition = 1
         
-        self.scene?.addChild(foreground) //Currently, the foreground is not transparent. Need to stitch original photo correctly
+        self.scene?.addChild(foreground)
         
         //Shows the hud
         //showHud()
@@ -44,7 +44,7 @@ class GameScene: SKScene {
         //Physics body that borders the screen. Set slightly above so there is space for hud
         let collisionFrame = CGRectInset(foreground.frame, 0, 150.0)    //There is a problem here. Captain does not spawn when view is to the right
         physicsBody = SKPhysicsBody(edgeLoopFromRect: collisionFrame)
-        
+
         //Set friction of the physics body to 0
         physicsBody?.friction = 0
         
@@ -60,6 +60,9 @@ class GameScene: SKScene {
     
     //Create hud labels, buttons, health, username, etc
     func addHud() {
+        
+        //initialize gold to 0
+        gold = 0
         
         //Create spawn button
         spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
@@ -119,16 +122,15 @@ class GameScene: SKScene {
         //Gold label -- should start incrementing when game scene starts
         GoldLabel.fontColor = SKColor .blackColor()
         GoldLabel.fontSize = 35
-        GoldLabel.position = CGPoint(x:65, y:650)
+        GoldLabel.position = CGPoint(x:90, y:650)
         GoldLabel.zPosition = 3
         self.addChild(GoldLabel)
-        
-//        optionsClose.fontColor = SKColor .blackColor()
-//        optionsClose.fontSize = 35
-//        optionsClose.position = CGPoint(x: CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-//        optionsClose.zPosition = 11
-//        
-//        self.addChild(optionsClose)
+        //Begin incrementing gold
+        NSTimer.every(1.second) {
+            gold += 1
+            print("Gold: ", gold)
+            GoldLabel.text = "Gold \(gold)"
+        }
         
         //Border for the lower part of the scene for buttons and minion shop
         
@@ -239,6 +241,10 @@ class GameScene: SKScene {
             if OptionLabel.containsPoint(location) {
                 print("game options button pressed")
                 
+                
+                //pause the game
+                self.paused = true
+                
                 //pop up options
                 openOptionsMenu()
             }
@@ -247,6 +253,9 @@ class GameScene: SKScene {
             //UPGRADE BUTTON PRESSED
             if UpgradeLabel.containsPoint(location) {
                 print("upgrade button pressed")
+                
+                //pause the game
+                self.paused = true
                 
                 //pop up upgrade menu
                 openUpgradeMenu()
@@ -259,13 +268,17 @@ class GameScene: SKScene {
             
             
             
-            //HANDLE OPTIONS MENU BUTTON TOUCHES
+            //HANDLE OPTIONS MENU BUTTON TOUCHES -- THESE 'EXIST' EVEN AFTER BEING CLOSED. Meaning you can click the location and
+            //the function is called
             if optionsClose.containsPoint(location) {
                 print("options close button pressed")
                 
                 //Remove all nodes associated with options menu
                 optionsClose.removeFromParent()
                 optionsBG.removeFromParent()
+                
+                //resume scene
+                self.paused = false
             }
             
             if upgradeClose.containsPoint(location) {
@@ -274,6 +287,9 @@ class GameScene: SKScene {
                 print("upgrade close button pressed")
                 upgradeClose.removeFromParent()
                 upgradeBG.removeFromParent()
+                
+                //resume scene
+                self.paused = false
             }
         }
     }
@@ -387,4 +403,10 @@ class GameScene: SKScene {
 }
 
 //TODO: Captain does not spawn when view is to the right
-//TODO: Captain should ONLY disappear if it has reached the other end (for testing) -- currently disappears after it for 7 seconds
+//TODO: Captain should ONLY disappear if it has reached the other end (for testing)
+//TODO: The options and upgrade close button exist invisibly even after being closed.
+    //Maybe the method for popup menus are different?
+
+//TODO: Finish options menu
+//TODO: Finish upgrade menu
+//TODO: Finish HUD
