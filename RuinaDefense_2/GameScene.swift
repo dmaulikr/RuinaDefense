@@ -11,9 +11,54 @@ import Foundation
 
 class GameScene: SKScene {
     
-    let background = SKSpriteNode(imageNamed: "full_background")
+    //-------------------------Class Variables----------------------//
     
+    //Scene
+    //let scene = GameScene(fileNamed: "GameScene")
+    
+    //Back Ground
+    let background = SKSpriteNode(imageNamed: "full_background")
+    var randomNum = 0 //For random cloud variant spawning
+    
+    //HUD
+    let hudBar = SKSpriteNode(imageNamed: "hudBar")
+    let hudSeparator = SKSpriteNode(imageNamed: "bar")
+    let VSImage = SKSpriteNode(imageNamed: "VSImage")
+    
+        //HUD Buttons
+        let spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
+        let menuButton = SKSpriteNode(imageNamed: "menuButton")
+    
+        //HUD Labels
+        var UsernameLabel = SKLabelNode(text: "Username")
+        var EnemynameLabel = SKLabelNode(text: "Enemy")
+        var gold = 0    //Gold counter
+        let GoldLabel = SKLabelNode()
+    
+        //Options Menu Nodes
+        let optionsBG = SKSpriteNode(imageNamed: "popupWindow")
+        let optionsClose = SKLabelNode(text: "Close")
+    
+        //Upgrade Menu Nodes
+        let upgradeBG = SKSpriteNode(imageNamed: "popupWindow")
+        let upgradeClose = SKLabelNode(text: "Close")
+    
+            //Pop up menu buttons
+            let optionButton = SKSpriteNode(imageNamed: "optionButton")
+            let upgradeButton = SKSpriteNode(imageNamed: "upgradeButton")
+    
+        //Handle Touches
+        var selectedNode = SKSpriteNode()
+    
+    //Other
+    var isRunning = true
+    
+    
+    //-----------------------Class Variables End--------------------//
     override func didMoveToView(view: SKView) {
+        
+        //Set isRunning to true
+        isRunning = true
         
         /* Setup your scene here */
         //let frameW = self.frame.size.width  //Size of frame's width
@@ -34,7 +79,7 @@ class GameScene: SKScene {
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
-        let collisionFrame = CGRectInset(foreground.frame, -2000, 150.0)    //There is a problem here. Captain does not spawn when view is to the right
+        let collisionFrame = CGRectInset(background.frame, -2000, 240.0)    //There is a problem here. Captain does not spawn when view is to the right
         //might have fixed problem by changing # to -2000. Not sure the consequences tho
         physicsBody = SKPhysicsBody(edgeLoopFromRect: collisionFrame)
         
@@ -52,7 +97,13 @@ class GameScene: SKScene {
         //Add clouds
         addGameClouds()
         NSTimer.every(15.0.seconds) {
+            
+            //If game is running
+            if self.isRunning {
+                
+                //Add clouds
             self.addGameClouds()
+            }
         }
         
     }
@@ -60,8 +111,7 @@ class GameScene: SKScene {
     //Create hud labels, buttons, health, username, etc
     func addHud() {
         
-        //initialize gold to 0
-        gold = 0
+
         
         //Add hud background
         hudBar.position = CGPoint(x: CGRectGetMidY(self.frame)+293, y: 100)
@@ -133,12 +183,20 @@ class GameScene: SKScene {
         GoldLabel.position = CGPoint(x:90, y:650)
         GoldLabel.zPosition = 3
         self.addChild(GoldLabel)
-        //Begin incrementing gold
+        
+        //initialize gold to 0
+        gold = 0
+        
+        //Increment Gold per second
         NSTimer.every(1.second) {
-            gold = gold + 1
-            print("Gold: ", gold)
-            GoldLabel.text = "Gold \(gold)"
-            //Should only run if game is running -- set bool? gameRunning == false if options button is pressed
+            
+            if self.isRunning {
+                self.gold = self.gold + 1
+                print("Gold: ", self.gold)
+                self.GoldLabel.text = "Gold \(self.gold)"
+                //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
+                //Continues running when opening pop up menu -- can fix with isRunning bool
+            }
         }
         
     }
@@ -183,12 +241,12 @@ class GameScene: SKScene {
         //Add cloud to scene -- choosing which randomly
         print("Random Num: ", randomNum)
         if (randomNum == 0) {
-            foreground.addChild(gameCloud2)
+            background.addChild(gameCloud2)
             gameCloud2.runAction(moveCloud)
         }
         
         if(randomNum == 1) {
-            foreground.addChild(gameCloud1)
+            background.addChild(gameCloud1)
             gameCloud1.runAction(moveCloud)
         }
         
@@ -233,7 +291,7 @@ class GameScene: SKScene {
         captain.physicsBody?.allowsRotation = false
         
         print("Add Captain")
-        foreground.addChild(captain)
+        background.addChild(captain)
         
         //start animation
         print("Start animation")
@@ -287,8 +345,7 @@ class GameScene: SKScene {
             if menuButton.containsPoint(location) {
                 
                 //Remove some nodes
-                foreground.removeFromParent()
-                skyline.removeFromParent()
+                background.removeFromParent()
                 hudSeparator.removeFromParent()
                 hudBar.removeFromParent()
                 spawnButton.removeFromParent()
@@ -317,6 +374,7 @@ class GameScene: SKScene {
                 
                 //pause the game
                 self.paused = true
+                isRunning = false
                 
                 //pop up options
                 openOptionsMenu()
@@ -329,6 +387,7 @@ class GameScene: SKScene {
                 
                 //pause the game
                 self.paused = true
+                isRunning = false
                 
                 //pop up upgrade menu
                 openUpgradeMenu()
@@ -341,27 +400,35 @@ class GameScene: SKScene {
             
             
             
-            //HANDLE OPTIONS MENU BUTTON TOUCHES -- THESE 'EXIST' EVEN AFTER BEING CLOSED. Meaning you can click the location and
-            //the function is called
+            //HANDLE OPTIONS MENU BUTTON TOUCHES -- THESE 'EXIST' EVEN AFTER BEING CLOSED.
+            //Hulls solution: displace it and then put it back (not great but would work)
             if optionsClose.containsPoint(location) {
                 print("options close button pressed")
+                
+                //Move the menu buttons off screen
+                optionsClose.position = CGPoint(x: -50, y: -50)
                 
                 //Remove all nodes associated with options menu
                 optionsClose.removeFromParent()
                 optionsBG.removeFromParent()
                 
                 //resume scene
+                isRunning = true
                 self.paused = false
             }
             
             if upgradeClose.containsPoint(location) {
+                print("upgrade close button pressed")
+                
+                //Move the menu buttons off screen
+                upgradeClose.position = CGPoint(x: -50, y: -50)
                 
                 //Remove all nodes associated with upgrade menu
-                print("upgrade close button pressed")
                 upgradeClose.removeFromParent()
                 upgradeBG.removeFromParent()
                 
                 //resume scene
+                isRunning = true
                 self.paused = false
             }
         }
@@ -371,21 +438,22 @@ class GameScene: SKScene {
     func openOptionsMenu() {
         
         //Options menu background -- PARENT NODE
-        optionsBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
+        optionsBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
         optionsBG.zPosition = 10
         optionsBG.setScale(0.7)
         
         
         
-        //CHILD NODES--------
+        //CHILD NODES------
         
         //Close button
-        //Can't see but exists
-        optionsClose.fontColor = SKColor.whiteColor()
+        optionsClose.fontColor = SKColor.blackColor()
         optionsClose.fontSize = 50
         optionsClose.position = CGPoint(x: CGRectGetMidX(optionsBG.frame), y: CGRectGetMidY(optionsBG.frame))
         optionsClose.zPosition = 100
-        optionsBG.addChild(optionsClose) //When added as child of optionsBG -- it doesn't appear
+        
+        //Add to view
+        self.addChild(optionsClose) //When added as child of optionsBG -- it doesn't appear
         self.addChild(optionsBG)
         
     }
@@ -394,16 +462,20 @@ class GameScene: SKScene {
     func openUpgradeMenu() {
         
         //Upgrade menu background -- PARENT NODE
-        upgradeBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
+        upgradeBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
         upgradeBG.zPosition = 10
         upgradeBG.setScale(0.7)
-        self.addChild(upgradeBG)
         
-        //CHILD NODES
-        upgradeClose.fontColor = SKColor.whiteColor()
+        //CHILD NODES-------
+        
+        //Close Button
+        upgradeClose.fontColor = SKColor.blackColor()
         upgradeClose.fontSize = 50
         upgradeClose.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame))
         upgradeClose.zPosition = 100
+        
+        //Add to view
+        self.addChild(upgradeBG)
         self.addChild(upgradeClose)
     }
     
@@ -470,7 +542,7 @@ class GameScene: SKScene {
     func panForTranslation(translation : CGPoint) {
         let position = selectedNode.position
         let aNewPosition = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
-        foreground.position = self.boundLayerPos(aNewPosition)
+        background.position = self.boundLayerPos(aNewPosition)
         
     }
     
