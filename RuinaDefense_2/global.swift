@@ -18,6 +18,7 @@ var captainRunningFrames : [SKTexture]!
 
 //Scene Variables
 let scene = GameScene(fileNamed: "GameScene")
+var randomNum = 0
 
 
 var selectedNode = SKSpriteNode()
@@ -52,9 +53,9 @@ var goldCount = 0
 
 
 //OPTIONS MENU NODES
-var optionsBG = SKShapeNode(rectOfSize: CGSize(width: 800, height: 400))
+var optionsBG = SKSpriteNode(imageNamed: "popupWindow")
 var optionsClose = SKLabelNode(text: "Close")
 
 //UPGRADE MENU NODES
-var upgradeBG = SKShapeNode(rectOfSize: CGSize(width: 800, height: 400))
+var upgradeBG = SKSpriteNode(imageNamed: "popupWindow")
 var upgradeClose = SKLabelNode(text: "Close")

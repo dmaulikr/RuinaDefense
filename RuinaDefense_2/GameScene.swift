@@ -41,9 +41,9 @@ class GameScene: SKScene {
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
         let collisionFrame = CGRectInset(foreground.frame, -2000, 150.0)    //There is a problem here. Captain does not spawn when view is to the right
-                                                                            //might have fixed problem by changing # to -2000. Not sure the consequences tho
+        //might have fixed problem by changing # to -2000. Not sure the consequences tho
         physicsBody = SKPhysicsBody(edgeLoopFromRect: collisionFrame)
-
+        
         //Set friction of the physics body to 0
         physicsBody?.friction = 0
         
@@ -54,6 +54,12 @@ class GameScene: SKScene {
         
         //Add HUD Buttons
         addHud()
+        
+        //Add clouds
+        addGameClouds()
+        NSTimer.every(15.0.seconds) {
+            self.addGameClouds()
+        }
         
     }
     
@@ -68,7 +74,6 @@ class GameScene: SKScene {
         hudBar.size.height = 170
         hudBar.size.width = 1340
         hudBar.zPosition = 2
-        hudBar.physicsBody?.velocity = CGVectorMake(0, 0) //Prevent hud to move around?
         self.addChild(hudBar)
         
         //Hud separator
@@ -139,17 +144,67 @@ class GameScene: SKScene {
             gold = gold + 1
             print("Gold: ", gold)
             GoldLabel.text = "Gold \(gold)"
+            //Should only run if game is running -- set bool? gameRunning == false if options button is pressed
         }
         
-        //Border for the lower part of the scene for buttons and minion shop
+    }
+    
+    
+    //ADD GAME CLOUDS
+    private func addGameClouds() {
+        
+        //Random Number
+        randomNum = Int(arc4random_uniform(2))
+        
+        //Clouds
+        let gameCloud1 = SKSpriteNode(imageNamed: "gameCloud.png")
+        let gameCloud2 = SKSpriteNode(imageNamed: "gameCloud2.png")
+        
+        //Create cloud variant 1
+        //gameCloud1.name = "GameCloud1"
+        gameCloud1.anchorPoint = CGPointZero
+        
+        //Set cloud position between y coordinates 200 and 300
+        let randomHeight = CGFloat(arc4random_uniform(200) + 50)
+        gameCloud1.position = CGPointMake(-300, CGRectGetMidY(self.frame) + randomHeight)
+        
+        gameCloud1.zPosition = 3
+        gameCloud1.setScale(0.7)
+        
+        //Create cloud variant 2
+        //gameCloud2.name = "GameCloud2"
+        gameCloud2.anchorPoint = CGPointZero
+        
+        //Set cloud position between y coordinates 200 and 300
+        gameCloud2.position = CGPointMake(-300, CGRectGetMidY(self.frame) + randomHeight)
+        
+        gameCloud2.zPosition = 3
+        gameCloud2.setScale(0.7)
+        
+        //Movement
+        let floatRight = SKAction.moveByX(2700, y: 0, duration: 60)
+        let finishedMoving = SKAction.removeFromParent()
+        let moveCloud = SKAction.sequence([floatRight, finishedMoving])
+        
+        //Add cloud to scene -- choosing which randomly
+        print("Random Num: ", randomNum)
+        if (randomNum == 0) {
+            foreground.addChild(gameCloud2)
+            gameCloud2.runAction(moveCloud)
+        }
+        
+        if(randomNum == 1) {
+            foreground.addChild(gameCloud1)
+            gameCloud1.runAction(moveCloud)
+        }
         
     }
-
+    
     
     //If captain PRESSED. SPAWN CAPTAIN AND ANIMATE!--------------------------
     //Captain does NOT spawn if button from hud is pressed.
     //Captain DOES spawn if spritenode button from scene is pressed.
-      func spawnCaptain() {
+    func spawnCaptain() {
         print("Spawning Captain")
         let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
         var runFrames = [SKTexture]()
@@ -161,11 +216,11 @@ class GameScene: SKScene {
             runFrames.append(captainAnimatedAtlas.textureNamed(captainTextureName))
             print(captainTextureName)
         }
-    
+        
         captainRunningFrames = runFrames
         
         let firstFrame = captainRunningFrames[0]
-       
+        
         //Create captain sprite with initial texture
         captain = SKSpriteNode(texture: firstFrame)
         
@@ -175,7 +230,7 @@ class GameScene: SKScene {
         captain.zPosition = 3;
         
         //Physics of Captain
-
+        
         captain.physicsBody = SKPhysicsBody(circleOfRadius: captain.frame.width * 0.3)  //Create physics body for captain
         captain.physicsBody?.friction = 0
         captain.physicsBody?.restitution = 0
@@ -216,7 +271,7 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
     }
     
-
+    
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // Loop over all the touches in this event
@@ -236,6 +291,21 @@ class GameScene: SKScene {
             
             //MENU BUTTON PRESSED
             if menuButton.containsPoint(location) {
+                
+                //Remove some nodes
+                foreground.removeFromParent()
+                skyline.removeFromParent()
+                hudSeparator.removeFromParent()
+                hudBar.removeFromParent()
+                spawnButton.removeFromParent()
+                UsernameLabel.removeFromParent()
+                EnemynameLabel.removeFromParent()
+                optionButton.removeFromParent()
+                upgradeButton.removeFromParent()
+                menuButton.removeFromParent()
+                GoldLabel.removeFromParent()
+                VSImage.removeFromParent()
+                
                 print("Menu Button Pressed")
                 let Menu_scene = MenuScene(size: self.size)
                 let transition = SKTransition.fadeWithDuration(1.0)
@@ -307,11 +377,11 @@ class GameScene: SKScene {
     func openOptionsMenu() {
         
         //Options menu background -- PARENT NODE
-        optionsBG.fillColor = SKColor.blackColor()
-        optionsBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        optionsBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
         optionsBG.zPosition = 10
+        optionsBG.setScale(0.7)
         
-        self.addChild(optionsBG)
+        
         
         //CHILD NODES--------
         
@@ -321,7 +391,8 @@ class GameScene: SKScene {
         optionsClose.fontSize = 50
         optionsClose.position = CGPoint(x: CGRectGetMidX(optionsBG.frame), y: CGRectGetMidY(optionsBG.frame))
         optionsClose.zPosition = 100
-        self.addChild(optionsClose) //When added as child of optionsBG -- it doesn't appear
+        optionsBG.addChild(optionsClose) //When added as child of optionsBG -- it doesn't appear
+        self.addChild(optionsBG)
         
     }
     
@@ -329,9 +400,9 @@ class GameScene: SKScene {
     func openUpgradeMenu() {
         
         //Upgrade menu background -- PARENT NODE
-        upgradeBG.fillColor = SKColor.blackColor()
-        upgradeBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        upgradeBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
         upgradeBG.zPosition = 10
+        upgradeBG.setScale(0.7)
         self.addChild(upgradeBG)
         
         //CHILD NODES
@@ -359,30 +430,30 @@ class GameScene: SKScene {
             
             recognizer.setTranslation(CGPointZero, inView: recognizer.view)
         } else if recognizer.state == .Ended {
-                let scrollDuration = 0.4
-                let velocity = recognizer.velocityInView(recognizer.view)
-                let pos = selectedNode.position
-                
-                // This just multiplies your velocity with the scroll duration.
-                let p = CGPoint(x: velocity.x * CGFloat(scrollDuration), y: velocity.y * CGFloat(scrollDuration))
-                
-                var newPos = CGPoint(x: pos.x + p.x, y: pos.y + p.y)
-                newPos = self.boundLayerPos(newPos)
-                selectedNode.removeAllActions()
-                
-                let moveTo = SKAction.moveTo(newPos, duration: scrollDuration)
-                moveTo.timingMode = .EaseOut
-                selectedNode.runAction(moveTo)
+            let scrollDuration = 0.4
+            let velocity = recognizer.velocityInView(recognizer.view)
+            let pos = selectedNode.position
+            
+            // This just multiplies your velocity with the scroll duration.
+            let p = CGPoint(x: velocity.x * CGFloat(scrollDuration), y: velocity.y * CGFloat(scrollDuration))
+            
+            var newPos = CGPoint(x: pos.x + p.x, y: pos.y + p.y)
+            newPos = self.boundLayerPos(newPos)
+            selectedNode.removeAllActions()
+            
+            let moveTo = SKAction.moveTo(newPos, duration: scrollDuration)
+            moveTo.timingMode = .EaseOut
+            selectedNode.runAction(moveTo)
         }
     }
-
+    
     
     func selectNodeForTouch(touchLocation : CGPoint) {
-
+        
         let touchedNode = self.nodeAtPoint(touchLocation)
         
         if touchedNode is SKSpriteNode {
-
+            
             if !selectedNode.isEqual(touchedNode) {
                 selectedNode.removeAllActions()
                 
@@ -404,20 +475,23 @@ class GameScene: SKScene {
     
     func panForTranslation(translation : CGPoint) {
         let position = selectedNode.position
-            let aNewPosition = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
-            foreground.position = self.boundLayerPos(aNewPosition)
+        let aNewPosition = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
+        foreground.position = self.boundLayerPos(aNewPosition)
         
     }
     
 }
 
 //TODO: Captain does not spawn when view is to the right
-//TODO: Captain should ONLY disappear if it has reached the other end (for testing)
 //TODO: The options and upgrade close button exist invisibly even after being closed.
-    //Maybe the method for popup menus are different?
+//Maybe the method for popup menus are different?
 
-//TODO: When exiting to main menu and starting new game. Timer seams to double in speed. Altough gold resets to 0
-    //Creating bool gameRunning and putting it in the timer loop could solve this but it would be called again, so maybe no
+//TODO: Gold increments even when returning to menu
+//Creating bool gameRunning and putting it in the timer loop could solve this but it would be called again, so maybe no
 //TODO: Finish options menu
 //TODO: Finish upgrade menu
 //TODO: Finish HUD
+//Health bar
+//Update username
+
+//SET USER INTERACTION TO DISABLED WHEN A POP UP MENU APPEARS
