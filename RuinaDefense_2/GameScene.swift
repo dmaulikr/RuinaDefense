@@ -11,6 +11,7 @@ import Foundation
 
 class GameScene: SKScene {
     
+    let background = SKSpriteNode(imageNamed: "full_background")
     
     override func didMoveToView(view: SKView) {
         
@@ -22,20 +23,13 @@ class GameScene: SKScene {
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFrom:"))
         self.view!.addGestureRecognizer(gestureRecognizer)
         
-        //Add background
-        skyline.name = "skyline"
-        skyline.anchorPoint = CGPointZero
-        skyline.size.width = 2674   //Width of skyline is 2x the frame
-        skyline.zPosition = 0
-        self.addChild(skyline)
-        
-        foreground.name = "foreground"
-        foreground.anchorPoint = CGPointZero
-        foreground.size.width = 2674    //Width of foreground is 2x the frame
-        foreground.zPosition = 1
-        
-        self.scene?.addChild(foreground)
-        
+        // add background
+        background.name = "background"
+        background.anchorPoint = CGPointZero
+        background.size.width = 2674
+        background.size.height = 768
+        background.zPosition = 0
+        self.addChild(background)
         
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
@@ -467,7 +461,7 @@ class GameScene: SKScene {
         let winSize = self.size
         var retval = aNewPosition
         retval.x = CGFloat(min(retval.x, 0))
-        retval.x = CGFloat(max(retval.x, -(foreground.size.width) + winSize.width))
+        retval.x = CGFloat(max(retval.x, -(background.size.width) + winSize.width))
         retval.y = self.position.y
         
         return retval
