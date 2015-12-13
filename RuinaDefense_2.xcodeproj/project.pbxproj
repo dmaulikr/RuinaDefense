@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		137B1E8A1C1CE9B40037A7C3 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137B1E891C1CE9B40037A7C3 /* Unit.swift */; };
-		13ED42231C1D54D400313511 /* hero1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 13ED42221C1D54D400313511 /* hero1.atlas */; };
+		13ED42291C1D564B00313511 /* hero1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 13ED42281C1D564B00313511 /* hero1.atlas */; };
 		3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */; };
 		3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7383031C13FA7E004335BA /* MenuScene.swift */; };
 		3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */; };
@@ -26,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		137B1E891C1CE9B40037A7C3 /* Unit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
-		13ED42221C1D54D400313511 /* hero1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = hero1.atlas; path = CapAmericaSOJ.atlas/hero1.atlas; sourceTree = "<group>"; };
+		13ED42281C1D564B00313511 /* hero1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = hero1.atlas; path = ../../../Downloads/CharacterSet_Knights/png/sequence/2x/hero1.atlas; sourceTree = "<group>"; };
 		3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTimer.swift; sourceTree = "<group>"; };
 		3F7383031C13FA7E004335BA /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dystopia_Background_Music.wav; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		3FE65CF71C0FF3A200E4AA88 /* RuinaDefense_2 */ = {
 			isa = PBXGroup;
 			children = (
-				13ED42221C1D54D400313511 /* hero1.atlas */,
+				13ED42281C1D564B00313511 /* hero1.atlas */,
 				3FE65D1A1C101F3A00E4AA88 /* CapAmericaSOJ.atlas */,
 				3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */,
 				3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */,
@@ -155,7 +155,7 @@
 				3FE65CFB1C0FF3A200E4AA88 /* GameScene.sks in Resources */,
 				3FE65D071C0FF3A200E4AA88 /* LaunchScreen.storyboard in Resources */,
 				3FE65D041C0FF3A200E4AA88 /* Assets.xcassets in Resources */,
-				13ED42231C1D54D400313511 /* hero1.atlas in Resources */,
+				13ED42291C1D564B00313511 /* hero1.atlas in Resources */,
 				3FE65D021C0FF3A200E4AA88 /* Main.storyboard in Resources */,
 				3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */,
 			);
