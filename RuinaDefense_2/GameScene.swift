@@ -17,7 +17,7 @@ class GameScene: SKScene {
     //let scene = GameScene(fileNamed: "GameScene")
     
     //Back Ground
-    let background = SKSpriteNode(imageNamed: "full_background")
+    let background = SKSpriteNode(imageNamed: "background")
     var randomNum = 0 //For random cloud variant spawning
     
     //HUD
@@ -25,45 +25,41 @@ class GameScene: SKScene {
     let hudSeparator = SKSpriteNode(imageNamed: "bar")
     let VSImage = SKSpriteNode(imageNamed: "VSImage")
     
-        //HUD Buttons
-        let spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
-        let menuButton = SKSpriteNode(imageNamed: "menuButton")
+    //HUD Buttons
+    let spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
+    let menuButton = SKSpriteNode(imageNamed: "menuButton")
     
-        //HUD Labels
-        var UsernameLabel = SKLabelNode(text: "Username")
-        var EnemynameLabel = SKLabelNode(text: "Enemy")
-        var gold = 0    //Gold counter
-        let GoldLabel = SKLabelNode()
+    //HUD Labels
+    var UsernameLabel = SKLabelNode(text: "Username")
+    var EnemynameLabel = SKLabelNode(text: "Enemy")
+    var gold = 0    //Gold counter
+    let GoldLabel = SKLabelNode()
     
-        //Options Menu Nodes
-        let optionsBG = SKSpriteNode(imageNamed: "popupWindow")
-        let optionsClose = SKLabelNode(text: "Close")
+    //Options Menu Nodes
+    let optionsBG = SKSpriteNode(imageNamed: "popupWindow")
+    let optionsClose = SKLabelNode(text: "Close")
     
-        //Upgrade Menu Nodes
-        let upgradeBG = SKSpriteNode(imageNamed: "popupWindow")
-        let upgradeClose = SKLabelNode(text: "Close")
+    //Upgrade Menu Nodes
+    let upgradeBG = SKSpriteNode(imageNamed: "popupWindow")
+    let upgradeClose = SKLabelNode(text: "Close")
     
-            //Pop up menu buttons
-            let optionButton = SKSpriteNode(imageNamed: "optionButton")
-            let upgradeButton = SKSpriteNode(imageNamed: "upgradeButton")
+    //Pop up menu buttons
+    let optionButton = SKSpriteNode(imageNamed: "optionButton")
+    let upgradeButton = SKSpriteNode(imageNamed: "upgradeButton")
     
-        //Handle Touches
-        var selectedNode = SKSpriteNode()
+    //Handle Touches
+    var selectedNode = SKSpriteNode()
     
     //Other
     var isRunning = true
     
-    
     //-----------------------Class Variables End--------------------//
+    
     override func didMoveToView(view: SKView) {
         
         //Set isRunning to true
         isRunning = true
-        
-        /* Setup your scene here */
-        //let frameW = self.frame.size.width  //Size of frame's width
-        //let frameH = self.frame.size.height //Size of frame's height
-        
+  
         //Handle touches
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFrom:"))
         self.view!.addGestureRecognizer(gestureRecognizer)
@@ -102,7 +98,7 @@ class GameScene: SKScene {
             if self.isRunning {
                 
                 //Add clouds
-            self.addGameClouds()
+                self.addGameClouds()
             }
         }
         
@@ -111,7 +107,7 @@ class GameScene: SKScene {
     //Create hud labels, buttons, health, username, etc
     func addHud() {
         
-
+        
         
         //Add hud background
         hudBar.position = CGPoint(x: CGRectGetMidY(self.frame)+293, y: 100)
@@ -275,7 +271,7 @@ class GameScene: SKScene {
         
         //Create captain sprite with initial texture
         captain = SKSpriteNode(texture: firstFrame)
-        
+
         //Positioned on bottom left of screen
         captain.position = CGPoint(x: 50, y: 430)
         
