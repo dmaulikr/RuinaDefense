@@ -74,6 +74,8 @@
 		3FE65CF71C0FF3A200E4AA88 /* RuinaDefense_2 */ = {
 			isa = PBXGroup;
 			children = (
+				135197761C1E44080049EF80 /* knights.swift */,
+				135197741C1E3CED0049EF80 /* knights.atlasc */,
 				3FE65D1A1C101F3A00E4AA88 /* CapAmericaSOJ.atlas */,
 				3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */,
 				3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */,
@@ -154,6 +156,7 @@
 				3FE65D1B1C101F3A00E4AA88 /* CapAmericaSOJ.atlas in Resources */,
 				3FE65CFB1C0FF3A200E4AA88 /* GameScene.sks in Resources */,
 				3FE65D071C0FF3A200E4AA88 /* LaunchScreen.storyboard in Resources */,
+				135197751C1E3CED0049EF80 /* knights.atlasc in Resources */,
 				3FE65D041C0FF3A200E4AA88 /* Assets.xcassets in Resources */,
 				3FE65D021C0FF3A200E4AA88 /* Main.storyboard in Resources */,
 				3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */,
@@ -172,6 +175,7 @@
 				3FE65CFD1C0FF3A200E4AA88 /* GameScene.swift in Sources */,
 				3FE65D191C10016A00E4AA88 /* functions.swift in Sources */,
 				3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */,
+				135197771C1E44080049EF80 /* knights.swift in Sources */,
 				3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */,
 				3F321B791C1ACB0600679745 /* SKTAudio.swift in Sources */,
 				3FE65CFF1C0FF3A200E4AA88 /* GameViewController.swift in Sources */,
