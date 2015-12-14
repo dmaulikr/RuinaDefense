@@ -357,12 +357,14 @@ class GameScene: SKScene {
     
     //Animates the captain sprite with running
     func runningCaptain() {
+        /*
         captain.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(captainRunningFrames,
                 timePerFrame: 0.1,
                 resize: false,
                 restore: true)),
             withKey:"runningInPlaceCaptain")
+*/
     }
     
     
