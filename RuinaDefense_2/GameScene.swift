@@ -283,66 +283,88 @@ class GameScene: SKScene {
     //Captain does NOT spawn if button from hud is pressed.
     //Captain DOES spawn if spritenode button from scene is pressed.
     func spawnCaptain() {
+        /*
         print("Spawning Captain")
-        //let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
-        let captainAnimatedAtlas = SKTextureAtlas(named: "knights")
+        let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
         var runFrames = [SKTexture]()
-        //let numImages = captainAnimatedAtlas.textureNames.count
-        
+        let numImages = captainAnimatedAtlas.textureNames.count
         //Loop through each image name and append into frames
-        for var i=1; i <= 14; i++ {
-            let captainTextureName = "sequence/2x/hero/run (\(i))"
+        for var i=1; i <= numImages; i++ {
+            let captainTextureName = "cap\(i)"
             runFrames.append(captainAnimatedAtlas.textureNamed(captainTextureName))
             print(captainTextureName)
         }
-        
         captainRunningFrames = runFrames
-        
         let firstFrame = captainRunningFrames[0]
-        
         //Create captain sprite with initial texture
         captain = SKSpriteNode(texture: firstFrame)
-
         //Positioned on bottom left of screen
         captain.position = CGPoint(x: 50, y: 430)
-        
         captain.zPosition = 3;
-        
         //Physics of Captain
-        
         captain.physicsBody = SKPhysicsBody(circleOfRadius: captain.frame.width * 0.3)  //Create physics body for captain
         captain.physicsBody?.friction = 0
         captain.physicsBody?.restitution = 0
         captain.physicsBody?.linearDamping = 0
         captain.physicsBody?.angularDamping = 0
         captain.physicsBody?.allowsRotation = false
-        
         print("Add Captain")
         background.addChild(captain)
-        
         //start animation
         print("Start animation")
         self.runningCaptain()
-        
         //Move captain rightward for 2674 in 7 seconds -- should change
         let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
         //Removes node from scene
         let finishedRunning = SKAction.removeFromParent()
-        
         //Moves captain right, when move is finished, remove node.
         let sequence = SKAction.sequence([moveRight,finishedRunning])
         captain.runAction(sequence)
+        */
+        
+        
+        
+        // TEST
+        let sheet = Hero1Sheet()
+        let sprite = SKSpriteNode(texture: sheet.run_1_())
+        sprite.position = CGPoint(x: 160, y: 241)
+        sprite.zPosition = 3
+        sprite.physicsBody = SKPhysicsBody(circleOfRadius: sprite.frame.width * 0.3)
+        sprite.setScale(0.5)
+        sprite.physicsBody?.friction = 0
+        sprite.physicsBody?.restitution = 0
+        sprite.physicsBody?.linearDamping = 0
+        sprite.physicsBody?.angularDamping = 0
+        sprite.physicsBody?.allowsRotation = false
+        
+        let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
+        //Removes node from scene
+        let finishedRunning = SKAction.removeFromParent()
+        //Moves captain right, when move is finished, remove node.
+        let sequence = SKAction.sequence([moveRight,finishedRunning])
+        
+        //let walk = SKAction.animateWithTextures(sheet.hero1_run()), timePerFrame: 0.033)
+        let run = SKAction.animateWithTextures(sheet.run(), timePerFrame: 0.033)
+        let action = SKAction.repeatActionForever(run)
+        sprite.runAction(action)
+        //background.addChild(sprite)
+        background.addChild(sprite)
+        
+
+        sprite.runAction(sequence)
         
     }
     
     //Animates the captain sprite with running
     func runningCaptain() {
+        /*
         captain.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(captainRunningFrames,
                 timePerFrame: 0.1,
                 resize: false,
                 restore: true)),
             withKey:"runningInPlaceCaptain")
+*/
     }
     
     
