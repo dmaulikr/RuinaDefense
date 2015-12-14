@@ -19,6 +19,7 @@ class GameScene: SKScene {
     //Back Ground
     let background = SKSpriteNode(imageNamed: "full_background")
     var randomNum = 0 //For random cloud variant spawning
+    let rightCastle = SKSpriteNode(imageNamed: "RedCastle")
     
     //HUD
     let hudBar = SKSpriteNode(imageNamed: "hudBar")
@@ -76,6 +77,13 @@ class GameScene: SKScene {
         background.zPosition = 0
         self.addChild(background)
         
+        
+        // add castle
+        rightCastle.position = CGPoint(x: CGRectGetMinX(self.frame)+80, y: 420)
+        rightCastle.setScale(2.0)
+        rightCastle.zPosition = 1
+        background.addChild(rightCastle)
+        
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
@@ -94,7 +102,7 @@ class GameScene: SKScene {
         //Add HUD Buttons
         addHud()
         
-        //Add clouds
+        //-------------------------------Add Clouds-------------------------------
         addGameClouds()
         NSTimer.every(15.0.seconds) {
             
@@ -106,12 +114,32 @@ class GameScene: SKScene {
             }
         }
         
+
+        //-------------------------------Gold Increment-------------------------------
+        //initialize gold to 0
+        gold = 0
+        NSTimer.every(1.second) {
+            
+            if self.isRunning {
+                self.gold = self.gold + 1
+                print("Gold: ", self.gold)
+                self.GoldLabel.text = "Gold \(self.gold)"
+                //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
+                //Continues running when opening pop up menu -- can fix with isRunning bool
+            }
+        }
+        
+        
+        //-------------------------------Background Music-------------------------------
+        print("Play music")
+        let GameSceneMusic = SKAudioNode(fileNamed: "GameSceneMusic.wav") //CURRENTLY DOESN'T PLAY
+        GameSceneMusic.autoplayLooped = true
+        addChild(GameSceneMusic)
+        
     }
     
-    //Create hud labels, buttons, health, username, etc
+    //-------------------------------HEADS UP DISPLAY-------------------------------
     func addHud() {
-        
-
         
         //Add hud background
         hudBar.position = CGPoint(x: CGRectGetMidY(self.frame)+293, y: 100)
@@ -119,6 +147,7 @@ class GameScene: SKScene {
         hudBar.size.width = 1340
         hudBar.zPosition = 2
         self.addChild(hudBar)
+        
         
         //Hud separator
         hudSeparator.position = CGPoint(x: CGRectGetMidX(hudBar.frame), y: 103)
@@ -183,21 +212,6 @@ class GameScene: SKScene {
         GoldLabel.position = CGPoint(x:90, y:650)
         GoldLabel.zPosition = 3
         self.addChild(GoldLabel)
-        
-        //initialize gold to 0
-        gold = 0
-        
-        //Increment Gold per second
-        NSTimer.every(1.second) {
-            
-            if self.isRunning {
-                self.gold = self.gold + 1
-                print("Gold: ", self.gold)
-                self.GoldLabel.text = "Gold \(self.gold)"
-                //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
-                //Continues running when opening pop up menu -- can fix with isRunning bool
-            }
-        }
         
     }
     
@@ -553,7 +567,6 @@ class GameScene: SKScene {
 //Maybe the method for popup menus are different?
 
 //TODO: Gold increments even when returning to menu
-//Creating bool gameRunning and putting it in the timer loop could solve this but it would be called again, so maybe no
 //TODO: Finish options menu
 //TODO: Finish upgrade menu
 //TODO: Finish HUD
@@ -561,3 +574,7 @@ class GameScene: SKScene {
 //Update username
 
 //SET USER INTERACTION TO DISABLED WHEN A POP UP MENU APPEARS
+
+//MUSIC ISSUES:
+//When returning to menu from gamescene. Music plays for only am moment, then cuts out. Attemped to fix, didn't work.
+//When startin game, music starts for a moment and cuts out
