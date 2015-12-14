@@ -254,13 +254,14 @@ class GameScene: SKScene {
     //Captain DOES spawn if spritenode button from scene is pressed.
     func spawnCaptain() {
         print("Spawning Captain")
-        let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
+        //let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
+        let captainAnimatedAtlas = SKTextureAtlas(named: "knights")
         var runFrames = [SKTexture]()
-        let numImages = captainAnimatedAtlas.textureNames.count
+        //let numImages = captainAnimatedAtlas.textureNames.count
         
         //Loop through each image name and append into frames
-        for var i=1; i <= numImages; i++ {
-            let captainTextureName = "cap\(i)"
+        for var i=1; i <= 14; i++ {
+            let captainTextureName = "sequence/2x/hero/run (\(i))"
             runFrames.append(captainAnimatedAtlas.textureNamed(captainTextureName))
             print(captainTextureName)
         }
