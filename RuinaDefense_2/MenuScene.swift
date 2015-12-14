@@ -17,6 +17,9 @@ import SpriteKit
 //---------------------------------------------------------------------
 class MenuScene: SKScene {
     
+    //----------Variables-----------
+    var backgroundMusic: SKAudioNode!
+    
     override func didMoveToView(view: SKView) {
         
         print("moved to menu view")
@@ -53,13 +56,12 @@ class MenuScene: SKScene {
         self.addClouds()
         }
         
-        //-------------------------------Background Music-------------------------------
-        let backgroundMusic = SKAudioNode(fileNamed: "Dystopia_Background_Music.wav")
-        backgroundMusic.autoplayLooped = true
-        addChild(backgroundMusic)
         
         //Add all the buttons
         addButtons()
+        
+        //Start music -- DOES NOT PLAY WHEN RETURNING TO MENU FROM GAME SCENE
+        playMusic()
     }
     
     
@@ -123,7 +125,13 @@ class MenuScene: SKScene {
         
     }
 
-    
+    //----------------------------------Play Background Music----------------------------------
+    private func playMusic() {
+        print("start music")
+        backgroundMusic = SKAudioNode(fileNamed: "Dystopia_Background_Music.wav")
+        backgroundMusic.autoplayLooped = true
+        addChild(backgroundMusic)
+    }
     
     //----------------------------------Handle button touches----------------------------------
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -158,6 +166,8 @@ class MenuScene: SKScene {
         
         Game_Scene.scaleMode = SKSceneScaleMode.AspectFill
         
+        //Remove sound
+        backgroundMusic.removeFromParent()
         
         self.scene!.view?.presentScene(Game_Scene, transition: transition)
     }

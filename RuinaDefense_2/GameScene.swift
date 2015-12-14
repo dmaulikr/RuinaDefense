@@ -22,11 +22,14 @@ class GameScene: SKScene {
     
     //HUD
     let hudBar = SKSpriteNode(imageNamed: "hudBar")
-    let hudSeparator = SKSpriteNode(imageNamed: "bar")
+    let leftBorder = SKSpriteNode(imageNamed: "bar")
+    let rightBorder = SKSpriteNode(imageNamed: "bar")
+    let middleBorder = SKSpriteNode(imageNamed: "bar")
+    let bottomBorder = SKSpriteNode(imageNamed: "horizontalBar")
     let VSImage = SKSpriteNode(imageNamed: "VSImage")
     
     //HUD Buttons
-    let spawnButton = SKSpriteNode(imageNamed: "Spawnbutton")
+    let spawnButton = SKSpriteNode(imageNamed: "SpawnButton")
     let menuButton = SKSpriteNode(imageNamed: "menuButton")
     
     //HUD Labels
@@ -51,7 +54,8 @@ class GameScene: SKScene {
     var selectedNode = SKSpriteNode()
     
     //Other
-    var isRunning = true
+    var isRunning = false
+    var clickable = true
     
     //-----------------------Class Variables End--------------------//
     
@@ -72,6 +76,7 @@ class GameScene: SKScene {
         background.zPosition = 0
         self.addChild(background)
         
+        
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
@@ -90,7 +95,7 @@ class GameScene: SKScene {
         //Add HUD Buttons
         addHud()
         
-        //Add clouds
+        //-------------------------------Add Clouds-------------------------------
         addGameClouds()
         NSTimer.every(15.0.seconds) {
             
@@ -102,52 +107,92 @@ class GameScene: SKScene {
             }
         }
         
+
+        //-------------------------------Gold Increment-------------------------------
+        //initialize gold to 0
+        gold = 0
+        NSTimer.every(1.second) {
+            
+            if self.isRunning {
+                self.gold = self.gold + 1
+                print("Gold: ", self.gold)
+                self.GoldLabel.text = "Gold \(self.gold)"
+                //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
+                //Continues running when opening pop up menu -- can fix with isRunning bool
+            }
+        }
+        
+        
+        //-------------------------------Background Music-------------------------------
+        print("Play music")
+        let GameSceneMusic = SKAudioNode(fileNamed: "GameSceneMusic.wav") //CURRENTLY DOESN'T PLAY
+        GameSceneMusic.autoplayLooped = true
+        addChild(GameSceneMusic)
+        
     }
     
-    //Create hud labels, buttons, health, username, etc
+    //-------------------------------HEADS UP DISPLAY-------------------------------
     func addHud() {
-        
-        
         
         //Add hud background
         hudBar.position = CGPoint(x: CGRectGetMidY(self.frame)+293, y: 100)
         hudBar.size.height = 170
         hudBar.size.width = 1340
         hudBar.zPosition = 2
-        self.addChild(hudBar)
-        
-        //Hud separator
-        hudSeparator.position = CGPoint(x: CGRectGetMidX(hudBar.frame), y: 103)
-        hudSeparator.zPosition = 4
-        hudSeparator.setScale(0.3)
-        hudSeparator.size.height = 170
-        self.addChild(hudSeparator)
+        //self.addChild(hudBar)
         
         
+        //HUD left border
+        leftBorder.position = CGPoint(x: CGRectGetMinX(hudBar.frame)+9, y: 90)
+        leftBorder.zPosition = 5
+        leftBorder.setScale(0.5)
+        leftBorder.size.height = 200
+        self.addChild(leftBorder)
+        
+        //HUD right border
+        rightBorder.position = CGPoint(x: CGRectGetMaxX(hudBar.frame)-10, y: 90)
+        rightBorder.zPosition = 5
+        rightBorder.setScale(0.5)
+        rightBorder.size.height = 200
+        self.addChild(rightBorder)
+        
+        middleBorder.position = CGPoint(x: CGRectGetMidX(hudBar.frame), y: 90)
+        middleBorder.zPosition = 4
+        middleBorder.setScale(0.5)
+        middleBorder.size.height = 195
+        self.addChild(middleBorder)
+        
+        //HUD bottom border
+        bottomBorder.position = CGPoint(x: CGRectGetMidX(hudBar.frame), y: 5)
+        bottomBorder.zPosition = 4
+        bottomBorder.setScale(0.5)
+        bottomBorder.size.width = 1334
+        self.addChild(bottomBorder)
+    
         //Create spawn button
-        spawnButton.setScale(0.5)
-        spawnButton.position = CGPoint(x:1050, y:100)
+        spawnButton.setScale(0.3)
+        spawnButton.position = CGPoint(x:800, y:90)
         spawnButton.zPosition = 3
         self.addChild(spawnButton)
         
         //ON THE BOTTOM
         //Menu button
         menuButton.name = "menu"
-        menuButton.position = CGPoint(x:110, y:CGRectGetMidY(hudBar.frame))
+        menuButton.position = CGPoint(x:110, y:90)
         menuButton.zPosition = 3
         menuButton.setScale(0.2)
         self.addChild(menuButton)
         
         //Options Button
         optionButton.name = "option"
-        optionButton.position = CGPoint(x:210, y:CGRectGetMidY(hudBar.frame))
+        optionButton.position = CGPoint(x:210, y:90)
         optionButton.zPosition = 3
         optionButton.setScale(0.2)
         self.addChild(optionButton)
         
         //Upgrade label
         upgradeButton.name = "upgrade"
-        upgradeButton.position = CGPoint(x:310, y:CGRectGetMidY(hudBar.frame))
+        upgradeButton.position = CGPoint(x:310, y:90)
         upgradeButton.zPosition = 3
         upgradeButton.setScale(0.2)
         self.addChild(upgradeButton)
@@ -179,21 +224,6 @@ class GameScene: SKScene {
         GoldLabel.position = CGPoint(x:90, y:650)
         GoldLabel.zPosition = 3
         self.addChild(GoldLabel)
-        
-        //initialize gold to 0
-        gold = 0
-        
-        //Increment Gold per second
-        NSTimer.every(1.second) {
-            
-            if self.isRunning {
-                self.gold = self.gold + 1
-                print("Gold: ", self.gold)
-                self.GoldLabel.text = "Gold \(self.gold)"
-                //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
-                //Continues running when opening pop up menu -- can fix with isRunning bool
-            }
-        }
         
     }
     
@@ -363,7 +393,8 @@ class GameScene: SKScene {
                 
                 //Remove some nodes
                 background.removeFromParent()
-                hudSeparator.removeFromParent()
+                leftBorder.removeFromParent()
+                rightBorder.removeFromParent()
                 hudBar.removeFromParent()
                 spawnButton.removeFromParent()
                 UsernameLabel.removeFromParent()
@@ -388,13 +419,24 @@ class GameScene: SKScene {
             if optionButton.containsPoint(location) {
                 print("game options button pressed")
                 
+                //If menu isn't open, open menu
+                if(clickable == true) {
+                    
+                    //pause the game
+                    self.paused = true
+                    isRunning = false
+                    
+                    //pop up options
+                    openOptionsMenu()
+                    
+                    //Set button to unclickable
+                    self.clickable = false
+                }
                 
-                //pause the game
-                self.paused = true
-                isRunning = false
-                
-                //pop up options
-                openOptionsMenu()
+                else {
+                    print("A menu is already open brah")
+                }
+            
             }
             
             
@@ -402,23 +444,30 @@ class GameScene: SKScene {
             if upgradeButton.containsPoint(location) {
                 print("upgrade button pressed")
                 
-                //pause the game
-                self.paused = true
-                isRunning = false
+                //If menu isn't open, open menu
+                if(clickable == true) {
                 
-                //pop up upgrade menu
-                openUpgradeMenu()
+                    //pause the game
+                    self.paused = true
+                    isRunning = false
+                
+                    //pop up upgrade menu
+                    openUpgradeMenu()
+                    
+                    //Set button to unclickable
+                    self.clickable = false
+                }
+                
+                else {
+                    print("A menu is already open brah")
+                }
+            
             }
             
             
             
             
-            
-            
-            
-            
-            //HANDLE OPTIONS MENU BUTTON TOUCHES -- THESE 'EXIST' EVEN AFTER BEING CLOSED.
-            //Hulls solution: displace it and then put it back (not great but would work)
+            //Close Menu buttons
             if optionsClose.containsPoint(location) {
                 print("options close button pressed")
                 
@@ -428,6 +477,9 @@ class GameScene: SKScene {
                 //Remove all nodes associated with options menu
                 optionsClose.removeFromParent()
                 optionsBG.removeFromParent()
+                
+                //Set button to clickable
+                self.clickable = true
                 
                 //resume scene
                 isRunning = true
@@ -443,6 +495,9 @@ class GameScene: SKScene {
                 //Remove all nodes associated with upgrade menu
                 upgradeClose.removeFromParent()
                 upgradeBG.removeFromParent()
+                
+                //Set button to clickable
+                self.clickable = true
                 
                 //resume scene
                 isRunning = true
@@ -497,22 +552,27 @@ class GameScene: SKScene {
     }
     
     
-    //HANDLE Moving Scene
+    //----------------------SCREEN PANNING-------------------
     
     func handlePanFrom(recognizer : UIPanGestureRecognizer) {
+        
         if recognizer.state == .Began {
             var touchLocation = recognizer.locationInView(recognizer.view)
             touchLocation = self.convertPointFromView(touchLocation)
             
             self.selectNodeForTouch(touchLocation)
-        } else if recognizer.state == .Changed {
+        }
+        
+        else if recognizer.state == .Changed {
             var translation = recognizer.translationInView(recognizer.view!)
             translation = CGPoint(x: translation.x, y: -translation.y)
             
             self.panForTranslation(translation)
             
             recognizer.setTranslation(CGPointZero, inView: recognizer.view)
-        } else if recognizer.state == .Ended {
+        }
+        
+        else if recognizer.state == .Ended {
             let scrollDuration = 0.4
             let velocity = recognizer.velocityInView(recognizer.view)
             let pos = selectedNode.position
@@ -522,15 +582,22 @@ class GameScene: SKScene {
             
             var newPos = CGPoint(x: pos.x + p.x, y: pos.y + p.y)
             newPos = self.boundLayerPos(newPos)
+            if (selectedNode.name == background.name) {
             selectedNode.removeAllActions()
+            }
             
             let moveTo = SKAction.moveTo(newPos, duration: scrollDuration)
             moveTo.timingMode = .EaseOut
+            
+            //ONLY IF SELECTEDNODE IS BACKGROUND WILL THE ACTION RUN
+            if (selectedNode.name == background.name) {
             selectedNode.runAction(moveTo)
+            }
         }
     }
     
     
+    //Sets selectedNode to the node you touched.
     func selectNodeForTouch(touchLocation : CGPoint) {
         
         let touchedNode = self.nodeAtPoint(touchLocation)
@@ -538,14 +605,17 @@ class GameScene: SKScene {
         if touchedNode is SKSpriteNode {
             
             if !selectedNode.isEqual(touchedNode) {
-                selectedNode.removeAllActions()
+                //selectedNode.removeAllActions()
                 
+                //Set selected node to the node you touched
                 selectedNode = touchedNode as! SKSpriteNode
+                //print(selectedNode)
                 
             }
         }
     }
     
+    //Restricts pan movement to within the visible scene
     func boundLayerPos(aNewPosition : CGPoint) -> CGPoint {
         let winSize = self.size
         var retval = aNewPosition
@@ -556,21 +626,29 @@ class GameScene: SKScene {
         return retval
     }
     
+    //Allows panning in real time.
     func panForTranslation(translation : CGPoint) {
-        let position = selectedNode.position
-        let aNewPosition = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
-        background.position = self.boundLayerPos(aNewPosition)
+        
+        //Only if the background is selected.
+        if (selectedNode.name == background.name) {
+            
+            //print("Touches background")
+            let position = selectedNode.position
+            let aNewPosition = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
+            background.position = self.boundLayerPos(aNewPosition)
+        }
+        
+        else {
+            //print("touched something else ;)")
+        }
         
     }
     
 }
 
 //TODO: Captain does not spawn when view is to the right
-//TODO: The options and upgrade close button exist invisibly even after being closed.
-//Maybe the method for popup menus are different?
 
 //TODO: Gold increments even when returning to menu
-//Creating bool gameRunning and putting it in the timer loop could solve this but it would be called again, so maybe no
 //TODO: Finish options menu
 //TODO: Finish upgrade menu
 //TODO: Finish HUD
@@ -578,3 +656,7 @@ class GameScene: SKScene {
 //Update username
 
 //SET USER INTERACTION TO DISABLED WHEN A POP UP MENU APPEARS
+
+//MUSIC ISSUES:
+//When returning to menu from gamescene. Music plays for only am moment, then cuts out. Attemped to fix, didn't work.
+//When startin game, music starts for a moment and cuts out

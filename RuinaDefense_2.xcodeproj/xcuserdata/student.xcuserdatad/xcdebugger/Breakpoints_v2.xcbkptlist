@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RuinaDefense_2/GameScene.swift"
-            timestampString = "471508339.298295"
+            timestampString = "471826592.83028"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611">
+            startingLineNumber = "689"
+            endingLineNumber = "689">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -100,26 +100,26 @@
                   moduleName = "RuinaDefense_2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/global.swift"
-                  timestampString = "471393615.905141"
+                  timestampString = "471820010.128915"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
                   offsetFromSymbolStart = "4">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "RuinaDefense_2.captain.unsafeMutableAddressor : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.SKSpriteNode&gt;"
+                  symbolName = "RuinaDefense_2.captain.unsafeMutableAddressor : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.SKSpriteNode&gt;"
                   moduleName = "RuinaDefense_2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/global.swift"
-                  timestampString = "471393615.905368"
+                  timestampString = "471820010.129076"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
                   offsetFromSymbolStart = "4">
                </Location>
             </Locations>
@@ -132,13 +132,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RuinaDefense_2/GameScene.swift"
-            timestampString = "471507667.656631"
+            timestampString = "471820010.102337"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "addHud()"
-            landmarkType = "5">
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "GameScene"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RuinaDefense_2.GameScene.__deallocating_deinit"
+                  moduleName = "RuinaDefense_2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/GameScene.swift"
+                  timestampString = "471820010.126635"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RuinaDefense_2.GameScene.init (RuinaDefense_2.GameScene.Type)(size : __C.CGSize) -&gt; RuinaDefense_2.GameScene"
+                  moduleName = "RuinaDefense_2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/GameScene.swift"
+                  timestampString = "471820010.126897"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "25">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RuinaDefense_2.GameScene.init (RuinaDefense_2.GameScene.Type)() -&gt; RuinaDefense_2.GameScene"
+                  moduleName = "RuinaDefense_2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/GameScene.swift"
+                  timestampString = "471820010.127008"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RuinaDefense_2.GameScene.init (RuinaDefense_2.GameScene.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;RuinaDefense_2.GameScene&gt;"
+                  moduleName = "RuinaDefense_2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/GameScene.swift"
+                  timestampString = "471820010.127098"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
