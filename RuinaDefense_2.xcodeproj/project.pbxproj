@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		135197751C1E3CED0049EF80 /* knights.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 135197741C1E3CED0049EF80 /* knights.atlasc */; };
-		135197771C1E44080049EF80 /* knights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135197761C1E44080049EF80 /* knights.swift */; };
+		135197791C1F62600049EF80 /* Hero1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135197781C1F62600049EF80 /* Hero1.swift */; };
+		1351977C1C1F7AB10049EF80 /* Hero1Sheet.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */; };
+		1351977D1C1F7AB10049EF80 /* Hero1Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */; };
 		137B1E8A1C1CE9B40037A7C3 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137B1E891C1CE9B40037A7C3 /* Unit.swift */; };
 		3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */; };
 		3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7383031C13FA7E004335BA /* MenuScene.swift */; };
@@ -26,8 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		135197741C1E3CED0049EF80 /* knights.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = knights.atlasc; sourceTree = "<group>"; };
-		135197761C1E44080049EF80 /* knights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = knights.swift; sourceTree = "<group>"; };
+		135197781C1F62600049EF80 /* Hero1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero1.swift; sourceTree = "<group>"; };
+		1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Hero1Sheet.atlasc; sourceTree = "<group>"; };
+		1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero1Sheet.swift; sourceTree = "<group>"; };
 		137B1E891C1CE9B40037A7C3 /* Unit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTimer.swift; sourceTree = "<group>"; };
 		3F7383031C13FA7E004335BA /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
@@ -76,12 +78,13 @@
 		3FE65CF71C0FF3A200E4AA88 /* RuinaDefense_2 */ = {
 			isa = PBXGroup;
 			children = (
-				135197761C1E44080049EF80 /* knights.swift */,
-				135197741C1E3CED0049EF80 /* knights.atlasc */,
+				1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */,
+				1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */,
 				3FE65D1A1C101F3A00E4AA88 /* CapAmericaSOJ.atlas */,
 				3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */,
 				3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */,
 				3FE65CFC1C0FF3A200E4AA88 /* GameScene.swift */,
+				135197781C1F62600049EF80 /* Hero1.swift */,
 				3F7383031C13FA7E004335BA /* MenuScene.swift */,
 				3FE65CFE1C0FF3A200E4AA88 /* GameViewController.swift */,
 				3FE65D001C0FF3A200E4AA88 /* Main.storyboard */,
@@ -157,10 +160,10 @@
 				3FE65D1B1C101F3A00E4AA88 /* CapAmericaSOJ.atlas in Resources */,
 				3FE65CFB1C0FF3A200E4AA88 /* GameScene.sks in Resources */,
 				3FE65D071C0FF3A200E4AA88 /* LaunchScreen.storyboard in Resources */,
-				135197751C1E3CED0049EF80 /* knights.atlasc in Resources */,
 				3FE65D041C0FF3A200E4AA88 /* Assets.xcassets in Resources */,
 				3FE65D021C0FF3A200E4AA88 /* Main.storyboard in Resources */,
 				3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */,
+				1351977C1C1F7AB10049EF80 /* Hero1Sheet.atlasc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,10 +175,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FE65D171C10015300E4AA88 /* global.swift in Sources */,
+				135197791C1F62600049EF80 /* Hero1.swift in Sources */,
 				3FE65CFD1C0FF3A200E4AA88 /* GameScene.swift in Sources */,
+				1351977D1C1F7AB10049EF80 /* Hero1Sheet.swift in Sources */,
 				3FE65D191C10016A00E4AA88 /* functions.swift in Sources */,
 				3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */,
-				135197771C1E44080049EF80 /* knights.swift in Sources */,
 				3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */,
 				137B1E8A1C1CE9B40037A7C3 /* Unit.swift in Sources */,
 				3FE65CFF1C0FF3A200E4AA88 /* GameViewController.swift in Sources */,
