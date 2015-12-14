@@ -12,7 +12,6 @@ import Foundation
 class GameScene: SKScene {
     
     //-------------------------Class Variables----------------------//
-    //TEST
     
     //Scene
     //let scene = GameScene(fileNamed: "GameScene")
