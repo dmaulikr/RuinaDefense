@@ -87,14 +87,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.zPosition = 0
         self.addChild(background)
         
+        print("Width = ", background.frame.width)
+        print("Height = ", background.frame.height)
+        print("Size = ", background.size)
         
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
         //let collisionFrame = CGRectInset(background.frame, -2000, 240.0)    //There is a problem here. Captain does not spawn when view is to the right
         let collisionFrame = CGRect(x: -3840, y: 0, width: 7680, height: 240)
+
         //might have fixed problem by changing # to -2000. Not sure the consequences tho
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: collisionFrame)
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: background.frame)
+        
         
         //Set friction of the physics body to 0
         physicsBody?.friction = 0
@@ -127,7 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if self.isRunning {
                 self.gold = self.gold + 1
-                print("Gold: ", self.gold)
+                //print("Gold: ", self.gold)
                 self.GoldLabel.text = ("\(self.gold)")
                 //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
                 //Continues running when opening pop up menu -- can fix with isRunning bool
@@ -318,6 +323,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Set position and physics body stuff
         hero1.position = CGPoint(x: 160, y: 241)
+        print("Width = %f", self.view!.frame.width)
+        print("Height = %f", self.view!.frame.height)
         hero1.zPosition = 3
         hero1.physicsBody = SKPhysicsBody(circleOfRadius: hero1.frame.width * 0.3)
         hero1.setScale(0.5)
@@ -326,6 +333,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero1.physicsBody?.linearDamping = 0
         hero1.physicsBody?.angularDamping = 0
         hero1.physicsBody?.allowsRotation = false
+        
         
         //Add to scene
         background.addChild(hero1)
@@ -632,9 +640,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             //ONLY IF SELECTEDNODE IS BACKGROUND WILL THE ACTION RUN
             if (selectedNode.name == background.name) {
-            selectedNode.runAction(moveTo)
+                selectedNode.runAction(moveTo)
             }
         }
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: background.frame)
     }
     
     
@@ -687,7 +696,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 }
 
-//TODO: Captain does not spawn when view is to the right
+//TODO: Captain does not spawn when view is to the right 
+// this is because of how we pan the screen, we are moving the background node instead of actually
+// moving our camera to the right
 
 //TODO: Gold increments even when returning to menu
 //TODO: Finish options menu
