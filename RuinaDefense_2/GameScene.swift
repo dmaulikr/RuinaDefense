@@ -34,10 +34,11 @@ class GameScene: SKScene {
     let menuButton = SKSpriteNode(imageNamed: "menuButton")
     
     //HUD Labels
-    var UsernameLabel = SKLabelNode(text: "Username")
-    var EnemynameLabel = SKLabelNode(text: "Enemy")
+    var UsernameLabel = SKLabelNode(fontNamed: "Papyrus")
+    var EnemynameLabel = SKLabelNode(fontNamed: "Papyrus")
     var gold = 0    //Gold counter
-    let GoldLabel = SKLabelNode()
+    let GoldLabel = SKLabelNode(fontNamed: "Papyrus")
+    let GoldLabelText = SKLabelNode(fontNamed: "Papyrus")
     
     //Options Menu Nodes
     let optionsBG = SKSpriteNode(imageNamed: "popupWindow")
@@ -120,7 +121,7 @@ class GameScene: SKScene {
             if self.isRunning {
                 self.gold = self.gold + 1
                 print("Gold: ", self.gold)
-                self.GoldLabel.text = "Gold \(self.gold)"
+                self.GoldLabel.text = ("\(self.gold)")
                 //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
                 //Continues running when opening pop up menu -- can fix with isRunning bool
             }
@@ -181,28 +182,28 @@ class GameScene: SKScene {
         
         //Create spawn enemy button
         spawnEnemyButton.setScale(0.3)
-        spawnEnemyButton.position = CGPoint(x:900, y:90)
+        spawnEnemyButton.position = CGPoint(x:950, y:90)
         spawnEnemyButton.zPosition = 3
         self.addChild(spawnEnemyButton)
         
         //ON THE BOTTOM
         //Menu button
         menuButton.name = "menu"
-        menuButton.position = CGPoint(x:110, y:90)
+        menuButton.position = CGPoint(x:100, y:85)
         menuButton.zPosition = 3
         menuButton.setScale(0.2)
         self.addChild(menuButton)
         
         //Options Button
         optionButton.name = "option"
-        optionButton.position = CGPoint(x:210, y:90)
+        optionButton.position = CGPoint(x:230, y:85)
         optionButton.zPosition = 3
         optionButton.setScale(0.2)
         self.addChild(optionButton)
         
         //Upgrade label
         upgradeButton.name = "upgrade"
-        upgradeButton.position = CGPoint(x:310, y:90)
+        upgradeButton.position = CGPoint(x:360, y:85)
         upgradeButton.zPosition = 3
         upgradeButton.setScale(0.2)
         self.addChild(upgradeButton)
@@ -210,15 +211,19 @@ class GameScene: SKScene {
         //ON THE TOP
         //Username label -- should get information when game starts
         UsernameLabel.fontColor = SKColor .blackColor()
+        UsernameLabel.text = user
+        UsernameLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         UsernameLabel.fontSize = 35
-        UsernameLabel.position = CGPoint(x:100, y:700)
+        UsernameLabel.position = CGPoint(x:30, y:700)
         UsernameLabel.zPosition = 3
         self.addChild(UsernameLabel)
         
         //Enemyname label
         EnemynameLabel.fontColor = SKColor .blackColor()
+        EnemynameLabel.text = "Enemy"
+        EnemynameLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
         EnemynameLabel.fontSize = 35
-        EnemynameLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:700)
+        EnemynameLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-30, y:700)
         EnemynameLabel.zPosition = 3
         self.addChild(EnemynameLabel)
         
@@ -231,9 +236,19 @@ class GameScene: SKScene {
         //Gold label -- should start incrementing when game scene starts
         GoldLabel.fontColor = SKColor .blackColor()
         GoldLabel.fontSize = 35
-        GoldLabel.position = CGPoint(x:90, y:650)
+        GoldLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        GoldLabel.position = CGPoint(x:130, y:650)
         GoldLabel.zPosition = 3
         self.addChild(GoldLabel)
+        
+        //Gold Text -- Just "Gold"
+        GoldLabelText.text = "Gold"
+        GoldLabelText.fontColor = SKColor.blackColor()
+        GoldLabelText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        GoldLabelText.fontSize = 35
+        GoldLabelText.position = CGPoint(x:30, y:650)
+        GoldLabelText.zPosition = 3
+        self.addChild(GoldLabelText)
         
     }
     
@@ -544,7 +559,7 @@ class GameScene: SKScene {
         optionsClose.zPosition = 100
         
         //Add to view
-        self.addChild(optionsClose) //When added as child of optionsBG -- it doesn't appear
+        self.addChild(optionsClose)
         self.addChild(optionsBG)
         
     }
