@@ -26,8 +26,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Back Ground
     let background = SKSpriteNode(imageNamed: "background")
     var randomNum = 0 //For random cloud variant spawning
+    
     //Music
-    var gameAudioPlayer = AVAudioPlayer()
     var musicPlaying = true
     
     //HUD
@@ -173,22 +173,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //-------------------------------Background Music-------------------------------
         print("Play music")
         //Path of music
-        let musicPath = NSBundle.mainBundle().URLForResource("GameSceneMusic", withExtension: "wav")
+    
+            let musicPath = NSBundle.mainBundle().URLForResource("GameSceneMusic", withExtension: "wav")
         
-        do {
-            gameAudioPlayer = try AVAudioPlayer(contentsOfURL: musicPath!)
-        }
-        catch {
-            fatalError("Error loading \(musicPath)")
-        }
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOfURL: musicPath!)
+            }
+            catch {
+                fatalError("Error loading \(musicPath)")
+            }
         
-        gameAudioPlayer.prepareToPlay()
+        audioPlayer.prepareToPlay()
+        audioPlayer.currentTime = 0
         
         //Play background music
-        gameAudioPlayer.play()
+        audioPlayer.play()
         
         //Loop Forever
-        gameAudioPlayer.numberOfLoops = -1
+        audioPlayer.numberOfLoops = -1
         
     }
     
@@ -359,6 +361,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //========================================UNIT SPAWNING========================================
     
     //----------------------HERO1 SPAWNING----------------------
     func spawnHero1() {
@@ -420,6 +423,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         moveLeft(enemy1)
     }
     
+    //========================================UNIT SPAWNING END========================================
+    
+    //========================================UNIT ANIMATION===========================================
     //Move sprite right -- NO ANIMATION
     func moveRight(sprite: SKSpriteNode) {
         
@@ -452,6 +458,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sprite.runAction(moveForever)
     }
     
+    //========================================UNIT ANIMATION END==========================================
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
@@ -485,6 +492,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //MENU BUTTON PRESSED
             if menuButton.containsPoint(location) {
                 
+                //Stop Music
+                audioPlayer.stop()
+                
+                
                 //Remove some nodes
                 background.removeFromParent()
                 leftBorder.removeFromParent()
@@ -500,8 +511,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 GoldLabel.removeFromParent()
                 VSImage.removeFromParent()
                 
-                //Stop Music
-                gameAudioPlayer.stop()
                 
                 print("Menu Button Pressed")
                 
@@ -624,7 +633,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if (musicPlaying == true) {
                     
                     //pause music
-                    gameAudioPlayer.pause()
+                    audioPlayer.pause()
                     
                     //set music playing to false
                     musicPlaying = false
@@ -638,7 +647,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if (musicPlaying == false) {
                  
                     //play music
-                    gameAudioPlayer.play()
+                    audioPlayer.play()
                     
                     //set music playing to true'
                     musicPlaying = true
