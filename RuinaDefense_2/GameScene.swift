@@ -29,7 +29,8 @@ class GameScene: SKScene {
     let VSImage = SKSpriteNode(imageNamed: "VSImage")
     
     //HUD Buttons
-    let spawnButton = SKSpriteNode(imageNamed: "SpawnButton")
+    let spawnHero1Button = SKSpriteNode(imageNamed: "SpawnButton")
+    let spawnEnemyButton = SKSpriteNode(imageNamed: "SpawnButton")
     let menuButton = SKSpriteNode(imageNamed: "menuButton")
     
     //HUD Labels
@@ -56,6 +57,9 @@ class GameScene: SKScene {
     //Other
     var isRunning = false
     var clickable = true
+    
+    //FOR CHARACTERS
+    let Hero1_Sheet = Hero1Sheet() //Animations for Hero1
     
     //-----------------------Class Variables End--------------------//
     
@@ -169,11 +173,17 @@ class GameScene: SKScene {
         bottomBorder.size.width = 1334
         self.addChild(bottomBorder)
     
-        //Create spawn button
-        spawnButton.setScale(0.3)
-        spawnButton.position = CGPoint(x:800, y:90)
-        spawnButton.zPosition = 3
-        self.addChild(spawnButton)
+        //Create spawn hero button
+        spawnHero1Button.setScale(0.3)
+        spawnHero1Button.position = CGPoint(x:800, y:90)
+        spawnHero1Button.zPosition = 3
+        self.addChild(spawnHero1Button)
+        
+        //Create spawn enemy button
+        spawnEnemyButton.setScale(0.3)
+        spawnEnemyButton.position = CGPoint(x:900, y:90)
+        spawnEnemyButton.zPosition = 3
+        self.addChild(spawnEnemyButton)
         
         //ON THE BOTTOM
         //Menu button
@@ -279,92 +289,92 @@ class GameScene: SKScene {
     }
     
     
-    //If captain PRESSED. SPAWN CAPTAIN AND ANIMATE!--------------------------
-    //Captain does NOT spawn if button from hud is pressed.
-    //Captain DOES spawn if spritenode button from scene is pressed.
-    func spawnCaptain() {
-        /*
-        print("Spawning Captain")
-        let captainAnimatedAtlas = SKTextureAtlas(named: "CapAmericaSOJ")
-        var runFrames = [SKTexture]()
-        let numImages = captainAnimatedAtlas.textureNames.count
-        //Loop through each image name and append into frames
-        for var i=1; i <= numImages; i++ {
-            let captainTextureName = "cap\(i)"
-            runFrames.append(captainAnimatedAtlas.textureNamed(captainTextureName))
-            print(captainTextureName)
-        }
-        captainRunningFrames = runFrames
-        let firstFrame = captainRunningFrames[0]
-        //Create captain sprite with initial texture
-        captain = SKSpriteNode(texture: firstFrame)
-        //Positioned on bottom left of screen
-        captain.position = CGPoint(x: 50, y: 430)
-        captain.zPosition = 3;
-        //Physics of Captain
-        captain.physicsBody = SKPhysicsBody(circleOfRadius: captain.frame.width * 0.3)  //Create physics body for captain
-        captain.physicsBody?.friction = 0
-        captain.physicsBody?.restitution = 0
-        captain.physicsBody?.linearDamping = 0
-        captain.physicsBody?.angularDamping = 0
-        captain.physicsBody?.allowsRotation = false
-        print("Add Captain")
-        background.addChild(captain)
-        //start animation
-        print("Start animation")
-        self.runningCaptain()
-        //Move captain rightward for 2674 in 7 seconds -- should change
-        let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
-        //Removes node from scene
-        let finishedRunning = SKAction.removeFromParent()
-        //Moves captain right, when move is finished, remove node.
-        let sequence = SKAction.sequence([moveRight,finishedRunning])
-        captain.runAction(sequence)
-        */
+    //Spawn Hero1. Runs and animates rightward
+    func spawnHero1() {
         
+        let hero1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
         
+        //Set position and physics body stuff
+        hero1.position = CGPoint(x: 160, y: 241)
+        hero1.zPosition = 3
+        hero1.physicsBody = SKPhysicsBody(circleOfRadius: hero1.frame.width * 0.3)
+        hero1.setScale(0.5)
+        hero1.physicsBody?.friction = 0
+        hero1.physicsBody?.restitution = 0
+        hero1.physicsBody?.linearDamping = 0
+        hero1.physicsBody?.angularDamping = 0
+        hero1.physicsBody?.allowsRotation = false
         
-        // TEST
-        let sheet = Hero1Sheet()
-        let sprite = SKSpriteNode(texture: sheet.run_1_())
-        sprite.position = CGPoint(x: 160, y: 241)
-        sprite.zPosition = 3
-        sprite.physicsBody = SKPhysicsBody(circleOfRadius: sprite.frame.width * 0.3)
-        sprite.setScale(0.5)
-        sprite.physicsBody?.friction = 0
-        sprite.physicsBody?.restitution = 0
-        sprite.physicsBody?.linearDamping = 0
-        sprite.physicsBody?.angularDamping = 0
-        sprite.physicsBody?.allowsRotation = false
+        //Add to scene
+        background.addChild(hero1)
         
-        let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
-        //Removes node from scene
-        let finishedRunning = SKAction.removeFromParent()
-        //Moves captain right, when move is finished, remove node.
-        let sequence = SKAction.sequence([moveRight,finishedRunning])
-        
-        //let walk = SKAction.animateWithTextures(sheet.hero1_run()), timePerFrame: 0.033)
-        let run = SKAction.animateWithTextures(sheet.run(), timePerFrame: 0.033)
+        //Animates the hero
+        let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.033)
         let action = SKAction.repeatActionForever(run)
-        sprite.runAction(action)
-        //background.addChild(sprite)
-        background.addChild(sprite)
+        hero1.runAction(action)
         
-
-        sprite.runAction(sequence)
+        //Moves hero rightward forever
+        moveRight(hero1)
         
     }
     
-    //Animates the captain sprite with running
-    func runningCaptain() {
-        /*
-        captain.runAction(SKAction.repeatActionForever(
-            SKAction.animateWithTextures(captainRunningFrames,
-                timePerFrame: 0.1,
-                resize: false,
-                restore: true)),
-            withKey:"runningInPlaceCaptain")
-*/
+    func spawnEnemy() {
+    let enemy1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
+        
+        //Set position and physics body stuff
+        enemy1.position = CGPoint(x: 2500, y: 241)
+        enemy1.zPosition = 3
+        enemy1.physicsBody = SKPhysicsBody(circleOfRadius: enemy1.frame.width * 0.3)
+        enemy1.setScale(0.5)
+        enemy1.physicsBody?.friction = 0
+        enemy1.physicsBody?.restitution = 0
+        enemy1.physicsBody?.linearDamping = 0
+        enemy1.physicsBody?.angularDamping = 0
+        enemy1.physicsBody?.allowsRotation = false
+        enemy1.xScale = enemy1.xScale * -1
+        
+        //Add to scene
+        background.addChild(enemy1)
+        
+        //Animates the hero
+        let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.033)
+        let action = SKAction.repeatActionForever(run)
+        enemy1.runAction(action)
+        
+        //Move enemy leftward
+        moveLeft(enemy1)
+    }
+    
+    //Move sprite right -- NO ANIMATION
+    func moveRight(sprite: SKSpriteNode) {
+        
+        //Moves node rightward
+        let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
+        
+        //Removes node from scene when finished
+        //let finishedRunning = SKAction.removeFromParent()
+        
+        //Moves captain right, when move is finished, remove node.
+        //let sequence = SKAction.sequence([moveRight,finishedRunning])
+        
+        let moveForever = SKAction.repeatActionForever(moveRight)
+        sprite.runAction(moveForever)
+    }
+    
+    //Moves sprite left -- NO ANIMATION
+    func moveLeft(sprite: SKSpriteNode) {
+        
+        //Moves node leftward
+        let moveLeft = SKAction.moveByX(-2674, y:0, duration:7.0)
+        
+        //Removes node from scene when finished
+        //let finishedRunning = SKAction.removeFromParent()
+        
+        //Moves captain right, when move is finished, remove node.
+        //let sequence = SKAction.sequence([moveLeft,finishedRunning])
+        
+        let moveForever = SKAction.repeatActionForever(moveLeft)
+        sprite.runAction(moveForever)
     }
     
     
@@ -385,9 +395,15 @@ class GameScene: SKScene {
             
             
             // Check if the location of the touch is within the button's bounds
-            if spawnButton.containsPoint(location) {
-                print("Spawn Button Pressed!")
-                spawnCaptain()
+            if spawnHero1Button.containsPoint(location) {
+                print("Spawn Hero")
+                spawnHero1()
+            }
+            
+            if spawnEnemyButton.containsPoint(location) {
+                print("Spawn Enemy")
+                spawnEnemy()
+                
             }
             
             //MENU BUTTON PRESSED
@@ -398,7 +414,8 @@ class GameScene: SKScene {
                 leftBorder.removeFromParent()
                 rightBorder.removeFromParent()
                 hudBar.removeFromParent()
-                spawnButton.removeFromParent()
+                spawnHero1Button.removeFromParent()
+                spawnEnemyButton.removeFromParent()
                 UsernameLabel.removeFromParent()
                 EnemynameLabel.removeFromParent()
                 optionButton.removeFromParent()
