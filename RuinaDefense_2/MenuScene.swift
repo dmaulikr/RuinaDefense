@@ -30,6 +30,10 @@ class MenuScene: SKScene {
         
         print("moved to menu view")
         
+        //To allow tap anywhere to remove keyboard
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
         //Set Username if it hasn't been set already
         if (user == "nil") {
             
@@ -65,6 +69,13 @@ class MenuScene: SKScene {
         menuWindow.size.height = 700
         menuWindow.zPosition = 1
         self.addChild(menuWindow)
+        
+        //ADD SNOW BRAH
+        let path = NSBundle.mainBundle().pathForResource("snowParticle", ofType: "sks")
+        let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        snow.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMaxY(self.frame))
+        snow.zPosition = 6
+        self.addChild(snow)
         
         
         //Add clouds
@@ -230,6 +241,12 @@ class MenuScene: SKScene {
         self.addChild(windowClose)
         self.addChild(window)
         
+    }
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view!.endEditing(true)
     }
     
     //----------------------------Handle transition to gamescene-------------------------
