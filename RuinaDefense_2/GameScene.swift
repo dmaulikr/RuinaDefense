@@ -86,6 +86,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let Enemy1_Sheet = Skeleton1Sheet() //Animations for Skeleton1
     let Enemy2_Sheet = Skeleton2Sheet() //Animations for Skeleton1
     
+    //Burn
+    let bloodEmitter = SKEmitterNode(fileNamed: "sparkParticle")
+    
     //-----------------------Class Variables End--------------------//
     
     override func didMoveToView(view: SKView) {
@@ -406,9 +409,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero1.physicsBody = SKPhysicsBody(circleOfRadius: hero1.frame.width * 0.3)
         hero1.setScale(0.5)
         //hero1.physicsBody?.mass = 500
-        hero1.physicsBody?.friction = 0
-        hero1.physicsBody?.restitution = 0
-        hero1.physicsBody?.linearDamping = 0
+        hero1.physicsBody?.friction = 0.2
+        hero1.physicsBody?.restitution = 0.2
+        hero1.physicsBody?.linearDamping = 0.1
         hero1.physicsBody?.angularDamping = 0
         hero1.physicsBody?.allowsRotation = false
         hero1.physicsBody?.categoryBitMask = PhysicsCategory.leftUnit
@@ -478,9 +481,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy1.physicsBody = SKPhysicsBody(circleOfRadius: enemy1.frame.width * 0.3)
         enemy1.setScale(0.5)
         //enemy1.physicsBody?.mass = 500
-        enemy1.physicsBody?.friction = 0
-        enemy1.physicsBody?.restitution = 0
-        enemy1.physicsBody?.linearDamping = 0
+        enemy1.physicsBody?.friction = 0.2
+        enemy1.physicsBody?.restitution = 0.2
+        enemy1.physicsBody?.linearDamping = 0.1
         enemy1.physicsBody?.angularDamping = 0
         enemy1.physicsBody?.allowsRotation = false
         enemy1.xScale = enemy1.xScale * -1
@@ -539,7 +542,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func moveRight(sprite: SKSpriteNode) {
         
         //Moves node rightward
-        let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
+        let moveRight = SKAction.moveByX(2674, y:0, duration:10.0)
         
         //Removes node from scene when finished
         //let finishedRunning = SKAction.removeFromParent()
@@ -555,7 +558,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func moveLeft(sprite: SKSpriteNode) {
         
         //Moves node leftward
-        let moveLeft = SKAction.moveByX(-2674, y:0, duration:7.0)
+        let moveLeft = SKAction.moveByX(-2674, y:0, duration:10.0)
         
         //Removes node from scene when finished
         //let finishedRunning = SKAction.removeFromParent()

@@ -77,7 +77,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "861"
             endingLineNumber = "861"
-            landmarkName = "didBeginContact(_:)"
+            landmarkName = "handlePanFrom(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
