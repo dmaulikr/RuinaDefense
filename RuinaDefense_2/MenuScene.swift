@@ -66,6 +66,13 @@ class MenuScene: SKScene {
         menuWindow.zPosition = 1
         self.addChild(menuWindow)
         
+        //ADD SNOW BRAH
+        let path = NSBundle.mainBundle().pathForResource("snowParticle", ofType: "sks")
+        let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        snow.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMaxY(self.frame))
+        snow.zPosition = 6
+        self.addChild(snow)
+        
         
         //Add clouds
         addClouds()
@@ -231,6 +238,7 @@ class MenuScene: SKScene {
         self.addChild(window)
         
     }
+    
     
     //----------------------------Handle transition to gamescene-------------------------
     private func startGame() {
