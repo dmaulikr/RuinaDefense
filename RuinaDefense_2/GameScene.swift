@@ -8,6 +8,7 @@
 
 import SpriteKit
 import Foundation
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -25,6 +26,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Back Ground
     let background = SKSpriteNode(imageNamed: "background")
     var randomNum = 0 //For random cloud variant spawning
+    //Music
+    var gameAudioPlayer = AVAudioPlayer()
     
     //HUD
     let hudBar = SKSpriteNode(imageNamed: "hudBar")
@@ -91,6 +94,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Height = ", background.frame.height)
         print("Size = ", background.size)
         
+        //Add fire to the castles
+        let firePath = NSBundle.mainBundle().pathForResource("flameParticle", ofType: "sks")
+        let flame = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
+        flame.position = CGPoint(x: 84,y: 530)
+        flame.zPosition = 6
+        background.addChild(flame)
+        
+        let flame2 = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
+        flame2.position = CGPoint(x: 354,y: 530)
+        flame2.zPosition = 6
+        background.addChild(flame2)
+        
+        let flame3 = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
+        flame3.position = CGPoint(x: 2320,y: 530)
+        flame3.zPosition = 6
+        background.addChild(flame3)
+        
+        let flame4 = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
+        flame4.position = CGPoint(x: 2588,y: 530)
+        flame4.zPosition = 6
+        background.addChild(flame4)
+        
+        
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
@@ -142,9 +168,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //-------------------------------Background Music-------------------------------
         print("Play music")
-        let GameSceneMusic = SKAudioNode(fileNamed: "GameSceneMusic.wav") //CURRENTLY DOESN'T PLAY
-        GameSceneMusic.autoplayLooped = true
-        addChild(GameSceneMusic)
+        //Path of music
+        let musicPath = NSBundle.mainBundle().URLForResource("GameSceneMusic", withExtension: "wav")
+        
+        do {
+            gameAudioPlayer = try AVAudioPlayer(contentsOfURL: musicPath!)
+        }
+        catch {
+            fatalError("Error loading \(musicPath)")
+        }
+        
+        gameAudioPlayer.prepareToPlay()
+        
+        //Play background music
+        gameAudioPlayer.play()
+        
+        //Loop Forever
+        gameAudioPlayer.numberOfLoops = -1
         
     }
     
@@ -454,7 +494,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 GoldLabel.removeFromParent()
                 VSImage.removeFromParent()
                 
+                //Stop Music
+                gameAudioPlayer.stop()
+                
                 print("Menu Button Pressed")
+                
                 let Menu_scene = MenuScene(size: self.size)
                 let transition = SKTransition.fadeWithDuration(1.0)
                 

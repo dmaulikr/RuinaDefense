@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 
 //---------------------------------------------------------------------
@@ -21,10 +22,11 @@ var user = "nil"
 class MenuScene: SKScene {
     
     //----------Variables-----------
-    var backgroundMusic: SKAudioNode!
+    //var backgroundMusic: SKAudioNode!
     let window = SKSpriteNode(imageNamed: "popupWindow")
     let windowClose = SKLabelNode(fontNamed: "Papyrus")
     let userNameText = UITextField(frame: CGRectMake(190 , 80, 290, 50))
+    var menuAudioPlayer = AVAudioPlayer()
     
     override func didMoveToView(view: SKView) {
         
@@ -72,6 +74,7 @@ class MenuScene: SKScene {
         snow.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMaxY(self.frame))
         snow.zPosition = 6
         self.addChild(snow)
+        
         
         
         //Add clouds
@@ -152,9 +155,24 @@ class MenuScene: SKScene {
     //----------------------------------Play Background Music----------------------------------
     private func playMusic() {
         print("start music")
-        backgroundMusic = SKAudioNode(fileNamed: "Dystopia_Background_Music.wav")
-        backgroundMusic.autoplayLooped = true
-        addChild(backgroundMusic)
+        
+        //Path of music
+        let musicPath = NSBundle.mainBundle().URLForResource("Dystopia_Background_Music", withExtension: "wav")
+        
+        do {
+        menuAudioPlayer = try AVAudioPlayer(contentsOfURL: musicPath!)
+        }
+        catch {
+            fatalError("Error loading \(musicPath)")
+        }
+        
+        menuAudioPlayer.prepareToPlay()
+        
+        //Play background music
+        menuAudioPlayer.play()
+        
+        //Loop Forever
+        menuAudioPlayer.numberOfLoops = -1
     }
     
     //----------------------------------Handle button touches----------------------------------
@@ -165,6 +183,11 @@ class MenuScene: SKScene {
         
         // If start button is touched, start transition to game scene
         if (node.name == "startButton") {
+            
+            //Stops background music
+            menuAudioPlayer.stop()
+            
+            
             startGame()
         }
         
@@ -248,7 +271,7 @@ class MenuScene: SKScene {
         Game_Scene.scaleMode = SKSceneScaleMode.AspectFill
         
         //Remove sound
-        backgroundMusic.removeFromParent()
+        //backgroundMusic.removeFromParent()
         
         self.scene!.view?.presentScene(Game_Scene, transition: transition)
     }
