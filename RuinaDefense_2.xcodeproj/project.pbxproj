@@ -10,6 +10,12 @@
 		135197791C1F62600049EF80 /* Hero1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135197781C1F62600049EF80 /* Hero1.swift */; };
 		1351977C1C1F7AB10049EF80 /* Hero1Sheet.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */; };
 		1351977D1C1F7AB10049EF80 /* Hero1Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */; };
+		1351F1161C20213D00740A8A /* Enemy1.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351F1101C20213D00740A8A /* Enemy1.atlasc */; };
+		1351F1171C20213D00740A8A /* Enemy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351F1111C20213D00740A8A /* Enemy1.swift */; };
+		1351F1181C20213D00740A8A /* Enemy2.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351F1121C20213D00740A8A /* Enemy2.atlasc */; };
+		1351F1191C20213D00740A8A /* Enemy2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351F1131C20213D00740A8A /* Enemy2.swift */; };
+		1351F11A1C20213D00740A8A /* Hero2.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351F1141C20213D00740A8A /* Hero2.atlasc */; };
+		1351F11B1C20213D00740A8A /* Hero2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351F1151C20213D00740A8A /* Hero2.swift */; };
 		3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */; };
 		3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7383031C13FA7E004335BA /* MenuScene.swift */; };
 		3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */; };
@@ -31,6 +37,12 @@
 		135197781C1F62600049EF80 /* Hero1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero1.swift; sourceTree = "<group>"; };
 		1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Hero1Sheet.atlasc; sourceTree = "<group>"; };
 		1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero1Sheet.swift; sourceTree = "<group>"; };
+		1351F1101C20213D00740A8A /* Enemy1.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Enemy1.atlasc; sourceTree = "<group>"; };
+		1351F1111C20213D00740A8A /* Enemy1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy1.swift; sourceTree = "<group>"; };
+		1351F1121C20213D00740A8A /* Enemy2.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Enemy2.atlasc; sourceTree = "<group>"; };
+		1351F1131C20213D00740A8A /* Enemy2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy2.swift; sourceTree = "<group>"; };
+		1351F1141C20213D00740A8A /* Hero2.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Hero2.atlasc; sourceTree = "<group>"; };
+		1351F1151C20213D00740A8A /* Hero2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero2.swift; sourceTree = "<group>"; };
 		3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTimer.swift; sourceTree = "<group>"; };
 		3F7383031C13FA7E004335BA /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dystopia_Background_Music.wav; sourceTree = "<group>"; };
@@ -82,6 +94,12 @@
 			children = (
 				1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */,
 				1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */,
+				1351F1141C20213D00740A8A /* Hero2.atlasc */,
+				1351F1151C20213D00740A8A /* Hero2.swift */,
+				1351F1101C20213D00740A8A /* Enemy1.atlasc */,
+				1351F1111C20213D00740A8A /* Enemy1.swift */,
+				1351F1121C20213D00740A8A /* Enemy2.atlasc */,
+				1351F1131C20213D00740A8A /* Enemy2.swift */,
 				3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */,
 				3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */,
 				3FE65CFC1C0FF3A200E4AA88 /* GameScene.swift */,
@@ -162,6 +180,8 @@
 			files = (
 				3FAE62DB1C1FFAE2009B906F /* GameSceneMusic.wav in Resources */,
 				3FE65CFB1C0FF3A200E4AA88 /* GameScene.sks in Resources */,
+				1351F11A1C20213D00740A8A /* Hero2.atlasc in Resources */,
+				1351F1161C20213D00740A8A /* Enemy1.atlasc in Resources */,
 				3FE65D071C0FF3A200E4AA88 /* LaunchScreen.storyboard in Resources */,
 				3FE65D041C0FF3A200E4AA88 /* Assets.xcassets in Resources */,
 				3FAE62D91C1FEC6B009B906F /* flameParticle.sks in Resources */,
@@ -169,6 +189,7 @@
 				3FAE62D41C1FE5A7009B906F /* snowParticle.sks in Resources */,
 				3FAE62D51C1FE5A7009B906F /* spark.png in Resources */,
 				3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */,
+				1351F1181C20213D00740A8A /* Enemy2.atlasc in Resources */,
 				1351977C1C1F7AB10049EF80 /* Hero1Sheet.atlasc in Resources */,
 				3FAE62D71C1FEA55009B906F /* heavySnowParticle.sks in Resources */,
 			);
@@ -183,10 +204,13 @@
 			files = (
 				135197791C1F62600049EF80 /* Hero1.swift in Sources */,
 				3FE65CFD1C0FF3A200E4AA88 /* GameScene.swift in Sources */,
+				1351F11B1C20213D00740A8A /* Hero2.swift in Sources */,
 				1351977D1C1F7AB10049EF80 /* Hero1Sheet.swift in Sources */,
 				3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */,
 				3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */,
 				3FE65CFF1C0FF3A200E4AA88 /* GameViewController.swift in Sources */,
+				1351F1171C20213D00740A8A /* Enemy1.swift in Sources */,
+				1351F1191C20213D00740A8A /* Enemy2.swift in Sources */,
 				3FE65CF91C0FF3A200E4AA88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
