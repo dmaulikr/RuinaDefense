@@ -18,8 +18,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let None : UInt32 = 0
         static let All : UInt32 = UInt32.max
         static let leftUnit : UInt32 = 0x1 << 0
-        static let rightUnit : UInt32 = 0x1 << 1
-        static let leftCastle : UInt32 = 0x1 << 2
+        static let leftCastle : UInt32 = 0x1 << 1
+        static let rightUnit : UInt32 = 0x1 << 2
         static let rightCastle : UInt32 = 01 << 3
     }
     
@@ -141,7 +141,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         //Add gravity
-        physicsWorld.gravity = CGVectorMake(0, -9.8);
+        physicsWorld.gravity = CGVectorMake(0, -20);
         //---------------------------------------------------------------
         
         //Add HUD Buttons
@@ -377,6 +377,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero1.zPosition = 3
         hero1.physicsBody = SKPhysicsBody(circleOfRadius: hero1.frame.width * 0.3)
         hero1.setScale(0.5)
+        //hero1.physicsBody?.mass = 500
         hero1.physicsBody?.friction = 0
         hero1.physicsBody?.restitution = 0
         hero1.physicsBody?.linearDamping = 0
@@ -408,6 +409,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy1.zPosition = 3
         enemy1.physicsBody = SKPhysicsBody(circleOfRadius: enemy1.frame.width * 0.3)
         enemy1.setScale(0.5)
+        //enemy1.physicsBody?.mass = 500
         enemy1.physicsBody?.friction = 0
         enemy1.physicsBody?.restitution = 0
         enemy1.physicsBody?.linearDamping = 0
@@ -827,9 +829,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // physics bodies
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
-        /*
-        // set the first body to be the left most of the two
-        if contact. < contact.bodyB.categoryBitMask {
+        
+        // set the first body to be the left unit and the second to be the right
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody = contact.bodyA
             secondBody = contact.bodyB
         } else {
@@ -838,10 +840,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // handle collision between opposing factions
-        if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BottomCategory {
-            //TODO: Replace the log statement with display of Game Over Scene
-            println("Hit bottom. First contact has been made.")
-        }*/
+        if firstBody.categoryBitMask == PhysicsCategory.leftUnit && secondBody.categoryBitMask == PhysicsCategory.rightUnit {
+            
+            firstBody.velocity = CGVectorMake(-1000, 1000)
+            secondBody.velocity = CGVectorMake(1000,1000)
+            
+            print("Fight began")
+            print(contact.bodyA.velocity)
+        }
     }
     
 }
