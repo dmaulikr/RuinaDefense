@@ -22,6 +22,7 @@ class GameScene: SKScene {
     var randomNum = 0 //For random cloud variant spawning
     //Music
     var gameAudioPlayer = AVAudioPlayer()
+    var musicPlaying = true
     
     //HUD
     let hudBar = SKSpriteNode(imageNamed: "hudBar")
@@ -45,11 +46,15 @@ class GameScene: SKScene {
     
     //Options Menu Nodes
     let optionsBG = SKSpriteNode(imageNamed: "popupWindow")
-    let optionsClose = SKLabelNode(text: "Close")
-    
+    let optionsMenuLabel = SKLabelNode(fontNamed: "Papyrus")
+    let optionsClose = SKLabelNode(fontNamed: "Papyrus")
+    let playMusicButton = SKSpriteNode(imageNamed: "playMusicButton")
+    let pauseMusicButton = SKSpriteNode(imageNamed: "pauseMusicButton")
+
     //Upgrade Menu Nodes
     let upgradeBG = SKSpriteNode(imageNamed: "popupWindow")
-    let upgradeClose = SKLabelNode(text: "Close")
+    let upgradeMenuLabel = SKLabelNode(fontNamed: "Papyrus")
+    let upgradeClose = SKLabelNode(fontNamed: "Papyrus")
     
     //Pop up menu buttons
     let optionButton = SKSpriteNode(imageNamed: "optionButton")
@@ -299,7 +304,7 @@ class GameScene: SKScene {
     }
     
     
-    //ADD GAME CLOUDS
+    ////----------------------ADD GAME CLOUDS----------------------
     private func addGameClouds() {
         
         //Random Number
@@ -350,7 +355,7 @@ class GameScene: SKScene {
     }
     
     
-    //Spawn Hero1. Runs and animates rightward
+    //----------------------HERO1 SPAWNING----------------------
     func spawnHero1() {
         
         let hero1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
@@ -379,6 +384,7 @@ class GameScene: SKScene {
         
     }
     
+    //----------------------ENEMY SPAWNING----------------------
     func spawnEnemy() {
     let enemy1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
         
@@ -456,6 +462,7 @@ class GameScene: SKScene {
             
             
             // Check if the location of the touch is within the button's bounds
+            
             if spawnHero1Button.containsPoint(location) {
                 print("Spawn Hero")
                 spawnHero1()
@@ -499,6 +506,7 @@ class GameScene: SKScene {
                 self.scene!.view?.presentScene(Menu_scene, transition: transition)
             }
             
+            //---------------------------OPEN MENUS---------------------------
             //OPTIONS BUTTON PRESSED
             if optionButton.containsPoint(location) {
                 print("game options button pressed")
@@ -549,18 +557,25 @@ class GameScene: SKScene {
             }
             
             
-            
+            //---------------------------CLOSE MENUS---------------------------
             
             //Close Menu buttons
             if optionsClose.containsPoint(location) {
                 print("options close button pressed")
                 
-                //Move the menu buttons off screen
-                optionsClose.position = CGPoint(x: -50, y: -50)
+
                 
-                //Remove all nodes associated with options menu
-                optionsClose.removeFromParent()
-                optionsBG.removeFromParent()
+                //Animation: moves sprite up
+                let moveUp = SKAction.moveByX(0, y: 530, duration: 1.5)
+                let finishedMoving = SKAction.removeFromParent()
+                let sequence = SKAction.sequence([moveUp, finishedMoving])
+                
+                //Move all menu stuff up
+                optionsClose.runAction(sequence)
+                optionsBG.runAction(sequence)
+                playMusicButton.runAction(sequence)
+                pauseMusicButton.runAction(sequence)
+                optionsMenuLabel.runAction(sequence)
                 
                 //Set button to clickable
                 self.clickable = true
@@ -570,15 +585,20 @@ class GameScene: SKScene {
                 self.paused = false
             }
             
+            
             if upgradeClose.containsPoint(location) {
                 print("upgrade close button pressed")
                 
-                //Move the menu buttons off screen
-                upgradeClose.position = CGPoint(x: -50, y: -50)
                 
-                //Remove all nodes associated with upgrade menu
-                upgradeClose.removeFromParent()
-                upgradeBG.removeFromParent()
+                //Animate menu offscreen
+                let moveUp = SKAction.moveByX(0, y: 530, duration: 1.5)
+                let finishedMoving = SKAction.removeFromParent()
+                let sequence = SKAction.sequence([moveUp, finishedMoving])
+                
+                //Move all menu stuff up
+                upgradeClose.runAction(sequence)
+                upgradeBG.runAction(sequence)
+                upgradeMenuLabel.runAction(sequence)
                 
                 //Set button to clickable
                 self.clickable = true
@@ -586,6 +606,35 @@ class GameScene: SKScene {
                 //resume scene
                 isRunning = true
                 self.paused = false
+            }
+            
+            //---------------------------MENU BUTTONS---------------------------
+            
+            if pauseMusicButton.containsPoint(location) {
+                print("Pause Music Pressed")
+                
+                if (musicPlaying == true) {
+                    
+                    //pause music
+                    gameAudioPlayer.pause()
+                    
+                    //set music playing to false
+                    musicPlaying = false
+                }
+                
+            }
+            
+            if playMusicButton.containsPoint(location) {
+                print("Play Music Pressed")
+                
+                if (musicPlaying == false) {
+                 
+                    //play music
+                    gameAudioPlayer.play()
+                    
+                    //set music playing to true'
+                    musicPlaying = true
+                }
             }
         }
     }
@@ -598,23 +647,36 @@ class GameScene: SKScene {
         optionsBG.zPosition = 10
         optionsBG.setScale(0.7)
         
-        
-        
-        //CHILD NODES------
-        
         //Close button
         optionsClose.fontColor = SKColor.blackColor()
+        optionsClose.text = "Resume"
         optionsClose.fontSize = 50
-        optionsClose.position = CGPoint(x: CGRectGetMidX(optionsBG.frame), y: CGRectGetMidY(optionsBG.frame))
+        optionsClose.position = CGPoint(x: CGRectGetMidX(optionsBG.frame), y: CGRectGetMidY(optionsBG.frame)-200)
         optionsClose.zPosition = 100
         
+        //Options Menu Label
+        optionsMenuLabel.text = "Options"
+        optionsMenuLabel.fontSize = 50
+        optionsMenuLabel.position = CGPoint(x: CGRectGetMidX(optionsBG.frame), y: CGRectGetMidY(optionsBG.frame)+150)
+        optionsMenuLabel.zPosition = 13
+        optionsMenuLabel.fontColor = SKColor.blackColor()
+        
         //Pause music button
+        pauseMusicButton.position = CGPoint(x: CGRectGetMidX(optionsBG.frame)-100, y: CGRectGetMidY(optionsBG.frame))
+        pauseMusicButton.zPosition = 11
+        pauseMusicButton.setScale(0.5)
         
         //Play music button
+        playMusicButton.position = CGPoint(x: CGRectGetMidX(optionsBG.frame)+100, y: CGRectGetMidY(optionsBG.frame))
+        playMusicButton.zPosition = 11
+        playMusicButton.setScale(0.5)
         
         //Add to view
         self.addChild(optionsClose)
         self.addChild(optionsBG)
+        self.addChild(optionsMenuLabel)
+        self.addChild(playMusicButton)
+        self.addChild(pauseMusicButton)
         
     }
     
@@ -626,17 +688,26 @@ class GameScene: SKScene {
         upgradeBG.zPosition = 10
         upgradeBG.setScale(0.7)
         
-        //CHILD NODES-------
+        //Upgrade Menu Label
+        upgradeMenuLabel.text = "Upgrades"
+        upgradeMenuLabel.fontSize = 50
+        upgradeMenuLabel.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame)+150)
+        upgradeMenuLabel.zPosition = 13
+        upgradeMenuLabel.fontColor = SKColor.blackColor()
+        
         
         //Close Button
         upgradeClose.fontColor = SKColor.blackColor()
         upgradeClose.fontSize = 50
-        upgradeClose.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame))
+        upgradeClose.text = "Resume"
+        upgradeClose.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame)-190)
         upgradeClose.zPosition = 100
+
         
         //Add to view
         self.addChild(upgradeBG)
         self.addChild(upgradeClose)
+        self.addChild(upgradeMenuLabel)
     }
     
     
