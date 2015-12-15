@@ -30,10 +30,6 @@ class MenuScene: SKScene {
         
         print("moved to menu view")
         
-        //To allow tap anywhere to remove keyboard
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
-        
         //Set Username if it hasn't been set already
         if (user == "nil") {
             
@@ -243,11 +239,6 @@ class MenuScene: SKScene {
         
     }
     
-    //Calls this function when the tap is recognized.
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view!.endEditing(true)
-    }
     
     //----------------------------Handle transition to gamescene-------------------------
     private func startGame() {

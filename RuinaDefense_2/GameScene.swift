@@ -81,6 +81,12 @@ class GameScene: SKScene {
         background.zPosition = 0
         self.addChild(background)
         
+        //ADD SNOOOOOW
+        let path = NSBundle.mainBundle().pathForResource("heavySnowParticle", ofType: "sks")
+        let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        snow.position = CGPoint(x: CGRectGetMidX(background.frame), y: CGRectGetMaxY(background.frame))
+        snow.zPosition = 6
+        background.addChild(snow)
         
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
