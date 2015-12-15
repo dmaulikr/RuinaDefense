@@ -91,7 +91,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
         //let collisionFrame = CGRectInset(background.frame, -2000, 240.0)    //There is a problem here. Captain does not spawn when view is to the right
-        let collisionFrame = CGRect(x: 0, y: 0, width: 3840, height: 240)
+        let collisionFrame = CGRect(x: -3840, y: 0, width: 7680, height: 240)
         //might have fixed problem by changing # to -2000. Not sure the consequences tho
         physicsBody = SKPhysicsBody(edgeLoopFromRect: collisionFrame)
         
@@ -312,19 +312,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero1.physicsBody?.angularDamping = 0
         hero1.physicsBody?.allowsRotation = false
         
-        // TEST
-        let sheet = Hero1Sheet()
-        let sprite = SKSpriteNode(texture: sheet.run_1_())
-        sprite.position = CGPoint(x: 160, y: 241)
-        sprite.zPosition = 3
-        sprite.physicsBody = SKPhysicsBody(circleOfRadius: sprite.frame.width * 0.3)
-        sprite.setScale(0.5)
-        sprite.physicsBody?.friction = 0
-        sprite.physicsBody?.restitution = 0
-        sprite.physicsBody?.linearDamping = 0
-        sprite.physicsBody?.angularDamping = 0
-        sprite.physicsBody?.allowsRotation = false
-        sprite.physicsBody?.velocity = CGVectorMake(0, 0)
+        //Add to scene
+        background.addChild(hero1)
         
         //Animates the hero
         let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.033)
@@ -334,19 +323,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Moves hero rightward forever
         moveRight(hero1)
         
-        //let walk = SKAction.animateWithTextures(sheet.hero1_run()), timePerFrame: 0.033)
-        let run = SKAction.animateWithTextures(sheet.run(), timePerFrame: 0.1)
+    }
+    
+    func spawnEnemy() {
+    let enemy1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
+        
+        //Set position and physics body stuff
+        enemy1.position = CGPoint(x: 2500, y: 241)
+        enemy1.zPosition = 3
+        enemy1.physicsBody = SKPhysicsBody(circleOfRadius: enemy1.frame.width * 0.3)
+        enemy1.setScale(0.5)
+        enemy1.physicsBody?.friction = 0
+        enemy1.physicsBody?.restitution = 0
+        enemy1.physicsBody?.linearDamping = 0
+        enemy1.physicsBody?.angularDamping = 0
+        enemy1.physicsBody?.allowsRotation = false
+        enemy1.xScale = enemy1.xScale * -1
+        
+        //Add to scene
+        background.addChild(enemy1)
+        
+        //Animates the hero
+        let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.033)
         let action = SKAction.repeatActionForever(run)
-        sprite.runAction(action)
+        enemy1.runAction(action)
         
-        // sprite.physicsBody?.categoryBitMask = PhysicsCategory.block
-        //sprite.physicsBody?.collisionBitMask = PhysicsCategory.All
-
-        background.addChild(sprite)
-        
-
-        //sprite.runAction(sequence)
-        sprite.physicsBody?.applyImpulse(CGVectorMake(250, 0))
+        //Move enemy leftward
+        moveLeft(enemy1)
+    }
+    
+    //Move sprite right -- NO ANIMATION
+    func moveRight(sprite: SKSpriteNode) {
         
         //Moves node rightward
         let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
