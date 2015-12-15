@@ -15,15 +15,32 @@ import SpriteKit
 //  buttons: start, option, credits, etc.
 //
 //---------------------------------------------------------------------
+
+var user = "nil"
+
 class MenuScene: SKScene {
     
     //----------Variables-----------
     var backgroundMusic: SKAudioNode!
+    let window = SKSpriteNode(imageNamed: "popupWindow")
+    let windowClose = SKLabelNode(fontNamed: "Papyrus")
+    let userNameText = UITextField(frame: CGRectMake(190 , 80, 290, 50))
     
     override func didMoveToView(view: SKView) {
         
         print("moved to menu view")
         
+        //Set Username if it hasn't been set already
+        if (user == "nil") {
+            
+            //Brings up window
+            popUpWindow()
+            
+            //Textfield where user can input username
+            userNameTextInput()
+
+            
+        }
         //-------------------------------Background-------------------------------
         let menuBackground = SKSpriteNode(imageNamed: "menuBackground.png")
         menuBackground.name = "menuBackground"
@@ -155,9 +172,65 @@ class MenuScene: SKScene {
             print("statistics button pressed")
         }
         
+        // If select button is pressed then delete the kids and set new user
+        if (node.name == "windowCloseButton") {
+            print("close button pressed")
+            
+            //Set userName
+            user = userNameText.text!
+            print("Username Entered: ", user)
+            
+            //Close window and remove nodes/textfield
+            userNameText.removeFromSuperview()
+            
+            //Animate menu offscreen
+            let moveUp = SKAction.moveByX(0, y: 530, duration: 1.5)
+            let finishedMoving = SKAction.removeFromParent()
+            let sequence = SKAction.sequence([moveUp, finishedMoving])
+            window.runAction(sequence)
+            windowClose.runAction(sequence)
+
+        }
+    }
+    
+    //----------------------------Handle Username Input----------------------------------
+    func userNameTextInput() {
+        
+        print("create text input")
+        
+        userNameText.placeholder = "Your Name, Sire"
+        userNameText.font = UIFont(name: "Papyrus", size: 25)
+        userNameText.textColor = UIColor.blackColor()
+        userNameText.textAlignment = .Center
+        userNameText.backgroundColor = UIColor.clearColor()
+        userNameText.autocorrectionType = UITextAutocorrectionType.Yes
+        userNameText.keyboardType = UIKeyboardType.Twitter
+        userNameText.clearButtonMode = UITextFieldViewMode.WhileEditing
+        self.view!.addSubview(userNameText)
         
     }
     
+    //OPEN USER INPUT WINDOW
+    func popUpWindow() {
+        
+        //Background
+        window.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
+        window.zPosition = 10
+        window.setScale(0.7)
+        
+        //Select button
+        windowClose.fontColor = SKColor.blackColor()
+        windowClose.name = "windowCloseButton"
+        windowClose.text = "Select"
+        windowClose.fontSize = 50
+        windowClose.position = CGPoint(x: CGRectGetMidX(window.frame), y: CGRectGetMidY(window.frame)-170)
+        windowClose.zPosition = 100
+        
+        //Add to view
+        self.addChild(windowClose)
+        self.addChild(window)
+        
+    }
     
     //----------------------------Handle transition to gamescene-------------------------
     private func startGame() {
