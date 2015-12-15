@@ -166,5 +166,25 @@ class Hero2Sheet {
     func walk_7_() -> SKTexture          { return textureAtlas.textureNamed(WALK_7_) }
     func walk_8_() -> SKTexture          { return textureAtlas.textureNamed(WALK_8_) }
     func walk_9_() -> SKTexture          { return textureAtlas.textureNamed(WALK_9_) }
+    
+    // animations
+    func run() -> [SKTexture] {
+        return [
+            run_1_(),
+            run_2_(),
+            run_3_(),
+            run_4_(),
+            run_5_(),
+            run_6_(),
+            run_7_(),
+            run_8_(),
+            run_9_(),
+            run_10_(),
+            run_11_(),
+            run_12_(),
+            run_13_(),
+            run_14_(),
+        ]
+    }
 
 }
