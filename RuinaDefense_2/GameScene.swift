@@ -90,10 +90,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.zPosition = 0
         self.addChild(background)
         
-        print("Width = ", background.frame.width)
-        print("Height = ", background.frame.height)
-        print("Size = ", background.size)
-        
         //ADD SNOOOOOW
         let path = NSBundle.mainBundle().pathForResource("heavySnowParticle", ofType: "sks")
         let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
@@ -127,11 +123,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
-        //let collisionFrame = CGRectInset(background.frame, -2000, 240.0)    //There is a problem here. Captain does not spawn when view is to the right
-        let collisionFrame = CGRect(x: -3840, y: 0, width: 7680, height: 240)
-
-        //might have fixed problem by changing # to -2000. Not sure the consequences tho
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: background.frame)
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRectInset(background.frame, 0, 240))
         
         
         //Set friction of the physics body to 0
@@ -698,7 +690,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 selectedNode.runAction(moveTo)
             }
         }
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: background.frame)
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRectInset(background.frame, 0, 240))
     }
     
     
