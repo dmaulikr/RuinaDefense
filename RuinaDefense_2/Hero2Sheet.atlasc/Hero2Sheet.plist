@@ -7,7 +7,7 @@
             <key>generator</key>
             <string>TexturePacker 4.0.1 - http://www.codeandweb.com/texturepacker</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5fbbd85429a8831dc0723c52b99126d6:67f80b27bb209b2416cc9e6ef16dc12e:c605fdc996bca9b6deff05f5884d89c3$</string>
+            <string>$TexturePacker:SmartUpdate:ad752a410b6a5936899912b772601fac:67f80b27bb209b2416cc9e6ef16dc12e:902a0ebd3b83cbabb6c918b9f6e94812$</string>
         </dict>
         <key>format</key>
         <string>APPL</string>
@@ -15,7 +15,7 @@
         <array>
             <dict>
                 <key>path</key>
-                <string>Hero2.1.png</string>
+                <string>Hero2Sheet.1.png</string>
                 <key>size</key>
                 <string>{1686,2032}</string>
                 <key>subimages</key>

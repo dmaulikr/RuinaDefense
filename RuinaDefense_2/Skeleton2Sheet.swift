@@ -1,5 +1,5 @@
 // ---------------------------------------
-// Sprite definitions for 'Enemy1'
+// Sprite definitions for 'Skeleton2Sheet'
 // Generated with TexturePacker 4.0.1
 //
 // http://www.codeandweb.com/texturepacker
@@ -8,7 +8,7 @@
 import SpriteKit
 
 
-class Enemy1 {
+class Skeleton2Sheet {
 
     // sprite names
     let ATTACK_1_ = "attack (1)"
@@ -16,16 +16,10 @@ class Enemy1 {
     let ATTACK_3_ = "attack (3)"
     let ATTACK_4_ = "attack (4)"
     let ATTACK_5_ = "attack (5)"
-    let ATTACK_6_ = "attack (6)"
-    let ATTACK_7_ = "attack (7)"
-    let ATTACK_8_ = "attack (8)"
     let DEAD_1_   = "dead (1)"
     let DEAD_2_   = "dead (2)"
     let DEAD_3_   = "dead (3)"
     let DEAD_4_   = "dead (4)"
-    let DEFEND_1_ = "defend (1)"
-    let DEFEND_2_ = "defend (2)"
-    let DEFEND_3_ = "defend (3)"
     let HURT      = "hurt"
     let IDLE      = "idle"
     let WALK_10_  = "walk (10)"
@@ -43,7 +37,7 @@ class Enemy1 {
 
 
     // load texture atlas
-    let textureAtlas = SKTextureAtlas(named: "Enemy1")
+    let textureAtlas = SKTextureAtlas(named: "Skeleton2Sheet")
 
 
     // individual texture objects
@@ -52,16 +46,10 @@ class Enemy1 {
     func attack_3_() -> SKTexture { return textureAtlas.textureNamed(ATTACK_3_) }
     func attack_4_() -> SKTexture { return textureAtlas.textureNamed(ATTACK_4_) }
     func attack_5_() -> SKTexture { return textureAtlas.textureNamed(ATTACK_5_) }
-    func attack_6_() -> SKTexture { return textureAtlas.textureNamed(ATTACK_6_) }
-    func attack_7_() -> SKTexture { return textureAtlas.textureNamed(ATTACK_7_) }
-    func attack_8_() -> SKTexture { return textureAtlas.textureNamed(ATTACK_8_) }
     func dead_1_() -> SKTexture   { return textureAtlas.textureNamed(DEAD_1_) }
     func dead_2_() -> SKTexture   { return textureAtlas.textureNamed(DEAD_2_) }
     func dead_3_() -> SKTexture   { return textureAtlas.textureNamed(DEAD_3_) }
     func dead_4_() -> SKTexture   { return textureAtlas.textureNamed(DEAD_4_) }
-    func defend_1_() -> SKTexture { return textureAtlas.textureNamed(DEFEND_1_) }
-    func defend_2_() -> SKTexture { return textureAtlas.textureNamed(DEFEND_2_) }
-    func defend_3_() -> SKTexture { return textureAtlas.textureNamed(DEFEND_3_) }
     func hurt() -> SKTexture      { return textureAtlas.textureNamed(HURT) }
     func idle() -> SKTexture      { return textureAtlas.textureNamed(IDLE) }
     func walk_10_() -> SKTexture  { return textureAtlas.textureNamed(WALK_10_) }

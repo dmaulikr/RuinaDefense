@@ -7,7 +7,7 @@
             <key>generator</key>
             <string>TexturePacker 4.0.1 - http://www.codeandweb.com/texturepacker</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:60fd941af1519aa84eca5cd684671758:128c4544d9ad3392f5b630006d2745c2:3a8af78f95fcf95ccb59fcd08f376ef9$</string>
+            <string>$TexturePacker:SmartUpdate:b734695a3a4d46c900066f3c13d9c904:128c4544d9ad3392f5b630006d2745c2:d535385de7b643ad243d4dd96d1bdf7e$</string>
         </dict>
         <key>format</key>
         <string>APPL</string>
@@ -15,7 +15,7 @@
         <array>
             <dict>
                 <key>path</key>
-                <string>Enemy1.1.png</string>
+                <string>Skeleton1Sheet.1.png</string>
                 <key>size</key>
                 <string>{2017,577}</string>
                 <key>subimages</key>

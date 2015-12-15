@@ -1,5 +1,5 @@
 // ---------------------------------------
-// Sprite definitions for 'Hero2'
+// Sprite definitions for 'Hero2Sheet'
 // Generated with TexturePacker 4.0.1
 //
 // http://www.codeandweb.com/texturepacker
@@ -8,7 +8,7 @@
 import SpriteKit
 
 
-class Hero2 {
+class Hero2Sheet {
 
     // sprite names
     let ATTACK_1_        = "attack (1)"
@@ -88,7 +88,7 @@ class Hero2 {
 
 
     // load texture atlas
-    let textureAtlas = SKTextureAtlas(named: "Hero2")
+    let textureAtlas = SKTextureAtlas(named: "Hero2Sheet")
 
 
     // individual texture objects
