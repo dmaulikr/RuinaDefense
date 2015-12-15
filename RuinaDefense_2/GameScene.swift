@@ -9,9 +9,15 @@
 import SpriteKit
 import Foundation
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //-------------------------Class Variables----------------------//
+    
+    struct PhysicsCategory {
+        static let None : UInt32 = 0
+        static let All : UInt32 = UInt32.max
+        static let block : UInt32 = 0b1
+    }
     
     //Scene
     //let scene = GameScene(fileNamed: "GameScene")
@@ -80,7 +86,8 @@ class GameScene: SKScene {
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
         //Physics body that borders the screen. Set slightly above so there is space for hud
-        let collisionFrame = CGRectInset(background.frame, -2000, 240.0)    //There is a problem here. Captain does not spawn when view is to the right
+        //let collisionFrame = CGRectInset(background.frame, -2000, 240.0)    //There is a problem here. Captain does not spawn when view is to the right
+        let collisionFrame = CGRect(x: 0, y: 0, width: 3840, height: 240)
         //might have fixed problem by changing # to -2000. Not sure the consequences tho
         physicsBody = SKPhysicsBody(edgeLoopFromRect: collisionFrame)
         
@@ -336,6 +343,7 @@ class GameScene: SKScene {
         sprite.physicsBody?.linearDamping = 0
         sprite.physicsBody?.angularDamping = 0
         sprite.physicsBody?.allowsRotation = false
+        sprite.physicsBody?.velocity = CGVectorMake(0, 0)
         
         let moveRight = SKAction.moveByX(2674, y:0, duration:7.0)
         //Removes node from scene
@@ -344,14 +352,18 @@ class GameScene: SKScene {
         let sequence = SKAction.sequence([moveRight,finishedRunning])
         
         //let walk = SKAction.animateWithTextures(sheet.hero1_run()), timePerFrame: 0.033)
-        let run = SKAction.animateWithTextures(sheet.run(), timePerFrame: 0.033)
+        let run = SKAction.animateWithTextures(sheet.run(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         sprite.runAction(action)
-        //background.addChild(sprite)
+        
+        // sprite.physicsBody?.categoryBitMask = PhysicsCategory.block
+        //sprite.physicsBody?.collisionBitMask = PhysicsCategory.All
+
         background.addChild(sprite)
         
 
-        sprite.runAction(sequence)
+        //sprite.runAction(sequence)
+        sprite.physicsBody?.applyImpulse(CGVectorMake(250, 0))
         
     }
     
