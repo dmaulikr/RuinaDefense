@@ -18,19 +18,19 @@ import AVFoundation
 //---------------------------------------------------------------------
 
 var user = "nil"
+var audioPlayer = AVAudioPlayer()
 
 class MenuScene: SKScene {
     
     //----------Variables-----------
-    //var backgroundMusic: SKAudioNode!
     let window = SKSpriteNode(imageNamed: "popupWindow")
     let windowClose = SKLabelNode(fontNamed: "Papyrus")
     let userNameText = UITextField(frame: CGRectMake(190 , 80, 290, 50))
-    var menuAudioPlayer = AVAudioPlayer()
     
     override func didMoveToView(view: SKView) {
         
         print("moved to menu view")
+        
         
         //Set Username if it hasn't been set already
         if (user == "nil") {
@@ -87,7 +87,7 @@ class MenuScene: SKScene {
         //Add all the buttons
         addButtons()
         
-        //Start music -- DOES NOT PLAY WHEN RETURNING TO MENU FROM GAME SCENE
+        //Start music
         playMusic()
     }
     
@@ -160,19 +160,19 @@ class MenuScene: SKScene {
         let musicPath = NSBundle.mainBundle().URLForResource("Dystopia_Background_Music", withExtension: "wav")
         
         do {
-        menuAudioPlayer = try AVAudioPlayer(contentsOfURL: musicPath!)
+        audioPlayer = try AVAudioPlayer(contentsOfURL: musicPath!)
         }
         catch {
             fatalError("Error loading \(musicPath)")
         }
         
-        menuAudioPlayer.prepareToPlay()
+        audioPlayer.prepareToPlay()
         
         //Play background music
-        menuAudioPlayer.play()
+        audioPlayer.play()
         
         //Loop Forever
-        menuAudioPlayer.numberOfLoops = -1
+        audioPlayer.numberOfLoops = -1
     }
     
     //----------------------------------Handle button touches----------------------------------
@@ -185,7 +185,7 @@ class MenuScene: SKScene {
         if (node.name == "startButton") {
             
             //Stops background music
-            menuAudioPlayer.stop()
+            audioPlayer.stop()
             
             
             startGame()
