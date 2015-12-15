@@ -861,6 +861,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 }
 
+//TODO: Captain does not spawn when view is to the right 
+// this is because of how we pan the screen, we are moving the background node instead of actually
+// moving our camera to the right
+
 //TODO: Gold increments even when returning to menu
 //TODO: Finish options menu
 //TODO: Finish upgrade menu
