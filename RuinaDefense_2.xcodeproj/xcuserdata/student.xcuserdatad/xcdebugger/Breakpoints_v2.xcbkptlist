@@ -91,38 +91,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "8"
             endingLineNumber = "8">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "globalinit_33_301F63FFF16AE09622A5B9E33E8FBDA5_func0"
-                  moduleName = "RuinaDefense_2"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/global.swift"
-                  timestampString = "471820010.128915"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RuinaDefense_2.captain.unsafeMutableAddressor : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.SKSpriteNode&gt;"
-                  moduleName = "RuinaDefense_2"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Desktop/iOS%20Programming/Xcode%20Programs/RuinaDefense_2/RuinaDefense_2/global.swift"
-                  timestampString = "471820010.129076"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
