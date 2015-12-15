@@ -94,6 +94,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Height = ", background.frame.height)
         print("Size = ", background.size)
         
+        //ADD SNOOOOOW
+        let path = NSBundle.mainBundle().pathForResource("heavySnowParticle", ofType: "sks")
+        let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        snow.position = CGPoint(x: CGRectGetMidX(background.frame), y: CGRectGetMaxY(background.frame))
+        snow.zPosition = 6
+        background.addChild(snow)
+        
         //Add fire to the castles
         let firePath = NSBundle.mainBundle().pathForResource("flameParticle", ofType: "sks")
         let flame = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
