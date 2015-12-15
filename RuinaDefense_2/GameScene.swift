@@ -43,7 +43,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //HUD Buttons
     let spawnHero1Button = SKSpriteNode(imageNamed: "SpawnButton")
+    let spawnHero2Button = SKSpriteNode(imageNamed: "SpawnButton")
+    let spawnHero3Button = SKSpriteNode(imageNamed: "SpawnButton")
     let spawnEnemyButton = SKSpriteNode(imageNamed: "SpawnButton")
+
     let menuButton = SKSpriteNode(imageNamed: "menuButton")
     
     //HUD Labels
@@ -78,6 +81,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //FOR CHARACTERS
     let Hero1_Sheet = Hero1Sheet() //Animations for Hero1
+    //let Hero2_Sheet = Hero2Sheet() //Animations for Hero1
+    //let Hero3_Sheet = Hero3Sheet() //Animations for Hero1
     
     //-----------------------Class Variables End--------------------//
     
@@ -189,7 +194,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         
         audioPlayer.prepareToPlay()
-        audioPlayer.currentTime = 0
+        audioPlayer.currentTime = 28
         
         //Play background music
         audioPlayer.play()
@@ -237,15 +242,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bottomBorder.size.width = 1334
         self.addChild(bottomBorder)
     
-        //Create spawn hero button
+        //Create spawn hero1 button
         spawnHero1Button.setScale(0.3)
-        spawnHero1Button.position = CGPoint(x:800, y:90)
+        spawnHero1Button.position = CGPoint(x:770, y:90)
         spawnHero1Button.zPosition = 3
         self.addChild(spawnHero1Button)
         
+        //Create spawn hero2 button
+        spawnHero2Button.setScale(0.3)
+        spawnHero2Button.position = CGPoint(x:920, y:90)
+        spawnHero2Button.zPosition = 3
+        self.addChild(spawnHero2Button)
+        
+        //Create spawn hero3 button
+        spawnHero3Button.setScale(0.3)
+        spawnHero3Button.position = CGPoint(x:1070, y:90)
+        spawnHero3Button.zPosition = 3
+        self.addChild(spawnHero3Button)
+        
         //Create spawn enemy button
         spawnEnemyButton.setScale(0.3)
-        spawnEnemyButton.position = CGPoint(x:950, y:90)
+        spawnEnemyButton.position = CGPoint(x:1220, y:90)
         spawnEnemyButton.zPosition = 3
         self.addChild(spawnEnemyButton)
         
@@ -368,7 +385,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //========================================UNIT SPAWNING========================================
     
-    //----------------------HERO1 SPAWNING----------------------
+    //----------------------HERO SPAWNING----------------------
     func spawnHero1() {
         
         let hero1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
@@ -401,6 +418,75 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Moves hero rightward forever
         moveRight(hero1)
         
+    }
+    
+    func spawnHero2() {
+        /*
+        let hero2 = SKSpriteNode(texture: Hero2_Sheet.run_1_())
+        
+        //Set position and physics body stuff
+        hero2.position = CGPoint(x: 160, y: 241)
+        print("Width = %f", self.view!.frame.width)
+        print("Height = %f", self.view!.frame.height)
+        hero2.zPosition = 3
+        hero2.physicsBody = SKPhysicsBody(circleOfRadius: hero2.frame.width * 0.3)
+        hero2.setScale(0.5)
+        //hero1.physicsBody?.mass = 500
+        hero2.physicsBody?.friction = 0
+        hero2.physicsBody?.restitution = 0
+        hero2.physicsBody?.linearDamping = 0
+        hero2.physicsBody?.angularDamping = 0
+        hero2.physicsBody?.allowsRotation = false
+        hero2.physicsBody?.categoryBitMask = PhysicsCategory.leftUnit
+        hero2.physicsBody?.contactTestBitMask = PhysicsCategory.All
+        
+        
+        //Add to scene
+        background.addChild(hero2)
+        
+        //Animates the hero
+        let run = SKAction.animateWithTextures(Hero2_Sheet.run(), timePerFrame: 0.033)
+        let action = SKAction.repeatActionForever(run)
+        hero2.runAction(action)
+        
+        //Moves hero rightward forever
+        moveRight(hero2)
+*/
+        
+    }
+    
+    func spawnHero3() {
+        /*
+        let hero3 = SKSpriteNode(texture: Hero3_Sheet.run_1_())
+        
+        //Set position and physics body stuff
+        hero3.position = CGPoint(x: 160, y: 241)
+        print("Width = %f", self.view!.frame.width)
+        print("Height = %f", self.view!.frame.height)
+        hero3.zPosition = 3
+        hero3.physicsBody = SKPhysicsBody(circleOfRadius: hero3.frame.width * 0.3)
+        hero3.setScale(0.5)
+        //hero1.physicsBody?.mass = 500
+        hero3.physicsBody?.friction = 0
+        hero3.physicsBody?.restitution = 0
+        hero3.physicsBody?.linearDamping = 0
+        hero3.physicsBody?.angularDamping = 0
+        hero3.physicsBody?.allowsRotation = false
+        hero3.physicsBody?.categoryBitMask = PhysicsCategory.leftUnit
+        hero3.physicsBody?.contactTestBitMask = PhysicsCategory.All
+        
+        
+        //Add to scene
+        background.addChild(hero3)
+        
+        //Animates the hero
+        let run = SKAction.animateWithTextures(Hero3_Sheet.run(), timePerFrame: 0.033)
+        let action = SKAction.repeatActionForever(run)
+        hero3.runAction(action)
+        
+        //Moves hero rightward forever
+        moveRight(hero3)
+        */
     }
     
     //----------------------ENEMY SPAWNING----------------------
@@ -490,8 +576,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // Check if the location of the touch is within the button's bounds
             
             if spawnHero1Button.containsPoint(location) {
-                print("Spawn Hero")
+                print("Spawn Hero1")
                 spawnHero1()
+            }
+            
+            if spawnHero2Button.containsPoint(location) {
+                print("Spawn hero2")
+                spawnHero2()
+            }
+            
+            if spawnHero3Button.containsPoint(location) {
+                print("Spawn hero 3")
+                spawnHero3()
+                
             }
             
             if spawnEnemyButton.containsPoint(location) {
