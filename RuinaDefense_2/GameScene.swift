@@ -624,6 +624,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         optionsClose.position = CGPoint(x: CGRectGetMidX(optionsBG.frame), y: CGRectGetMidY(optionsBG.frame))
         optionsClose.zPosition = 100
         
+        //Pause music button
+        
+        //Play music button
+        
         //Add to view
         self.addChild(optionsClose)
         self.addChild(optionsBG)
@@ -754,12 +758,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //TODO: Gold increments even when returning to menu
 //TODO: Finish options menu
 //TODO: Finish upgrade menu
-//TODO: Finish HUD
 //Health bar
-//Update username
-
-//SET USER INTERACTION TO DISABLED WHEN A POP UP MENU APPEARS
-
-//MUSIC ISSUES:
-//When returning to menu from gamescene. Music plays for only am moment, then cuts out. Attemped to fix, didn't work.
-//When startin game, music starts for a moment and cuts out
