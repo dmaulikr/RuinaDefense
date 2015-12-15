@@ -17,7 +17,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     struct PhysicsCategory {
         static let None : UInt32 = 0
         static let All : UInt32 = UInt32.max
-        static let block : UInt32 = 0b1
+        static let leftUnit : UInt32 = 0x1 << 0
+        static let rightUnit : UInt32 = 0x1 << 1
+        static let leftCastle : UInt32 = 0x1 << 2
+        static let rightCastle : UInt32 = 01 << 3
     }
     
     //Scene
@@ -129,6 +132,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Set friction of the physics body to 0
         physicsBody?.friction = 0
         
+        // Set contact delegate
+        physicsWorld.contactDelegate = self
         
         //Add gravity
         physicsWorld.gravity = CGVectorMake(0, -9.8);
@@ -372,6 +377,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero1.physicsBody?.linearDamping = 0
         hero1.physicsBody?.angularDamping = 0
         hero1.physicsBody?.allowsRotation = false
+        hero1.physicsBody?.categoryBitMask = PhysicsCategory.leftUnit
+        hero1.physicsBody?.contactTestBitMask = PhysicsCategory.All
         
         
         //Add to scene
@@ -401,6 +408,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy1.physicsBody?.angularDamping = 0
         enemy1.physicsBody?.allowsRotation = false
         enemy1.xScale = enemy1.xScale * -1
+        enemy1.physicsBody?.categoryBitMask = PhysicsCategory.rightUnit
+        enemy1.physicsBody?.contactTestBitMask = PhysicsCategory.All
         
         //Add to scene
         background.addChild(enemy1)
@@ -741,11 +750,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    // Handles collisions
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        // physics bodies
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+        /*
+        // set the first body to be the left most of the two
+        if contact. < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        // handle collision between opposing factions
+        if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BottomCategory {
+            //TODO: Replace the log statement with display of Game Over Scene
+            println("Hit bottom. First contact has been made.")
+        }*/
+    }
+    
 }
-
-//TODO: Captain does not spawn when view is to the right 
-// this is because of how we pan the screen, we are moving the background node instead of actually
-// moving our camera to the right
 
 //TODO: Gold increments even when returning to menu
 //TODO: Finish options menu
