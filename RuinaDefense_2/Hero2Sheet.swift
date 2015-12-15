@@ -168,6 +168,97 @@ class Hero2Sheet {
     func walk_9_() -> SKTexture          { return textureAtlas.textureNamed(WALK_9_) }
     
     // animations
+    func attack() -> [SKTexture] {
+        return [
+            attack_1_(),
+            attack_2_(),
+            attack_3_(),
+            attack_4_(),
+            attack_5_(),
+            attack_6_(),
+            attack_7_(),
+            attack_8_(),
+            attack_9_()
+        ]
+    }
+    
+    func crouch_attack() -> [SKTexture] {
+        return [
+            crouch_attack_1_(),
+            crouch_attack_2_(),
+            crouch_attack_3_(),
+            crouch_attack_4_(),
+            crouch_attack_5_()
+        ]
+    }
+    
+    func crouch_defend() -> [SKTexture] {
+        return [
+            crouch_defend_1_(),
+            crouch_defend_2_(),
+            crouch_defend_3_()
+        ]
+    }
+    
+    func crouch_walk() -> [SKTexture] {
+        return [
+            crouch_walk_1_(),
+            crouch_walk_2_(),
+            crouch_walk_3_(),
+            crouch_walk_4_(),
+            crouch_walk_5_(),
+            crouch_walk_6_()
+        ]
+    }
+    
+    func dead() -> [SKTexture] {
+        return [
+            dead_1_(),
+            dead_2_(),
+            dead_3_(),
+            dead_4_(),
+            dead_5_()
+        ]
+    }
+    
+    func defend() -> [SKTexture] {
+        return [
+            defend_1_(),
+            defend_2_(),
+            defend_3_()
+        ]
+    }
+    
+    func idle() -> [SKTexture] {
+        return [
+            idle_1_(),
+            idle_2_(),
+            idle_3_(),
+            idle_4_()
+        ]
+    }
+    
+    func jump() -> [SKTexture] {
+        return [
+            jump_1_(),
+            jump_2_(),
+            jump_3_(),
+            jump_4_(),
+            jump_5_()
+        ]
+    }
+    
+    func jump_attack() -> [SKTexture] {
+        return [
+            jump_attack_1_(),
+            jump_attack_2_(),
+            jump_attack_3_(),
+            jump_attack_4_(),
+            jump_attack_5_(),
+            jump_attack_6_()
+        ]
+    }
+    
     func run() -> [SKTexture] {
         return [
             run_1_(),
@@ -183,8 +274,24 @@ class Hero2Sheet {
             run_11_(),
             run_12_(),
             run_13_(),
-            run_14_(),
+            run_14_()
         ]
     }
-
+    
+    func walk() -> [SKTexture] {
+        return [
+            walk_1_(),
+            walk_2_(),
+            walk_3_(),
+            walk_4_(),
+            walk_5_(),
+            walk_6_(),
+            walk_7_(),
+            walk_8_(),
+            walk_9_(),
+            walk_10_(),
+            walk_11_(),
+            walk_12_()
+        ]
+    }
 }

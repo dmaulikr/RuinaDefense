@@ -419,7 +419,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.addChild(hero1)
         
         //Animates the hero
-        let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.033)
+        //let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.033)
+        let run = SKAction.animateWithTextures(randomHero1Animation(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         hero1.runAction(action)
         
@@ -453,7 +454,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.addChild(hero2)
         
         //Animates the hero
-        let run = SKAction.animateWithTextures(Hero2_Sheet.run(), timePerFrame: 0.033)
+        //let run = SKAction.animateWithTextures(Hero2_Sheet.run(), timePerFrame: 0.033)
+        let run = SKAction.animateWithTextures(randomHero2Animation(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         hero2.runAction(action)
         
@@ -489,7 +491,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.addChild(enemy1)
         
         //Animates the hero
-        let run = SKAction.animateWithTextures(Enemy1_Sheet.run(), timePerFrame: 0.033)
+        //let run = SKAction.animateWithTextures(Enemy1_Sheet.run(), timePerFrame: 0.033)
+        let run = SKAction.animateWithTextures(randomEnemy1Animation(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         enemy1.runAction(action)
         
@@ -519,7 +522,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.addChild(enemy2)
         
         //Animates the hero
-        let run = SKAction.animateWithTextures(Enemy2_Sheet.run(), timePerFrame: 0.033)
+        //let run = SKAction.animateWithTextures(Enemy2_Sheet.run(), timePerFrame: 0.033)
+        let run = SKAction.animateWithTextures(randomEnemy2Animation(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         enemy2.runAction(action)
         
@@ -936,7 +940,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else {
             //print("touched something else ;)")
         }
-        
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRectInset(background.frame, 0, 240))
     }
     
     // Handles collisions
@@ -966,9 +970,96 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func randomHero1Animation() -> [SKTexture] {
+        let randomNumber = random() % 11
+        
+        switch (randomNumber) {
+        case 0:
+            return Hero1_Sheet.attack()
+        case 1:
+            return Hero1_Sheet.crouch_attack()
+        case 2:
+            return Hero1_Sheet.crouch_defend()
+        case 3:
+            return Hero1_Sheet.crouch_walk()
+        case 4:
+            return Hero1_Sheet.dead()
+        case 5:
+            return Hero1_Sheet.defend()
+        case 6:
+            return Hero1_Sheet.idle()
+        case 7:
+            return Hero1_Sheet.jump()
+        case 8:
+            return Hero1_Sheet.jump_attack()
+        case 9:
+            return Hero1_Sheet.run()
+        case 10:
+            return Hero1_Sheet.walk()
+        default:
+            print("Error in random Hero1 animation generator")
+            return Hero1_Sheet.run()
+        }
+    }
+    
+    func randomHero2Animation() -> [SKTexture] {
+        let randomNumber = random() % 11
+        
+        switch (randomNumber) {
+        case 0:
+            return Hero2_Sheet.attack()
+        case 1:
+            return Hero2_Sheet.crouch_attack()
+        case 2:
+            return Hero2_Sheet.crouch_defend()
+        case 3:
+            return Hero2_Sheet.crouch_walk()
+        case 4:
+            return Hero2_Sheet.dead()
+        case 5:
+            return Hero2_Sheet.defend()
+        case 6:
+            return Hero2_Sheet.idle()
+        case 7:
+            return Hero2_Sheet.jump()
+        case 8:
+            return Hero2_Sheet.jump_attack()
+        case 9:
+            return Hero2_Sheet.run()
+        case 10:
+            return Hero2_Sheet.walk()
+        default:
+            print("Error in random Hero2 animation generator")
+            return Hero2_Sheet.run()
+        }
+    }
+    
+    func randomEnemy1Animation() -> [SKTexture] {
+        let randomNumber = random() % 4
+        
+        switch ( randomNumber ) {
+        case 0: return Enemy1_Sheet.attack()
+        case 1: return Enemy1_Sheet.dead()
+        case 2: return Enemy1_Sheet.defend()
+        case 3: return Enemy1_Sheet.walk()
+        default: return Enemy1_Sheet.walk()
+        }
+    }
+    
+    func randomEnemy2Animation() -> [SKTexture] {
+    let randomNumber = random() % 3
+    
+    switch ( randomNumber ) {
+    case 0: return Enemy2_Sheet.attack()
+    case 1: return Enemy2_Sheet.dead()
+    case 2: return Enemy2_Sheet.walk()
+    default: return Enemy2_Sheet.walk()
+    }
+    }
+
 }
 
-//TODO: Captain does not spawn when view is to the right 
+//TODO: Captain does not spawn when view is to the right
 // this is because of how we pan the screen, we are moving the background node instead of actually
 // moving our camera to the right
 
