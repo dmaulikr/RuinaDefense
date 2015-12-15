@@ -76,5 +76,23 @@ class Skeleton1Sheet {
     func walk_7_() -> SKTexture   { return textureAtlas.textureNamed(WALK_7_) }
     func walk_8_() -> SKTexture   { return textureAtlas.textureNamed(WALK_8_) }
     func walk_9_() -> SKTexture   { return textureAtlas.textureNamed(WALK_9_) }
+    
+    // animations
+    func run() -> [SKTexture] {
+        return [
+            walk_1_(),
+            walk_2_(),
+            walk_3_(),
+            walk_4_(),
+            walk_5_(),
+            walk_6_(),
+            walk_7_(),
+            walk_8_(),
+            walk_9_(),
+            walk_10_(),
+            walk_11_(),
+            walk_12_(),
+        ]
+    }
 
 }
