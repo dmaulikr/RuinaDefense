@@ -16,18 +16,7 @@ var isRunning = false   //Is the game running
 class GameScene: SKScene {
     
     //-------------------------Class Variables----------------------//
-    struct PhysicsCategory {
-        static let None : UInt32 = 0
-        static let All : UInt32 = UInt32.max
-        static let leftUnit : UInt32 = 0x1 << 0
-        static let leftCastle : UInt32 = 0x1 << 1
-        static let rightUnit : UInt32 = 0x1 << 2
-        static let rightCastle : UInt32 = 01 << 3
-    }
-    
-    //Scene
-    //let scene = GameScene(fileNamed: "GameScene")
-    
+
     //Back Ground
     var background = SKSpriteNode()
     var randomNum = 0 //For random cloud variant spawning
@@ -61,14 +50,17 @@ class GameScene: SKScene {
     let Enemy1_Sheet = Skeleton1Sheet() //Animations for Skeleton1
     let Enemy2_Sheet = Skeleton2Sheet() //Animations for Skeleton1
     
-    var playerUnits = Queue<SKSpriteNode>()
-    var enemyUnits = Queue<SKSpriteNode>()
+    var playerUnits = Queue<Unit>()
+    var enemyUnits = Queue<Unit>()
     
     //Burn
     let bloodEmitter = SKEmitterNode(fileNamed: "sparkParticle")
     
-    // collisions tuff
-    var unitsFighting = false
+    // collision stuff
+    var timeOfLastAttack: CFTimeInterval = 0.0
+    let timePerAttack: CFTimeInterval = 1.0
+    var timeOfLastDeathAnimation: CFTimeInterval = 0.0
+    let timePerDeathAnimation: CFTimeInterval = 3.0
     
     //-----------------------Class Variables End--------------------//
     
@@ -185,12 +177,15 @@ class GameScene: SKScene {
         
         //Set position and physics body stuff
         hero1.name = "hero1"
-        hero1.position = CGPoint(x: 160, y: 241)
+        hero1.position = CGPoint(x: 160, y: 260)
         hero1.zPosition = 3
         hero1.setScale(0.5)
 
         //Add to scene
         background.addChild(hero1)
+        
+        // Create the unit
+        let unit = Unit(spriteNode: hero1, hp: 5, def: 0, dmg: 1)
         
         //Animates the hero
         let run = SKAction.animateWithTextures(randomHero1Animation(), timePerFrame: 0.1)
@@ -201,7 +196,7 @@ class GameScene: SKScene {
         moveRight(hero1)
         
         // Add to player's spawned units
-        playerUnits.push(hero1)
+        playerUnits.push(unit)
         
     }
     
@@ -211,12 +206,14 @@ class GameScene: SKScene {
         
         //Set position and physics body stuff
         hero2.name = "hero2"
-        hero2.position = CGPoint(x: 160, y: 241)
+        hero2.position = CGPoint(x: 160, y: 260)
         hero2.zPosition = 3
         hero2.setScale(0.5)
         
         //Add to scene
         background.addChild(hero2)
+        
+        let unit = Unit(spriteNode: hero2, hp: 5, def: 0, dmg: 1)
         
         //Animates the hero
         let run = SKAction.animateWithTextures(randomHero2Animation(), timePerFrame: 0.1)
@@ -227,7 +224,7 @@ class GameScene: SKScene {
         moveRight(hero2)
         
         // Add to player's spawned units
-        playerUnits.push(hero2)
+        playerUnits.push(unit)
     }
     
     func spawnHero3() {
@@ -240,7 +237,7 @@ class GameScene: SKScene {
         
         //Set position and physics body stuff
         enemy1.name = "enemy1"
-        enemy1.position = CGPoint(x: 2500, y: 241)
+        enemy1.position = CGPoint(x: 2500, y: 260)
         enemy1.zPosition = 3
         enemy1.setScale(0.5)
         //enemy1.physicsBody?.mass = 500
@@ -248,6 +245,8 @@ class GameScene: SKScene {
 
         //Add to scene
         background.addChild(enemy1)
+        
+        let unit = Unit(spriteNode: enemy1, hp: 5, def: 0, dmg: 1)
         
         //Animates the hero
         let run = SKAction.animateWithTextures(randomEnemy1Animation(), timePerFrame: 0.1)
@@ -258,7 +257,7 @@ class GameScene: SKScene {
         moveLeft(enemy1)
         
         // add to enemy's units
-        enemyUnits.push(enemy1)
+        enemyUnits.push(unit)
     }
     
     func spawnEnemy2() {
@@ -266,11 +265,14 @@ class GameScene: SKScene {
         
         //Set position and physics body stuff
         enemy2.name = "enemy2"
-        enemy2.position = CGPoint(x: 2500, y: 241)
+        enemy2.position = CGPoint(x: 2500, y: 260)
         enemy2.zPosition = 3
         enemy2.setScale(0.5)
+        enemy2.xScale = enemy2.xScale * -1
         //Add to scene
         background.addChild(enemy2)
+        
+        let unit = Unit(spriteNode: enemy2, hp: 5, def: 0, dmg: 1)
         
         //Animates the hero
         //let run = SKAction.animateWithTextures(Enemy2_Sheet.run(), timePerFrame: 0.033)
@@ -282,7 +284,7 @@ class GameScene: SKScene {
         moveLeft(enemy2)
         
         // add to enemy units
-        enemyUnits.push(enemy2)
+        enemyUnits.push(unit)
     }
     //========================================UNIT SPAWNING END========================================
     
@@ -325,7 +327,19 @@ class GameScene: SKScene {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+
         checkCollision()
+        checkEndUnitIdle()
+        
+        if(currentTime - timeOfLastAttack < timePerAttack) {
+            return
+        }
+        
+        checkFight()
+        checkDeath()
+        
+        timeOfLastAttack = currentTime
+
     }
     
     
@@ -681,34 +695,7 @@ class GameScene: SKScene {
         }
         physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRectInset(background.frame, 0, 240))
     }
-    
-    // Handles collisions
-    func didBeginContact(contact: SKPhysicsContact) {
-        
-        // physics bodies
-        var firstBody: SKPhysicsBody
-        var secondBody: SKPhysicsBody
-        
-        // set the first body to be the left unit and the second to be the right
-        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-            firstBody = contact.bodyA
-            secondBody = contact.bodyB
-        } else {
-            firstBody = contact.bodyB
-            secondBody = contact.bodyA
-        }
-        
-        // handle collision between opposing factions
-        if firstBody.categoryBitMask == PhysicsCategory.leftUnit && secondBody.categoryBitMask == PhysicsCategory.rightUnit {
-            
-            firstBody.velocity = CGVectorMake(-1000, 1000)
-            secondBody.velocity = CGVectorMake(1000,1000)
-            
-            print("Fight began")
-            print(contact.bodyA.velocity)
-        }
-    }
-    
+
     func randomHero1Animation() -> [SKTexture] {
         let randomNumber = random() % 11
     
@@ -795,52 +782,349 @@ class GameScene: SKScene {
     default: return Enemy2_Sheet.walk()
     }
     }
+    
+    func unitsFighting() -> Bool {
+        
+        // local variables
+        let playerFrontUnit = playerUnits.front()
+        let enemyFrontUnit = enemyUnits.front()
+        
+        // units cannot be fighting if only one side has units
+        if playerUnits.count() == 0 || enemyUnits.count() == 0 {
+            return false
+        }
+        
+        // check if both players are attacking, should only need to check 1 but this is more explicit
+        if playerFrontUnit!.status == .Attacking && enemyFrontUnit!.status == .Attacking {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    // simulates the battle between the two front units
+    func checkFight() {
+        
+        // local variables
+        let playerFrontUnit = playerUnits.front()
+        let enemyFrontUnit = enemyUnits.front()
+        
+        // if there are units fighting
+        if unitsFighting() {
+            
+            print("Units fighting")
+            // deal damage to each other
+            playerFrontUnit?.tookDamage((enemyFrontUnit?.damage)!)
+            enemyFrontUnit?.tookDamage((playerFrontUnit?.damage)!)
+        }
+    }
+    
+    // checks if any unit has died and removes them from the battle field
+    func checkDeath() {
+        
+        // local variables
+        let playerFrontUnit = playerUnits.front()
+        let enemyFrontUnit = enemyUnits.front()
+        
+        // only the front units can fight so we only need to check the front
+        if playerUnits.count() > 0 && playerFrontUnit!.status == .Dead {
+            
+            // play death animation
+            setUnitDead(playerFrontUnit!)
+            
+            // remove it from the game
+            playerUnits.pop()
+        }
+        
+        // check enemy's front unit for death
+        if enemyUnits.count() > 0 && enemyFrontUnit!.status == .Dead {
+            
+            // play death animation
+            setUnitDead(enemyFrontUnit!)
+            
+            // remove it from the game
+            enemyUnits.pop()
+        }
+    }
 
+    func recentDeath() -> Bool {
+        
+        // local variables
+        let playerFrontUnit = playerUnits.front()
+        let enemyFrontUnit = enemyUnits.front()
+        
+        if ( playerFrontUnit!.status == .Dead || enemyFrontUnit!.status == .Dead ) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     func checkCollision() {
         
         // local variables
         let playerFrontUnit = playerUnits.front()
         let enemyFrontUnit = enemyUnits.front()
         
-        // check collision between the player's front unit and enemy's front unit
-        // only needs to be checked if both sides have at least 1 unit as well as not already fighting
-        if playerFrontUnit != nil && enemyFrontUnit != nil && !unitsFighting {
-            if CGRectIntersectsRect(playerFrontUnit!.frame, enemyFrontUnit!.frame) {
-                beginFight(playerFrontUnit!, enemySprite:  enemyFrontUnit!)
+        if playerUnits.count() == 0 || enemyUnits.count() == 0 {
+            return
+        }
+        
+        // check collision between opposing units
+        if !unitsFighting() && !recentDeath() {
+            
+            // use a rectangle smaller than sprite's frame size since there is extra space
+            if CGRectIntersectsRect(
+                CGRectInset(playerFrontUnit!.sprite.frame, 30, 30),
+                CGRectInset(enemyFrontUnit!.sprite.frame, 30, 30)) {
+                beginFight(playerFrontUnit!, enemyUnit:  enemyFrontUnit!)
             }
         }
         
         // check collision between player's units
         if(playerUnits.count() >= 2) {
-            
-            ///var unit: SKSpriteNode
-            
+
             // check every unit behind the front unit for collision
             for(var i = 1; i < playerUnits.count(); i++) {
                 
                 // check collision between current unit and unit in front
-                if CGRectIntersectsRect(playerUnits.items[i - 1].frame, playerUnits.items[i].frame) {
+                if CGRectIntersectsRect(playerUnits.items[i - 1].sprite.frame, playerUnits.items[i].sprite.frame) {
                     
+                    // set sprite to be idle if not already idle
+                    if playerUnits.items[i].status != .Idle {
+                        setUnitIdle(playerUnits.items[i])
+                    }
+                }
+            }
+        }
+        
+        // check collision between enemy's units
+        if(enemyUnits.count() >= 2) {
+
+            // check every unit behind the front unit for collision
+            for(var i = 1; i < enemyUnits.count(); i++) {
+                
+                // check collision between current unit and unit in front
+                if CGRectIntersectsRect(enemyUnits.items[i - 1].sprite.frame, enemyUnits.items[i].sprite.frame) {
+                    
+                    // set sprite to be idle if not already idle
+                    if enemyUnits.items[i].status != .Idle {
+                        setUnitIdle(enemyUnits.items[i])
+                    }
                 }
             }
         }
     }
     
-    func beginFight(playerSprite: SKSpriteNode, enemySprite: SKSpriteNode) {
+    // checks if the any unit should end it's idling
+    func checkEndUnitIdle() {
         
         // local variables
-        let playerSpriteType = playerSprite.name
-        let enemySpriteType = enemySprite.name
+        
+        // check all player units
+        // if there is only 1 unit... 
+        if playerUnits.count() == 1 && playerUnits.front()!.status == .Idle{
+            
+            // should not be idling
+            setUnitRunning(playerUnits.front()!)
+        }
+        
+        // at least 2 units
+        else if playerUnits.count() >= 2 {
+            
+            // for every unit behind the front unit
+            for ( var i = 1; i < playerUnits.count(); i++ ) {
+                
+                // if unit is not already running
+                if playerUnits.items[i].status != .Running {
+                
+                    // check if unit in front is no longer idle
+                    if playerUnits.items[i - 1].status != .Idle {
+                    
+                        // set unit to running again
+                        setUnitRunning(playerUnits.items[i])
+                    }
+                }
+            }
+        }
+        
+        // check all enemy units
+        // if there is only 1 unit...
+        if enemyUnits.count() == 1 && enemyUnits.front()!.status == .Idle{
+            
+            // should not be idling
+            setUnitRunning(enemyUnits.front()!)
+        }
+        
+        // at least 2 units
+        else if enemyUnits.count() >= 2 {
+            
+            // for every unit behind the front unit
+            for ( var i = 1; i < enemyUnits.count(); i++ ) {
+                
+                // if unit is not already running
+                if enemyUnits.items[i].status != .Running {
+                
+                    // check if unit in front is no longer idle
+                    if enemyUnits.items[i - 1].status != .Idle {
+                    
+                        // set unit to running again
+                        setUnitRunning(enemyUnits.items[i])
+                    }
+                }
+            }
+        }
+    }
+    
+    // plays a unit's death animation
+    func setUnitDead(unit: Unit) {
+        
+        // local variables
+        let spriteType = unit.sprite.name
+        var deathTexture: [SKTexture]
+        
+        // stop sprite's current animation
+        unit.sprite.removeAllActions()
+        
+        // get death texture
+        if spriteType == "hero1" {
+            deathTexture = Hero1_Sheet.dead()
+        }
+        else if spriteType == "hero2" {
+            deathTexture = Hero2_Sheet.dead()
+        }
+        else if spriteType == "enemy1" {
+            deathTexture = Enemy1_Sheet.dead()
+        }
+            
+        // before extending, change this to //else if spriteType == "enemy2"
+        else {
+            deathTexture = Enemy2_Sheet.dead()
+        }
+        
+        // play death animation
+        let animation = SKAction.animateWithTextures(deathTexture, timePerFrame: 0.1)
+        let deathAnimation = SKAction.sequence([animation, SKAction.removeFromParent()])
+        unit.sprite.runAction(deathAnimation)
+
+        
+    }
+    
+    // makes a unit start running again
+    func setUnitRunning(unit: Unit) {
+        
+        // local variables
+        let spriteType = unit.sprite.name
+        var runningTexture: [SKTexture]
+        var direction: String
+
+        // stop sprite's current animation if it was doing something else
+        if unit.status != .Running {
+            unit.sprite.removeAllActions()
+        }
+        
+        //set the status to running
+        unit.status = .Running
+        
+        
+        
+        // get new running textures
+        if spriteType == "hero1" {
+            
+            // hero 1
+            runningTexture = Hero1_Sheet.run()
+            direction = "right"
+
+        }
+        else if spriteType == "hero2" {
+            
+            // hero 2
+            runningTexture = Hero2_Sheet.run()
+            direction = "right"
+        }
+        else if spriteType == "enemy1" {
+            
+            // enemy 1
+            runningTexture = Enemy1_Sheet.walk()
+            direction = "left"
+        }
+            
+        // to extend change this to //else if spriteType == "enemy2"
+        else {
+            
+            // enemy 2
+            runningTexture = Enemy2_Sheet.walk()
+            direction = "left"
+        }
+        
+        // start running animation
+        unit.sprite.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(runningTexture, timePerFrame: 0.1)))
+        
+        // move sprite in appropriate direction
+        switch (direction) {
+        case "left": moveLeft(unit.sprite)
+        case "right": moveRight(unit.sprite)
+        default: print("Error in GameScene.setUnitRunning")
+        }
+        
+    }
+    
+    func setUnitIdle(unit: Unit) {
+        
+        // local variables
+        let spriteType = unit.sprite.name
+        var idleAnimation: SKAction
+        
+        
+        // set sprite to be idle
+        unit.status = .Idle
+        
+        // stop sprite's current animation
+        unit.sprite.removeAllActions()
+        
+        if spriteType == "hero1" {
+            idleAnimation = SKAction.animateWithTextures(Hero1_Sheet.idle(), timePerFrame: 0.3)
+        }
+        
+        else if spriteType == "hero2" {
+            idleAnimation = SKAction.animateWithTextures(Hero2_Sheet.idle(), timePerFrame: 0.3)
+        }
+        
+        else if spriteType == "enemy1" {
+            idleAnimation = SKAction.animateWithTextures(Enemy1_Sheet.defend(), timePerFrame: 0.3)
+        }
+        
+        else if spriteType == "enemy2" {
+            idleAnimation = SKAction.animateWithTextures(Enemy2_Sheet.idle(), timePerFrame: 0.1)
+        }
+        
+        // Extend to more sprite types here
+        else {
+            idleAnimation = SKAction.animateWithTextures(Hero1_Sheet.defend(), timePerFrame: 0.1)
+        }
+        
+        // animate
+        unit.sprite.runAction(SKAction.repeatActionForever(idleAnimation))
+    }
+    
+    func beginFight(playerUnit: Unit, enemyUnit: Unit) {
+        
+        // local variables
+        let playerSpriteType = playerUnit.sprite.name
+        let enemySpriteType = playerUnit.sprite.name
         var playerFightingAnimation: SKAction
         var enemyFightingAnimation: SKAction
         
         // units have begun fighting
-        unitsFighting = true
+        playerUnit.status = .Attacking
+        enemyUnit.status = .Attacking
         
         //------------------- player sprite -----------------------//
         
         // stop all other actions first
-        playerSprite.removeAllActions()
+        playerUnit.sprite.removeAllActions()
         
         // begin fighting animation based on sprite type
         if playerSpriteType == "hero1" {
@@ -857,12 +1141,12 @@ class GameScene: SKScene {
         }
         
         // start the animation for the player's sprite
-        playerSprite.runAction(SKAction.repeatActionForever(playerFightingAnimation))
+        playerUnit.sprite.runAction(SKAction.repeatActionForever(playerFightingAnimation))
         
         //------------------- enemy sprite ----------------------//
         
         // stop all other actions first
-        enemySprite.removeAllActions()
+        enemyUnit.sprite.removeAllActions()
         
         // begin fighting animation based on sprite type
         if enemySpriteType == "enemy1" {
@@ -879,9 +1163,10 @@ class GameScene: SKScene {
         }
         
         // start the animation for the player's sprite
-        enemySprite.runAction(SKAction.repeatActionForever(enemyFightingAnimation))
+        enemyUnit.sprite.runAction(SKAction.repeatActionForever(enemyFightingAnimation))
         
     }
+
 }
 
 //TODO: Captain does not spawn when view is to the right

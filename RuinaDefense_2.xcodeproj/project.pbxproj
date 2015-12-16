@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		135197791C1F62600049EF80 /* Hero1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135197781C1F62600049EF80 /* Hero1.swift */; };
+		135197791C1F62600049EF80 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135197781C1F62600049EF80 /* Unit.swift */; };
 		1351977C1C1F7AB10049EF80 /* Hero1Sheet.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */; };
 		1351977D1C1F7AB10049EF80 /* Hero1Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */; };
 		1351F1241C2024B900740A8A /* Hero2Sheet.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351F11E1C2024B900740A8A /* Hero2Sheet.atlasc */; };
@@ -38,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		135197781C1F62600049EF80 /* Hero1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero1.swift; sourceTree = "<group>"; };
+		135197781C1F62600049EF80 /* Unit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		1351977A1C1F7AB10049EF80 /* Hero1Sheet.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Hero1Sheet.atlasc; sourceTree = "<group>"; };
 		1351977B1C1F7AB10049EF80 /* Hero1Sheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero1Sheet.swift; sourceTree = "<group>"; };
 		1351F11E1C2024B900740A8A /* Hero2Sheet.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Hero2Sheet.atlasc; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 				3FE65CFC1C0FF3A200E4AA88 /* GameScene.swift */,
 				13933E3E1C211FA0007374D4 /* DataStructures.swift */,
 				13933E3C1C20EAC2007374D4 /* Environment.swift */,
-				135197781C1F62600049EF80 /* Hero1.swift */,
+				135197781C1F62600049EF80 /* Unit.swift */,
 				3F7383031C13FA7E004335BA /* MenuScene.swift */,
 				3FE65CFE1C0FF3A200E4AA88 /* GameViewController.swift */,
 				3FE65D031C0FF3A200E4AA88 /* Assets.xcassets */,
@@ -240,7 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				135197791C1F62600049EF80 /* Hero1.swift in Sources */,
+				135197791C1F62600049EF80 /* Unit.swift in Sources */,
 				3FB4E3B51C2112B300F0B29E /* hud.swift in Sources */,
 				3FE65CFD1C0FF3A200E4AA88 /* GameScene.swift in Sources */,
 				1351F1271C2024B900740A8A /* Skeleton1Sheet.swift in Sources */,

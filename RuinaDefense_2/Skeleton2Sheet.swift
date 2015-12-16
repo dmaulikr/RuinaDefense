@@ -51,7 +51,7 @@ class Skeleton2Sheet {
     func dead_3_() -> SKTexture   { return textureAtlas.textureNamed(DEAD_3_) }
     func dead_4_() -> SKTexture   { return textureAtlas.textureNamed(DEAD_4_) }
     func hurt() -> SKTexture      { return textureAtlas.textureNamed(HURT) }
-    func idle() -> SKTexture      { return textureAtlas.textureNamed(IDLE) }
+    func idle_1_() -> SKTexture      { return textureAtlas.textureNamed(IDLE) }
     func walk_10_() -> SKTexture  { return textureAtlas.textureNamed(WALK_10_) }
     func walk_11_() -> SKTexture  { return textureAtlas.textureNamed(WALK_11_) }
     func walk_12_() -> SKTexture  { return textureAtlas.textureNamed(WALK_12_) }
@@ -82,6 +82,13 @@ class Skeleton2Sheet {
             dead_2_(),
             dead_3_(),
             dead_4_()
+        ]
+    }
+    
+    func idle() -> [SKTexture] {
+        return [
+            idle_1_(),
+            idle_1_()
         ]
     }
     
