@@ -25,8 +25,9 @@
 		3FAE62D51C1FE5A7009B906F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAE62D31C1FE5A7009B906F /* spark.png */; };
 		3FAE62D71C1FEA55009B906F /* heavySnowParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FAE62D61C1FEA55009B906F /* heavySnowParticle.sks */; };
 		3FAE62D91C1FEC6B009B906F /* flameParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FAE62D81C1FEC6B009B906F /* flameParticle.sks */; };
-		3FAE62DB1C1FFAE2009B906F /* GameSceneMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3FAE62DA1C1FFAE2009B906F /* GameSceneMusic.wav */; };
 		3FB4E3AF1C20A3CF00F0B29E /* sparkParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FB4E3AE1C20A3CF00F0B29E /* sparkParticle.sks */; };
+		3FB4E3B31C210EF900F0B29E /* GameSceneMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3FB4E3B21C210EF900F0B29E /* GameSceneMusic.mp3 */; };
+		3FB4E3B51C2112B300F0B29E /* hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4E3B41C2112B300F0B29E /* hud.swift */; };
 		3FE65CF91C0FF3A200E4AA88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */; };
 		3FE65CFB1C0FF3A200E4AA88 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */; };
 		3FE65CFD1C0FF3A200E4AA88 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE65CFC1C0FF3A200E4AA88 /* GameScene.swift */; };
@@ -55,8 +56,9 @@
 		3FAE62D31C1FE5A7009B906F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		3FAE62D61C1FEA55009B906F /* heavySnowParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = heavySnowParticle.sks; sourceTree = "<group>"; };
 		3FAE62D81C1FEC6B009B906F /* flameParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = flameParticle.sks; sourceTree = "<group>"; };
-		3FAE62DA1C1FFAE2009B906F /* GameSceneMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = GameSceneMusic.wav; sourceTree = "<group>"; };
 		3FB4E3AE1C20A3CF00F0B29E /* sparkParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sparkParticle.sks; sourceTree = "<group>"; };
+		3FB4E3B21C210EF900F0B29E /* GameSceneMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = GameSceneMusic.mp3; sourceTree = "<group>"; };
+		3FB4E3B41C2112B300F0B29E /* hud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hud.swift; sourceTree = "<group>"; };
 		3FE65CF51C0FF3A200E4AA88 /* RuinaDefense_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RuinaDefense_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE65CF81C0FF3A200E4AA88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FE65CFA1C0FF3A200E4AA88 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -82,7 +84,7 @@
 		13933E391C20CFC1007374D4 /* Particles and music */ = {
 			isa = PBXGroup;
 			children = (
-				3FAE62DA1C1FFAE2009B906F /* GameSceneMusic.wav */,
+				3FB4E3B21C210EF900F0B29E /* GameSceneMusic.mp3 */,
 				3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */,
 				3FAE62D21C1FE5A7009B906F /* snowParticle.sks */,
 				3FAE62D31C1FE5A7009B906F /* spark.png */,
@@ -149,6 +151,7 @@
 				3FE65CFE1C0FF3A200E4AA88 /* GameViewController.swift */,
 				3FE65D031C0FF3A200E4AA88 /* Assets.xcassets */,
 				3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */,
+				3FB4E3B41C2112B300F0B29E /* hud.swift */,
 				13933E391C20CFC1007374D4 /* Particles and music */,
 			);
 			path = RuinaDefense_2;
@@ -211,7 +214,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FAE62DB1C1FFAE2009B906F /* GameSceneMusic.wav in Resources */,
 				3FE65CFB1C0FF3A200E4AA88 /* GameScene.sks in Resources */,
 				3FE65D071C0FF3A200E4AA88 /* LaunchScreen.storyboard in Resources */,
 				3FE65D041C0FF3A200E4AA88 /* Assets.xcassets in Resources */,
@@ -221,6 +223,7 @@
 				3FE65D021C0FF3A200E4AA88 /* Main.storyboard in Resources */,
 				1351F1261C2024B900740A8A /* Skeleton1Sheet.atlasc in Resources */,
 				3FAE62D41C1FE5A7009B906F /* snowParticle.sks in Resources */,
+				3FB4E3B31C210EF900F0B29E /* GameSceneMusic.mp3 in Resources */,
 				3FAE62D51C1FE5A7009B906F /* spark.png in Resources */,
 				3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */,
 				1351977C1C1F7AB10049EF80 /* Hero1Sheet.atlasc in Resources */,
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				135197791C1F62600049EF80 /* Hero1.swift in Sources */,
+				3FB4E3B51C2112B300F0B29E /* hud.swift in Sources */,
 				3FE65CFD1C0FF3A200E4AA88 /* GameScene.swift in Sources */,
 				1351F1271C2024B900740A8A /* Skeleton1Sheet.swift in Sources */,
 				1351977D1C1F7AB10049EF80 /* Hero1Sheet.swift in Sources */,
