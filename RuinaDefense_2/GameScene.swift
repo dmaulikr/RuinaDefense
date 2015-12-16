@@ -286,7 +286,7 @@ class GameScene: SKScene {
         //Add to scene
         background.addChild(enemy2)
         
-        let unit = Unit(spriteNode: enemy2, hp: 2, def: 0, dmg: 3)
+        let unit = Unit(spriteNode: enemy2, hp: 5, def: 0, dmg: 3)
         
         //Animates the hero
         //let run = SKAction.animateWithTextures(Enemy2_Sheet.run(), timePerFrame: 0.033)
@@ -948,6 +948,34 @@ class GameScene: SKScene {
             // deal damage to each other
             playerFrontUnit?.tookDamage((enemyFrontUnit?.damage)!)
             enemyFrontUnit?.tookDamage((playerFrontUnit?.damage)!)
+            
+            // both units died in the fight
+            if playerFrontUnit?.health == 0  && enemyFrontUnit?.health == 0 {
+                
+                // set both units as dead
+                playerFrontUnit!.status = .Dead
+                enemyFrontUnit!.status = .Dead
+            }
+            
+            // only the player's unit died
+            else if playerFrontUnit?.health == 0 {
+                
+                // set only player's unit as dead
+                playerFrontUnit!.status = .Dead
+                
+                // set the enemy's unit to running again
+                setUnitRunning(enemyFrontUnit!)
+            }
+            
+            // only the enemy's unit died
+            else if enemyFrontUnit?.health == 0 {
+                
+                // set only player's unit as dead
+                enemyFrontUnit!.status = .Dead
+                
+                // set the enemy's unit to running again
+                setUnitRunning(playerFrontUnit!)
+            }
         }
     }
     
@@ -1072,7 +1100,8 @@ class GameScene: SKScene {
                 if playerUnits.items[i].status != .Running {
                 
                     // check if unit in front is no longer idle
-                    if playerUnits.items[i - 1].status != .Idle {
+                    if playerUnits.items[i - 1].status != .Idle && playerUnits.items[i - 1].status != .Attacking
+                    {
                     
                         // set unit to running again
                         setUnitRunning(playerUnits.items[i])
@@ -1097,10 +1126,11 @@ class GameScene: SKScene {
                 
                 // if unit is not already running
                 if enemyUnits.items[i].status != .Running {
-                
-                    // check if unit in front is no longer idle
-                    if enemyUnits.items[i - 1].status != .Idle {
                     
+                    // check if unit in front is no longer idle
+                    if enemyUnits.items[i - 1].status != .Idle && enemyUnits.items[i - 1].status != .Attacking
+                    {
+                        
                         // set unit to running again
                         setUnitRunning(enemyUnits.items[i])
                     }
@@ -1264,6 +1294,10 @@ class GameScene: SKScene {
         
         else if playerSpriteType == "hero2" {
             playerFightingAnimation = SKAction.animateWithTextures(Hero2_Sheet.attack(), timePerFrame: 0.1)
+        }
+            
+        else if playerSpriteType == "enemy1" {
+            playerFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
         }
         
         // extend more player sprite types here

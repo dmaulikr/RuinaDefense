@@ -62,11 +62,6 @@ class Unit {
         
         // health cannot be less than 0
         health = max(health - dmg, 0)
-        
-        // if health is 0 unit has died
-        if health == 0 {
-            status = .Dead
-        }
     }
     
 }
