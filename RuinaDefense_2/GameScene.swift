@@ -449,7 +449,7 @@ class GameScene: SKScene {
 
                 
                 //Animation: moves sprite up
-                let moveUp = SKAction.moveByX(0, y: 530, duration: 1.5)
+                let moveUp = SKAction.moveByX(0, y: 530, duration: 1.0)
                 let finishedMoving = SKAction.removeFromParent()
                 let sequence = SKAction.sequence([moveUp, finishedMoving])
                 
