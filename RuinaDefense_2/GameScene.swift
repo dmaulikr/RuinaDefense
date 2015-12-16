@@ -10,6 +10,9 @@ import SpriteKit
 import Foundation
 import AVFoundation
 
+//Global Variables
+var isRunning = false   //Is the game running
+
 class GameScene: SKScene {
     
     //-------------------------Class Variables----------------------//
@@ -64,6 +67,9 @@ class GameScene: SKScene {
     //Burn
     let bloodEmitter = SKEmitterNode(fileNamed: "sparkParticle")
     
+    // collisions tuff
+    var unitsFighting = false
+    
     //-----------------------Class Variables End--------------------//
     
     
@@ -78,9 +84,9 @@ class GameScene: SKScene {
         let environment = Environment()
         background = environment.background
         self.addChild(background)
-
-        //Add HUD Buttons
-        addHud()
+        
+        // Set up hud
+        let HUD = hud(gameview: self)
         
         //-------------------------------Add Clouds-------------------------------
         addGameClouds() //Add initial cloud
@@ -178,7 +184,7 @@ class GameScene: SKScene {
         let hero1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
         
         //Set position and physics body stuff
-        hero1.name = "hero"
+        hero1.name = "hero1"
         hero1.position = CGPoint(x: 160, y: 241)
         hero1.zPosition = 3
         hero1.setScale(0.5)
@@ -204,7 +210,7 @@ class GameScene: SKScene {
         let hero2 = SKSpriteNode(texture: Hero2_Sheet.run_1_())
         
         //Set position and physics body stuff
-        hero2.name = "hero"
+        hero2.name = "hero2"
         hero2.position = CGPoint(x: 160, y: 241)
         hero2.zPosition = 3
         hero2.setScale(0.5)
@@ -233,6 +239,7 @@ class GameScene: SKScene {
     let enemy1 = SKSpriteNode(texture: Enemy1_Sheet.walk_1_())
         
         //Set position and physics body stuff
+        enemy1.name = "enemy1"
         enemy1.position = CGPoint(x: 2500, y: 241)
         enemy1.zPosition = 3
         enemy1.setScale(0.5)
@@ -249,12 +256,16 @@ class GameScene: SKScene {
         
         //Move enemy leftward
         moveLeft(enemy1)
+        
+        // add to enemy's units
+        enemyUnits.push(enemy1)
     }
     
     func spawnEnemy2() {
         let enemy2 = SKSpriteNode(texture: Enemy2_Sheet.walk_1_())
         
         //Set position and physics body stuff
+        enemy2.name = "enemy2"
         enemy2.position = CGPoint(x: 2500, y: 241)
         enemy2.zPosition = 3
         enemy2.setScale(0.5)
@@ -269,6 +280,9 @@ class GameScene: SKScene {
         
         //Move enemy leftward
         moveLeft(enemy2)
+        
+        // add to enemy units
+        enemyUnits.push(enemy2)
     }
     //========================================UNIT SPAWNING END========================================
     
@@ -311,7 +325,7 @@ class GameScene: SKScene {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        
+        checkCollision()
     }
     
     
@@ -697,7 +711,7 @@ class GameScene: SKScene {
     
     func randomHero1Animation() -> [SKTexture] {
         let randomNumber = random() % 11
-        
+    
         switch (randomNumber) {
         case 0:
             return Hero1_Sheet.attack()
@@ -785,30 +799,73 @@ class GameScene: SKScene {
     func checkCollision() {
         
         // local variables
-        var playerUnits: [SKSpriteNode] = []
-        var enemyUnits: [SKSpriteNode] = []
+        let playerFrontUnit = playerUnits.front()
+        let enemyFrontUnit = enemyUnits.front()
         
-        // get all left player's units
-        background.enumerateChildNodesWithName("hero") { node, _ in
-            
-            // get a node with name hero
-            let hero = node as! SKSpriteNode
-            
-            // append to left player's units
-            playerUnits.append(hero)
+        // check collision between the player's front unit and enemy's front unit
+        // only needs to be checked if both sides have at least 1 unit as well as not already fighting
+        if playerFrontUnit != nil && enemyFrontUnit != nil && !unitsFighting {
+            if CGRectIntersectsRect(playerFrontUnit!.frame, enemyFrontUnit!.frame) {
+                beginFight(playerFrontUnit!, enemySprite:  enemyFrontUnit!)
+            }
+        }
+    }
+    
+    func beginFight(playerSprite: SKSpriteNode, enemySprite: SKSpriteNode) {
+        
+        // local variables
+        let playerSpriteType = playerSprite.name
+        let enemySpriteType = enemySprite.name
+        var playerFightingAnimation: SKAction
+        var enemyFightingAnimation: SKAction
+        
+        // units have begun fighting
+        unitsFighting = true
+        
+        //------------------- player sprite -----------------------//
+        
+        // stop all other actions first
+        playerSprite.removeAllActions()
+        
+        // begin fighting animation based on sprite type
+        if playerSpriteType == "hero1" {
+            playerFightingAnimation = SKAction.animateWithTextures(Hero1_Sheet.attack(), timePerFrame: 0.1)
         }
         
-        // get all right player's units
-        background.enumerateChildNodesWithName("enemy") { node, _ in
-            
-            // get a node with name enemy
-            let enemy = node as! SKSpriteNode
-            
-            // append to right player's units
-            enemyUnits.append(enemy)
+        else if playerSpriteType == "hero2" {
+            playerFightingAnimation = SKAction.animateWithTextures(Hero2_Sheet.attack(), timePerFrame: 0.1)
         }
         
-   
+        // extend more player sprite types here
+        else {
+            playerFightingAnimation = SKAction.animateWithTextures(Hero1_Sheet.attack(), timePerFrame: 0.1)
+        }
+        
+        // start the animation for the player's sprite
+        playerSprite.runAction(SKAction.repeatActionForever(playerFightingAnimation))
+        
+        //------------------- enemy sprite ----------------------//
+        
+        // stop all other actions first
+        enemySprite.removeAllActions()
+        
+        // begin fighting animation based on sprite type
+        if enemySpriteType == "enemy1" {
+            enemyFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
+        }
+            
+        else if playerSpriteType == "enemy2" {
+            enemyFightingAnimation = SKAction.animateWithTextures(Enemy2_Sheet.attack(), timePerFrame: 0.1)
+        }
+            
+            // extend more player sprite types here
+        else {
+            enemyFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
+        }
+        
+        // start the animation for the player's sprite
+        enemySprite.runAction(SKAction.repeatActionForever(enemyFightingAnimation))
+        
     }
 }
 

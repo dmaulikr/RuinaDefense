@@ -188,6 +188,7 @@
 				TargetAttributes = {
 					3FE65CF41C0FF3A200E4AA88 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = LKA73TK8XC;
 					};
 				};
 			};
@@ -362,7 +363,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = RuinaDefense_2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nyu.edu.RuinaDefense-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -373,7 +376,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = RuinaDefense_2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nyu.edu.RuinaDefense-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";

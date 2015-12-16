@@ -23,8 +23,13 @@ struct Queue<Element> {
     }
     
     // checks the front element of the queue
-    func front() -> Element {
-        return items.first!
+    func front() -> Element? {
+        if items.count == 0 {
+            return nil
+        }
+        else {
+            return items.first
+        }
     }
 
 }
