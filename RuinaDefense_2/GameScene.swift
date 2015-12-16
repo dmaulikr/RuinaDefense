@@ -10,10 +10,12 @@ import SpriteKit
 import Foundation
 import AVFoundation
 
+//Global Variables
+var isRunning = false   //Is the game running
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //-------------------------Class Variables----------------------//
-    
     struct PhysicsCategory {
         static let None : UInt32 = 0
         static let All : UInt32 = UInt32.max
@@ -31,69 +33,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var randomNum = 0 //For random cloud variant spawning
     
     //Music
-    var musicPlaying = true
+    var musicPlaying = true // Utilized to mute and manage music
     
-    //HUD
-    let hudBar = SKSpriteNode(imageNamed: "hudBar")
-    let leftBorder = SKSpriteNode(imageNamed: "bar")
-    let rightBorder = SKSpriteNode(imageNamed: "bar")
-    let middleBorder = SKSpriteNode(imageNamed: "bar")
-    let bottomBorder = SKSpriteNode(imageNamed: "horizontalBar")
-    let VSImage = SKSpriteNode(imageNamed: "VSImage")
-    
-    //HUD Buttons
-    let spawnHero1Button = SKSpriteNode(imageNamed: "SpawnButton")
-    let spawnHero2Button = SKSpriteNode(imageNamed: "SpawnButton")
-    let spawnHero3Button = SKSpriteNode(imageNamed: "SpawnButton")
-    let spawnEnemy1Button = SKSpriteNode(imageNamed: "SpawnButton")
-    let spawnEnemy2Button = SKSpriteNode(imageNamed: "SpawnButton")
-
-    let menuButton = SKSpriteNode(imageNamed: "menuButton")
-    
-    //HUD Labels
-    var UsernameLabel = SKLabelNode(fontNamed: "Papyrus")
-    var EnemynameLabel = SKLabelNode(fontNamed: "Papyrus")
-    var gold = 0    //Gold counter
-    let GoldLabel = SKLabelNode(fontNamed: "Papyrus")
-    let GoldLabelText = SKLabelNode(fontNamed: "Papyrus")
+    // SKLabels
+    let optionsMenuLabel = SKLabelNode(fontNamed: "Papyrus")
+    let optionsClose = SKLabelNode(fontNamed: "Papyrus")
+    let upgradeMenuLabel = SKLabelNode(fontNamed: "Papyrus")
+    let upgradeClose = SKLabelNode(fontNamed: "Papyrus")
     
     //Options Menu Nodes
     let optionsBG = SKSpriteNode(imageNamed: "popupWindow")
-    let optionsMenuLabel = SKLabelNode(fontNamed: "Papyrus")
-    let optionsClose = SKLabelNode(fontNamed: "Papyrus")
     let playMusicButton = SKSpriteNode(imageNamed: "playMusicButton")
     let pauseMusicButton = SKSpriteNode(imageNamed: "pauseMusicButton")
 
     //Upgrade Menu Nodes
     let upgradeBG = SKSpriteNode(imageNamed: "popupWindow")
-    let upgradeMenuLabel = SKLabelNode(fontNamed: "Papyrus")
-    let upgradeClose = SKLabelNode(fontNamed: "Papyrus")
-    
-    //Pop up menu buttons
-    let optionButton = SKSpriteNode(imageNamed: "optionButton")
-    let upgradeButton = SKSpriteNode(imageNamed: "upgradeButton")
     
     //Handle Touches
     var selectedNode = SKSpriteNode()
     
     //Other
-    var isRunning = false
-    var clickable = true
+    var clickable = true    //Used to prevent menus from opening more than once
     
-    //FOR CHARACTERS
+    // Animation Sheets
     let Hero1_Sheet = Hero1Sheet() //Animations for Hero1
     let Hero2_Sheet = Hero2Sheet() //Animations for Hero2
     let Enemy1_Sheet = Skeleton1Sheet() //Animations for Skeleton1
     let Enemy2_Sheet = Skeleton2Sheet() //Animations for Skeleton1
     
-    //Burn
+    // SKEmitters
     let bloodEmitter = SKEmitterNode(fileNamed: "sparkParticle")
     
     //-----------------------Class Variables End--------------------//
     
+    
     override func didMoveToView(view: SKView) {
-        
-        //Set isRunning to true
         isRunning = true
   
         //Handle touches
@@ -105,11 +79,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background = environment.background
         self.addChild(background)
         
-        //HANDLE PHYSICS FOR SCENE------------------------------------------------
+        // Set up hud
+        let HUD = hud(gameview: self)
         
-        //Physics body that borders the screen. Set slightly above so there is space for hud
+        
+        //---------------------------HANDLE PHYSICS FOR SCENE---------------------------
+        
         physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRectInset(background.frame, 0, 240))
-        
         
         //Set friction of the physics body to 0
         physicsBody?.friction = 0
@@ -119,42 +95,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Add gravity
         physicsWorld.gravity = CGVectorMake(0, -20);
-        //---------------------------------------------------------------
-        
-        //Add HUD Buttons
-        addHud()
+        //------------------------------------------------------------------------------
+
         
         //-------------------------------Add Clouds-------------------------------
-        addGameClouds()
+        addGameClouds() //Add initial cloud
+        
         NSTimer.every(15.0.seconds) {
             
             //If game is running
-            if self.isRunning {
+            if isRunning {
                 
                 //Add clouds
                 self.addGameClouds()
             }
         }
         
-
-        //-------------------------------Gold Increment-------------------------------
-        //initialize gold to 0
-        gold = 0
-        NSTimer.every(1.second) {
-            
-            if self.isRunning {
-                self.gold = self.gold + 1
-                //print("Gold: ", self.gold)
-                self.GoldLabel.text = ("\(self.gold)")
-                //Continues running when going back to menu scene -- bool will NOT fix. It will call another instance of the timer, doubling hte gold per second
-                //Continues running when opening pop up menu -- can fix with isRunning bool
-            }
-        }
         
         
         //-------------------------------Background Music-------------------------------
         print("Play music")
-        //Path of music
     
             let musicPath = NSBundle.mainBundle().URLForResource("GameSceneMusic", withExtension: "mp3")
         
@@ -176,139 +136,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    //-------------------------------HEADS UP DISPLAY-------------------------------
-    func addHud() {
-        
-        //Add hud background
-        hudBar.position = CGPoint(x: CGRectGetMidY(self.frame)+293, y: 100)
-        hudBar.size.height = 170
-        hudBar.size.width = 1340
-        hudBar.zPosition = 2
-        //self.addChild(hudBar)
-        
-        
-        //HUD left border
-        leftBorder.position = CGPoint(x: CGRectGetMinX(hudBar.frame)+9, y: 90)
-        leftBorder.zPosition = 5
-        leftBorder.setScale(0.5)
-        leftBorder.size.height = 200
-        self.addChild(leftBorder)
-        
-        //HUD right border
-        rightBorder.position = CGPoint(x: CGRectGetMaxX(hudBar.frame)-10, y: 90)
-        rightBorder.zPosition = 5
-        rightBorder.setScale(0.5)
-        rightBorder.size.height = 200
-        self.addChild(rightBorder)
-        
-        middleBorder.position = CGPoint(x: CGRectGetMidX(hudBar.frame), y: 90)
-        middleBorder.zPosition = 4
-        middleBorder.setScale(0.5)
-        middleBorder.size.height = 195
-        self.addChild(middleBorder)
-        
-        //HUD bottom border
-        bottomBorder.position = CGPoint(x: CGRectGetMidX(hudBar.frame), y: 5)
-        bottomBorder.zPosition = 4
-        bottomBorder.setScale(0.5)
-        bottomBorder.size.width = 1334
-        self.addChild(bottomBorder)
-    
-        //Create spawn hero1 button
-        spawnHero1Button.setScale(0.3)
-        spawnHero1Button.position = CGPoint(x:770, y:90)
-        spawnHero1Button.zPosition = 3
-        self.addChild(spawnHero1Button)
-        
-        //Create spawn hero2 button
-        spawnHero2Button.setScale(0.3)
-        spawnHero2Button.position = CGPoint(x:920, y:90)
-        spawnHero2Button.zPosition = 3
-        self.addChild(spawnHero2Button)
-        
-        //Create spawn hero3 button
-        spawnHero3Button.setScale(0.3)
-        spawnHero3Button.position = CGPoint(x:1070, y:90)
-        spawnHero3Button.zPosition = 3
-        //self.addChild(spawnHero3Button)
-        
-        //Create spawn enemy 1 button
-        spawnEnemy1Button.setScale(0.3)
-        spawnEnemy1Button.position = CGPoint(x:1070, y:90)
-        spawnEnemy1Button.zPosition = 3
-        self.addChild(spawnEnemy1Button)
-        
-        //Create spawn enemy 2 button
-        spawnEnemy2Button.setScale(0.3)
-        spawnEnemy2Button.position = CGPoint(x:1220, y:90)
-        spawnEnemy2Button.zPosition = 3
-        self.addChild(spawnEnemy2Button)
-        
-        //ON THE BOTTOM
-        //Menu button
-        menuButton.name = "menu"
-        menuButton.position = CGPoint(x:100, y:85)
-        menuButton.zPosition = 3
-        menuButton.setScale(0.2)
-        self.addChild(menuButton)
-        
-        //Options Button
-        optionButton.name = "option"
-        optionButton.position = CGPoint(x:230, y:85)
-        optionButton.zPosition = 3
-        optionButton.setScale(0.2)
-        self.addChild(optionButton)
-        
-        //Upgrade label
-        upgradeButton.name = "upgrade"
-        upgradeButton.position = CGPoint(x:360, y:85)
-        upgradeButton.zPosition = 3
-        upgradeButton.setScale(0.2)
-        self.addChild(upgradeButton)
-        
-        //ON THE TOP
-        //Username label -- should get information when game starts
-        UsernameLabel.fontColor = SKColor .blackColor()
-        UsernameLabel.text = user
-        UsernameLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        UsernameLabel.fontSize = 35
-        UsernameLabel.position = CGPoint(x:30, y:700)
-        UsernameLabel.zPosition = 3
-        self.addChild(UsernameLabel)
-        
-        //Enemyname label
-        EnemynameLabel.fontColor = SKColor .blackColor()
-        EnemynameLabel.text = "Enemy"
-        EnemynameLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
-        EnemynameLabel.fontSize = 35
-        EnemynameLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-30, y:700)
-        EnemynameLabel.zPosition = 3
-        self.addChild(EnemynameLabel)
-        
-        //VS label
-        VSImage.position = CGPoint(x:CGRectGetMidX(self.frame), y: 670)
-        VSImage.setScale(0.70)
-        VSImage.zPosition = 3
-        self.addChild(VSImage)
-        
-        //Gold label -- should start incrementing when game scene starts
-        GoldLabel.fontColor = SKColor .blackColor()
-        GoldLabel.fontSize = 35
-        GoldLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        GoldLabel.position = CGPoint(x:130, y:650)
-        GoldLabel.zPosition = 3
-        self.addChild(GoldLabel)
-        
-        //Gold Text -- Just "Gold"
-        GoldLabelText.text = "Gold"
-        GoldLabelText.fontColor = SKColor.blackColor()
-        GoldLabelText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        GoldLabelText.fontSize = 35
-        GoldLabelText.position = CGPoint(x:30, y:650)
-        GoldLabelText.zPosition = 3
-        self.addChild(GoldLabelText)
-        
-    }
     
     
     ////----------------------ADD GAME CLOUDS----------------------
@@ -381,7 +208,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero1.physicsBody?.allowsRotation = false
         hero1.physicsBody?.categoryBitMask = PhysicsCategory.leftUnit
         hero1.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        
         
         //Add to scene
         background.addChild(hero1)
@@ -498,9 +324,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Move enemy leftward
         moveLeft(enemy2)
     }
-
-    
     //========================================UNIT SPAWNING END========================================
+    
+    
     
     //========================================UNIT ANIMATION===========================================
     //Move sprite right -- NO ANIMATION
@@ -539,6 +365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
     }
     
     
@@ -577,44 +404,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 spawnEnemy2()
                 
             }
-            
-            //MENU BUTTON PRESSED
-            if menuButton.containsPoint(location) {
-                
-                //Stop Music
-                audioPlayer.stop()
-                
-                
-                //Remove some nodes
-                background.removeFromParent()
-                leftBorder.removeFromParent()
-                rightBorder.removeFromParent()
-                hudBar.removeFromParent()
-                spawnHero1Button.removeFromParent()
-                spawnEnemy1Button.removeFromParent()
-                spawnEnemy2Button.removeFromParent()
-                UsernameLabel.removeFromParent()
-                EnemynameLabel.removeFromParent()
-                optionButton.removeFromParent()
-                upgradeButton.removeFromParent()
-                menuButton.removeFromParent()
-                GoldLabel.removeFromParent()
-                VSImage.removeFromParent()
-                
-                
-                print("Menu Button Pressed")
-                
-                let Menu_scene = MenuScene(size: self.size)
-                let transition = SKTransition.fadeWithDuration(1.0)
-                
-                Menu_scene.scaleMode = SKSceneScaleMode.AspectFill
-                
-                //transition to scene
-                self.scene!.view?.presentScene(Menu_scene, transition: transition)
-            }
-            
-            //---------------------------OPEN MENUS---------------------------
-            //OPTIONS BUTTON PRESSED
+        
+
+            //------------Upgrade Menu Open-----------
             if optionButton.containsPoint(location) {
                 print("game options button pressed")
                 
@@ -638,8 +430,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             }
             
-            
-            //UPGRADE BUTTON PRESSED
+            //------------Upgrade Menu Open-----------
             if upgradeButton.containsPoint(location) {
                 print("upgrade button pressed")
                 
@@ -664,7 +455,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             
-            //---------------------------CLOSE MENUS---------------------------
+            //---------------------------Close Menu Buttons---------------------------
             
             //Close Menu buttons
             if optionsClose.containsPoint(location) {
@@ -715,7 +506,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.paused = false
             }
             
-            //---------------------------MENU BUTTONS---------------------------
+            //---------------------------Option Menu Buttons---------------------------
             
             if pauseMusicButton.containsPoint(location) {
                 print("Pause Music Pressed")
@@ -742,6 +533,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //set music playing to true'
                     musicPlaying = true
                 }
+            }
+            
+            //-----------------Menu Button Pressed--------------
+            if menuButton.containsPoint(location) {
+                
+                //Stop Music
+                audioPlayer.stop()
+                
+                //Remove some nodes
+                background.removeFromParent()
+                
+                print("Menu Button Pressed")
+                
+                let Menu_scene = MenuScene(size: self.size)
+                let transition = SKTransition.fadeWithDuration(1.0)
+                
+                Menu_scene.scaleMode = SKSceneScaleMode.AspectFill
+                
+                //transition to scene
+                self.scene!.view?.presentScene(Menu_scene, transition: transition)
             }
         }
     }
@@ -1034,4 +845,3 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //TODO: Gold increments even when returning to menu
 //TODO: Finish options menu
 //TODO: Finish upgrade menu
-//Health bar
