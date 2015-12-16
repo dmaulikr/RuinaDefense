@@ -43,7 +43,7 @@ class MenuScene: SKScene {
             //Textfield where user can input username
             userNameTextInput()
         }
-        
+        print("Finished with user input")
         //-------------------------------Background-------------------------------
         
         // Add background
@@ -75,7 +75,7 @@ class MenuScene: SKScene {
         let path = NSBundle.mainBundle().pathForResource("snowParticle", ofType: "sks")
         let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         snow.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMaxY(self.frame))
-        snow.zPosition = 6
+        snow.zPosition = 3
         self.addChild(snow)
         
         //Add clouds
@@ -99,7 +99,7 @@ class MenuScene: SKScene {
         let start_button = SKSpriteNode(imageNamed: "Start.png")
         start_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-140)
         start_button.setScale(0.5)
-        start_button.zPosition = 2
+        start_button.zPosition = 4
         start_button.name = "startButton"
         
         print("add start button")
@@ -109,7 +109,7 @@ class MenuScene: SKScene {
         let menu_optionsButton = SKSpriteNode(imageNamed: "options.png")
         menu_optionsButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-210)
         menu_optionsButton.setScale(0.5)
-        menu_optionsButton.zPosition = 2
+        menu_optionsButton.zPosition = 4
         menu_optionsButton.name = "optionButton"
         
         print("add option button")
@@ -119,7 +119,7 @@ class MenuScene: SKScene {
         let statistics_button = SKSpriteNode(imageNamed: "statistics.png")
         statistics_button.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-280)
         statistics_button.setScale(0.5)
-        statistics_button.zPosition = 2
+        statistics_button.zPosition = 4
         statistics_button.name = "statisticsButton"
         
         print("add statistics button")
@@ -127,7 +127,7 @@ class MenuScene: SKScene {
         
         musicButton.position = CGPointMake(CGRectGetMinX(self.frame)+50, CGRectGetMinY(self.frame)+50)
         musicButton.name = "musicButton"
-        musicButton.zPosition = 2
+        musicButton.zPosition = 4
         musicButton.setScale(0.4)
         self.addChild(musicButton)
         
@@ -189,6 +189,9 @@ class MenuScene: SKScene {
         let location = touch.first!.locationInNode(self)
         let node = self.nodeAtPoint(location)
         
+        //print("Location touched:" , location)
+        print("Node touched    :" , node.name)
+        
         // If start button is touched, start transition to game scene
         if (node.name == "startButton") {
             
@@ -227,6 +230,7 @@ class MenuScene: SKScene {
             let sequence = SKAction.sequence([moveUp, finishedMoving])
             window.runAction(sequence)
             windowClose.runAction(sequence)
+            print("Finished window close button")
 
         }
         

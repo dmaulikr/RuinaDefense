@@ -17,6 +17,9 @@ class GameScene: SKScene {
     
     //-------------------------Class Variables----------------------//
 
+    // environment
+    var environment = Environment()
+    
     //Back Ground
     var background = SKSpriteNode()
     var randomNum = 0 //For random cloud variant spawning
@@ -87,7 +90,6 @@ class GameScene: SKScene {
         self.view!.addGestureRecognizer(gestureRecognizer)
         
         // Set up environment
-        let environment = Environment()
         background = environment.background
         self.addChild(background)
         
@@ -356,6 +358,9 @@ class GameScene: SKScene {
 
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+    }
     
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -783,19 +788,17 @@ class GameScene: SKScene {
     //Sets selectedNode to the node you touched.
     func selectNodeForTouch(touchLocation : CGPoint) {
         
-        let touchedNode = self.nodeAtPoint(touchLocation)
+        let touchedNodes = self.nodesAtPoint(touchLocation)
         
-        if touchedNode is SKSpriteNode {
+        for node:SKNode in touchedNodes {
             
-            if !selectedNode.isEqual(touchedNode) {
-                //selectedNode.removeAllActions()
-                
+            if (!selectedNode.isEqual(node) && node.name == environment.background.name) {
+   
                 //Set selected node to the node you touched
-                selectedNode = touchedNode as! SKSpriteNode
-                //print(selectedNode)
-                
+                selectedNode = node as! SKSpriteNode
             }
         }
+        print(selectedNode.name)
     }
     
     //Restricts pan movement to within the visible scene
@@ -811,18 +814,17 @@ class GameScene: SKScene {
     
     //Allows panning in real time.
     func panForTranslation(translation : CGPoint) {
-        
+
         //Only if the background is selected.
         if (selectedNode.name == background.name) {
-            
-            //print("Touches background")
+ 
             let position = selectedNode.position
             let aNewPosition = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
             background.position = self.boundLayerPos(aNewPosition)
         }
         
         else {
-            //print("touched something else ;)")
+
         }
         physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRectInset(background.frame, 0, 240))
     }
@@ -1083,15 +1085,15 @@ class GameScene: SKScene {
         // local variables
         
         // check all player units
-        // if there is only 1 unit... 
-        if playerUnits.count() == 1 && playerUnits.front()!.status == .Idle{
+        // if there is at least 1 unit...
+        if playerUnits.count() >= 1 && playerUnits.front()!.status == .Idle{
             
             // should not be idling
             setUnitRunning(playerUnits.front()!)
         }
         
         // at least 2 units
-        else if playerUnits.count() >= 2 {
+        if playerUnits.count() >= 2 {
             
             // for every unit behind the front unit
             for ( var i = 1; i < playerUnits.count(); i++ ) {
@@ -1111,15 +1113,15 @@ class GameScene: SKScene {
         }
         
         // check all enemy units
-        // if there is only 1 unit...
-        if enemyUnits.count() == 1 && enemyUnits.front()!.status == .Idle{
+        // if there is at least 1 unit...
+        if enemyUnits.count() >= 1 && enemyUnits.front()!.status == .Idle{
             
             // should not be idling
             setUnitRunning(enemyUnits.front()!)
         }
         
         // at least 2 units
-        else if enemyUnits.count() >= 2 {
+        if enemyUnits.count() >= 2 {
             
             // for every unit behind the front unit
             for ( var i = 1; i < enemyUnits.count(); i++ ) {
@@ -1274,7 +1276,7 @@ class GameScene: SKScene {
         
         // local variables
         let playerSpriteType = playerUnit.sprite.name
-        let enemySpriteType = playerUnit.sprite.name
+        let enemySpriteType = enemyUnit.sprite.name
         var playerFightingAnimation: SKAction
         var enemyFightingAnimation: SKAction
         
@@ -1292,17 +1294,10 @@ class GameScene: SKScene {
             playerFightingAnimation = SKAction.animateWithTextures(Hero1_Sheet.attack(), timePerFrame: 0.1)
         }
         
-        else if playerSpriteType == "hero2" {
-            playerFightingAnimation = SKAction.animateWithTextures(Hero2_Sheet.attack(), timePerFrame: 0.1)
-        }
-            
-        else if playerSpriteType == "enemy1" {
-            playerFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
-        }
-        
-        // extend more player sprite types here
+        // extend here
+        //else if playerSpriteType == "hero2" {
         else {
-            playerFightingAnimation = SKAction.animateWithTextures(Hero1_Sheet.attack(), timePerFrame: 0.1)
+            playerFightingAnimation = SKAction.animateWithTextures(Hero2_Sheet.attack(), timePerFrame: 0.1)
         }
         
         // start the animation for the player's sprite
@@ -1317,14 +1312,11 @@ class GameScene: SKScene {
         if enemySpriteType == "enemy1" {
             enemyFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
         }
-            
-        else if playerSpriteType == "enemy2" {
-            enemyFightingAnimation = SKAction.animateWithTextures(Enemy2_Sheet.attack(), timePerFrame: 0.1)
-        }
-            
-            // extend more player sprite types here
+        
+        // extend here
+        //else if playerSpriteType == "enemy2" {
         else {
-            enemyFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
+            enemyFightingAnimation = SKAction.animateWithTextures(Enemy2_Sheet.attack(), timePerFrame: 0.1)
         }
         
         // start the animation for the player's sprite
