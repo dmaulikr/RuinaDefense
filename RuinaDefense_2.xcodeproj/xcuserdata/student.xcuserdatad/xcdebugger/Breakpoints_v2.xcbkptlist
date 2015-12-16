@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RuinaDefense_2/hud.swift"
-            timestampString = "471069984.395574"
+            timestampString = "471934272.293238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "loadHudFromNib()"
-            landmarkType = "5">
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "hud"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RuinaDefense_2/GameScene.swift"
-            timestampString = "471868331.748825"
+            timestampString = "471935097.874346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "861"
-            endingLineNumber = "861"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
             landmarkName = "handlePanFrom(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RuinaDefense_2/GameScene.swift"
-            timestampString = "471866828.903429"
+            timestampString = "471934272.293238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
             landmarkName = "GameScene"
             landmarkType = "3">
             <Locations>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RuinaDefense_2/GameScene.swift"
-            timestampString = "471868331.748825"
+            timestampString = "471935097.874346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "didMoveToView(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,6 +202,22 @@
             startingLineNumber = "164"
             endingLineNumber = "164"
             landmarkName = "playMusic()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RuinaDefense_2/GameScene.swift"
+            timestampString = "471935097.874346"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "didMoveToView(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
