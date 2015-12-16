@@ -17,6 +17,7 @@
 		1351F1281C2024B900740A8A /* Skeleton2Sheet.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 1351F1221C2024B900740A8A /* Skeleton2Sheet.atlasc */; };
 		1351F1291C2024B900740A8A /* Skeleton2Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351F1231C2024B900740A8A /* Skeleton2Sheet.swift */; };
 		13933E3D1C20EAC2007374D4 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13933E3C1C20EAC2007374D4 /* Environment.swift */; };
+		13933E3F1C211FA0007374D4 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13933E3E1C211FA0007374D4 /* DataStructures.swift */; };
 		3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */; };
 		3F7383041C13FA7E004335BA /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7383031C13FA7E004335BA /* MenuScene.swift */; };
 		3F7383301C1411AF004335BA /* Dystopia_Background_Music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */; };
@@ -47,6 +48,7 @@
 		1351F1221C2024B900740A8A /* Skeleton2Sheet.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Skeleton2Sheet.atlasc; sourceTree = "<group>"; };
 		1351F1231C2024B900740A8A /* Skeleton2Sheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Skeleton2Sheet.swift; sourceTree = "<group>"; };
 		13933E3C1C20EAC2007374D4 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		13933E3E1C211FA0007374D4 /* DataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		3F7382FF1C13EB64004335BA /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTimer.swift; sourceTree = "<group>"; };
 		3F7383031C13FA7E004335BA /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		3F73832F1C1411AF004335BA /* Dystopia_Background_Music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dystopia_Background_Music.wav; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				13933E3A1C20D02A007374D4 /* Default files */,
 				13933E3B1C20D047007374D4 /* Texture Atlases */,
 				3FE65CFC1C0FF3A200E4AA88 /* GameScene.swift */,
+				13933E3E1C211FA0007374D4 /* DataStructures.swift */,
 				13933E3C1C20EAC2007374D4 /* Environment.swift */,
 				135197781C1F62600049EF80 /* Hero1.swift */,
 				3F7383031C13FA7E004335BA /* MenuScene.swift */,
@@ -185,6 +188,7 @@
 				TargetAttributes = {
 					3FE65CF41C0FF3A200E4AA88 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = LKA73TK8XC;
 					};
 				};
 			};
@@ -246,6 +250,7 @@
 				3F7383001C13EB64004335BA /* SwiftyTimer.swift in Sources */,
 				13933E3D1C20EAC2007374D4 /* Environment.swift in Sources */,
 				1351F1291C2024B900740A8A /* Skeleton2Sheet.swift in Sources */,
+				13933E3F1C211FA0007374D4 /* DataStructures.swift in Sources */,
 				3FE65CFF1C0FF3A200E4AA88 /* GameViewController.swift in Sources */,
 				3FE65CF91C0FF3A200E4AA88 /* AppDelegate.swift in Sources */,
 			);
@@ -358,7 +363,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = RuinaDefense_2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nyu.edu.RuinaDefense-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -369,7 +376,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = RuinaDefense_2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nyu.edu.RuinaDefense-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";

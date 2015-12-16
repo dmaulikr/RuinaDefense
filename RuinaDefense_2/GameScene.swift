@@ -13,7 +13,7 @@ import AVFoundation
 //Global Variables
 var isRunning = false   //Is the game running
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene {
     
     //-------------------------Class Variables----------------------//
     struct PhysicsCategory {
@@ -75,8 +75,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let Enemy1_Sheet = Skeleton1Sheet() //Animations for Skeleton1
     let Enemy2_Sheet = Skeleton2Sheet() //Animations for Skeleton1
     
-    // SKEmitters
+    var playerUnits = Queue<SKSpriteNode>()
+    var enemyUnits = Queue<SKSpriteNode>()
+    
+    //Burn
     let bloodEmitter = SKEmitterNode(fileNamed: "sparkParticle")
+    
+    // collisions tuff
+    var unitsFighting = false
     
     //-----------------------Class Variables End--------------------//
     
@@ -95,22 +101,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Set up hud
         let HUD = hud(gameview: self)
-        
-        
-        //---------------------------HANDLE PHYSICS FOR SCENE---------------------------
-        
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRectInset(background.frame, 0, 240))
-        
-        //Set friction of the physics body to 0
-        physicsBody?.friction = 0
-        
-        // Set contact delegate
-        physicsWorld.contactDelegate = self
-        
-        //Add gravity
-        physicsWorld.gravity = CGVectorMake(0, -20);
-        //------------------------------------------------------------------------------
-
         
         //-------------------------------Add Clouds-------------------------------
         addGameClouds() //Add initial cloud
@@ -208,32 +198,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let hero1 = SKSpriteNode(texture: Hero1_Sheet.run_1_())
         
         //Set position and physics body stuff
+        hero1.name = "hero1"
         hero1.position = CGPoint(x: 160, y: 241)
-        print("Width = %f", self.view!.frame.width)
-        print("Height = %f", self.view!.frame.height)
         hero1.zPosition = 3
-        hero1.physicsBody = SKPhysicsBody(circleOfRadius: hero1.frame.width * 0.3)
         hero1.setScale(0.5)
-        //hero1.physicsBody?.mass = 500
-        hero1.physicsBody?.friction = 0.2
-        hero1.physicsBody?.restitution = 0.2
-        hero1.physicsBody?.linearDamping = 0.1
-        hero1.physicsBody?.angularDamping = 0
-        hero1.physicsBody?.allowsRotation = false
-        hero1.physicsBody?.categoryBitMask = PhysicsCategory.leftUnit
-        hero1.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        
+
         //Add to scene
         background.addChild(hero1)
         
         //Animates the hero
-        //let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.033)
         let run = SKAction.animateWithTextures(randomHero1Animation(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         hero1.runAction(action)
         
         //Moves hero rightward forever
         moveRight(hero1)
+        
+        // Add to player's spawned units
+        playerUnits.push(hero1)
         
     }
     
@@ -242,27 +224,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let hero2 = SKSpriteNode(texture: Hero2_Sheet.run_1_())
         
         //Set position and physics body stuff
+        hero2.name = "hero2"
         hero2.position = CGPoint(x: 160, y: 241)
-        print("Width = %f", self.view!.frame.width)
-        print("Height = %f", self.view!.frame.height)
         hero2.zPosition = 3
-        hero2.physicsBody = SKPhysicsBody(circleOfRadius: hero2.frame.width * 0.3)
         hero2.setScale(0.5)
-        //hero1.physicsBody?.mass = 500
-        hero2.physicsBody?.friction = 0
-        hero2.physicsBody?.restitution = 0
-        hero2.physicsBody?.linearDamping = 0
-        hero2.physicsBody?.angularDamping = 0
-        hero2.physicsBody?.allowsRotation = false
-        hero2.physicsBody?.categoryBitMask = PhysicsCategory.leftUnit
-        hero2.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        
         
         //Add to scene
         background.addChild(hero2)
         
         //Animates the hero
-        //let run = SKAction.animateWithTextures(Hero2_Sheet.run(), timePerFrame: 0.033)
         let run = SKAction.animateWithTextures(randomHero2Animation(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         hero2.runAction(action)
@@ -270,6 +240,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Moves hero rightward forever
         moveRight(hero2)
         
+        // Add to player's spawned units
+        playerUnits.push(hero2)
     }
     
     func spawnHero3() {
@@ -281,51 +253,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let enemy1 = SKSpriteNode(texture: Enemy1_Sheet.walk_1_())
         
         //Set position and physics body stuff
+        enemy1.name = "enemy1"
         enemy1.position = CGPoint(x: 2500, y: 241)
         enemy1.zPosition = 3
-        enemy1.physicsBody = SKPhysicsBody(circleOfRadius: enemy1.frame.width * 0.3)
         enemy1.setScale(0.5)
         //enemy1.physicsBody?.mass = 500
-        enemy1.physicsBody?.friction = 0.2
-        enemy1.physicsBody?.restitution = 0.2
-        enemy1.physicsBody?.linearDamping = 0.1
-        enemy1.physicsBody?.angularDamping = 0
-        enemy1.physicsBody?.allowsRotation = false
         enemy1.xScale = enemy1.xScale * -1
-        enemy1.physicsBody?.categoryBitMask = PhysicsCategory.rightUnit
-        enemy1.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        
+
         //Add to scene
         background.addChild(enemy1)
         
         //Animates the hero
-        //let run = SKAction.animateWithTextures(Enemy1_Sheet.run(), timePerFrame: 0.033)
         let run = SKAction.animateWithTextures(randomEnemy1Animation(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         enemy1.runAction(action)
         
         //Move enemy leftward
         moveLeft(enemy1)
+        
+        // add to enemy's units
+        enemyUnits.push(enemy1)
     }
     
     func spawnEnemy2() {
         let enemy2 = SKSpriteNode(texture: Enemy2_Sheet.walk_1_())
         
         //Set position and physics body stuff
+        enemy2.name = "enemy2"
         enemy2.position = CGPoint(x: 2500, y: 241)
         enemy2.zPosition = 3
-        enemy2.physicsBody = SKPhysicsBody(circleOfRadius: enemy2.frame.width * 0.3)
         enemy2.setScale(0.5)
-        //enemy1.physicsBody?.mass = 500
-        enemy2.physicsBody?.friction = 0
-        enemy2.physicsBody?.restitution = 0
-        enemy2.physicsBody?.linearDamping = 0
-        enemy2.physicsBody?.angularDamping = 0
-        enemy2.physicsBody?.allowsRotation = false
-        enemy2.xScale = enemy2.xScale * -1
-        enemy2.physicsBody?.categoryBitMask = PhysicsCategory.rightUnit
-        enemy2.physicsBody?.contactTestBitMask = PhysicsCategory.All
-        
         //Add to scene
         background.addChild(enemy2)
         
@@ -337,6 +294,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Move enemy leftward
         moveLeft(enemy2)
+        
+        // add to enemy units
+        enemyUnits.push(enemy2)
     }
     //========================================UNIT SPAWNING END========================================
     
@@ -379,7 +339,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        
+        checkCollision()
     }
     
     
@@ -882,7 +842,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func randomHero1Animation() -> [SKTexture] {
         let randomNumber = random() % 11
-        
+    
         switch (randomNumber) {
         case 0:
             return Hero1_Sheet.attack()
@@ -967,6 +927,77 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     }
 
+    func checkCollision() {
+        
+        // local variables
+        let playerFrontUnit = playerUnits.front()
+        let enemyFrontUnit = enemyUnits.front()
+        
+        // check collision between the player's front unit and enemy's front unit
+        // only needs to be checked if both sides have at least 1 unit as well as not already fighting
+        if playerFrontUnit != nil && enemyFrontUnit != nil && !unitsFighting {
+            if CGRectIntersectsRect(playerFrontUnit!.frame, enemyFrontUnit!.frame) {
+                beginFight(playerFrontUnit!, enemySprite:  enemyFrontUnit!)
+            }
+        }
+    }
+    
+    func beginFight(playerSprite: SKSpriteNode, enemySprite: SKSpriteNode) {
+        
+        // local variables
+        let playerSpriteType = playerSprite.name
+        let enemySpriteType = enemySprite.name
+        var playerFightingAnimation: SKAction
+        var enemyFightingAnimation: SKAction
+        
+        // units have begun fighting
+        unitsFighting = true
+        
+        //------------------- player sprite -----------------------//
+        
+        // stop all other actions first
+        playerSprite.removeAllActions()
+        
+        // begin fighting animation based on sprite type
+        if playerSpriteType == "hero1" {
+            playerFightingAnimation = SKAction.animateWithTextures(Hero1_Sheet.attack(), timePerFrame: 0.1)
+        }
+        
+        else if playerSpriteType == "hero2" {
+            playerFightingAnimation = SKAction.animateWithTextures(Hero2_Sheet.attack(), timePerFrame: 0.1)
+        }
+        
+        // extend more player sprite types here
+        else {
+            playerFightingAnimation = SKAction.animateWithTextures(Hero1_Sheet.attack(), timePerFrame: 0.1)
+        }
+        
+        // start the animation for the player's sprite
+        playerSprite.runAction(SKAction.repeatActionForever(playerFightingAnimation))
+        
+        //------------------- enemy sprite ----------------------//
+        
+        // stop all other actions first
+        enemySprite.removeAllActions()
+        
+        // begin fighting animation based on sprite type
+        if enemySpriteType == "enemy1" {
+            enemyFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
+        }
+            
+        else if playerSpriteType == "enemy2" {
+            enemyFightingAnimation = SKAction.animateWithTextures(Enemy2_Sheet.attack(), timePerFrame: 0.1)
+        }
+            
+            // extend more player sprite types here
+        else {
+            enemyFightingAnimation = SKAction.animateWithTextures(Enemy1_Sheet.attack(), timePerFrame: 0.1)
+        }
+        
+        // start the animation for the player's sprite
+        enemySprite.runAction(SKAction.repeatActionForever(enemyFightingAnimation))
+        
+    }
 }
 
 //TODO: Captain does not spawn when view is to the right
