@@ -809,6 +809,21 @@ class GameScene: SKScene {
                 beginFight(playerFrontUnit!, enemySprite:  enemyFrontUnit!)
             }
         }
+        
+        // check collision between player's units
+        if(playerUnits.count() >= 2) {
+            
+            ///var unit: SKSpriteNode
+            
+            // check every unit behind the front unit for collision
+            for(var i = 1; i < playerUnits.count(); i++) {
+                
+                // check collision between current unit and unit in front
+                if CGRectIntersectsRect(playerUnits.items[i - 1].frame, playerUnits.items[i].frame) {
+                    
+                }
+            }
+        }
     }
     
     func beginFight(playerSprite: SKSpriteNode, enemySprite: SKSpriteNode) {

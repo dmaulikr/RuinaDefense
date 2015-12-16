@@ -31,6 +31,11 @@ struct Queue<Element> {
             return items.first
         }
     }
+    
+    // returns the number of items in the queue
+    func count() -> Int {
+        return items.count
+    }
 
 }
 
