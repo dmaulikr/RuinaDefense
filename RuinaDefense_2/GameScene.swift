@@ -213,7 +213,7 @@ class GameScene: SKScene {
         //Add to scene
         background.addChild(hero2)
         
-        let unit = Unit(spriteNode: hero2, hp: 5, def: 0, dmg: 1)
+        let unit = Unit(spriteNode: hero2, hp: 5, def: 0, dmg: 2)
         
         //Animates the hero
         let run = SKAction.animateWithTextures(randomHero2Animation(), timePerFrame: 0.1)
@@ -272,7 +272,7 @@ class GameScene: SKScene {
         //Add to scene
         background.addChild(enemy2)
         
-        let unit = Unit(spriteNode: enemy2, hp: 5, def: 0, dmg: 1)
+        let unit = Unit(spriteNode: enemy2, hp: 2, def: 0, dmg: 3)
         
         //Animates the hero
         //let run = SKAction.animateWithTextures(Enemy2_Sheet.run(), timePerFrame: 0.033)
