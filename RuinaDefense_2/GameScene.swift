@@ -156,7 +156,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Play music")
         //Path of music
     
-            let musicPath = NSBundle.mainBundle().URLForResource("GameSceneMusic", withExtension: "wav")
+            let musicPath = NSBundle.mainBundle().URLForResource("GameSceneMusic", withExtension: "mp3")
         
             do {
                 audioPlayer = try AVAudioPlayer(contentsOfURL: musicPath!)
