@@ -20,6 +20,8 @@ import SpriteKit
     var optionButton: SKSpriteNode!
     var upgradeButton: SKSpriteNode!
 
+
+
 class hud {
     
     // HUD SpriteNode names
@@ -205,6 +207,13 @@ class hud {
         
     }
     
+    func removeHero1SpawnButton() {
+        spawnHero1Button.position = CGPoint(x: -50 ,y: -50)
+    }
+    
+    func removeHero2SpawnButton() {
+        spawnHero2Button.position = CGPoint(x: -50 ,y: -50)
+    }
     
     func startGoldCounter() {
         
