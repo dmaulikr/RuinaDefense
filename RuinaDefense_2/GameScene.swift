@@ -27,7 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //let scene = GameScene(fileNamed: "GameScene")
     
     //Back Ground
-    let background = SKSpriteNode(imageNamed: "background")
+    var background = SKSpriteNode()
     var randomNum = 0 //For random cloud variant spawning
     
     //Music
@@ -100,43 +100,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFrom:"))
         self.view!.addGestureRecognizer(gestureRecognizer)
         
-        // add background
-        background.name = "background"
-        background.anchorPoint = CGPointZero
-        background.size.width = 2674
-        background.size.height = 768
-        background.zPosition = 0
+        // Set up environment
+        let environment = Environment()
+        background = environment.background
         self.addChild(background)
-        
-        //ADD SNOOOOOW
-        let path = NSBundle.mainBundle().pathForResource("heavySnowParticle", ofType: "sks")
-        let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
-        snow.position = CGPoint(x: CGRectGetMidX(background.frame), y: CGRectGetMaxY(background.frame))
-        snow.zPosition = 6
-        background.addChild(snow)
-        
-        //Add fire to the castles
-        let firePath = NSBundle.mainBundle().pathForResource("flameParticle", ofType: "sks")
-        let flame = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
-        flame.position = CGPoint(x: 84,y: 530)
-        flame.zPosition = 6
-        background.addChild(flame)
-        
-        let flame2 = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
-        flame2.position = CGPoint(x: 354,y: 530)
-        flame2.zPosition = 6
-        background.addChild(flame2)
-        
-        let flame3 = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
-        flame3.position = CGPoint(x: 2320,y: 530)
-        flame3.zPosition = 6
-        background.addChild(flame3)
-        
-        let flame4 = NSKeyedUnarchiver.unarchiveObjectWithFile(firePath!) as! SKEmitterNode
-        flame4.position = CGPoint(x: 2588,y: 530)
-        flame4.zPosition = 6
-        background.addChild(flame4)
-        
         
         //HANDLE PHYSICS FOR SCENE------------------------------------------------
         
