@@ -10,40 +10,41 @@ import UIKit
 import SpriteKit
 import AVFoundation
 
+var user = "nil"
+var audioPlayer = AVAudioPlayer()
 
 //---------------------------------------------------------------------
 //  Description: Scene that appears when app starts. Menu will contains
 //  buttons: start, option, credits, etc.
 //
 //---------------------------------------------------------------------
-
-var user = "nil"
-var audioPlayer = AVAudioPlayer()
-
 class MenuScene: SKScene {
     
-    //----------Variables-----------
+    //----------Variables-----------//
     let window = SKSpriteNode(imageNamed: "popupWindow")
     let windowClose = SKLabelNode(fontNamed: "Papyrus")
     let userNameText = UITextField(frame: CGRectMake(190 , 80, 290, 50))
     
+    //---------End variables -------//
+    
+    
     override func didMoveToView(view: SKView) {
         
-        print("moved to menu view")
-        
+        print("MenuScene.didMoveToView")
         
         //Set Username if it hasn't been set already
-        if (user == "nil") {
+        if user == "nil" {
             
             //Brings up window
             popUpWindow()
             
             //Textfield where user can input username
             userNameTextInput()
-
-            
         }
+        
         //-------------------------------Background-------------------------------
+        
+        // Add background
         let menuBackground = SKSpriteNode(imageNamed: "menuBackground.png")
         menuBackground.name = "menuBackground"
         menuBackground.anchorPoint = CGPointZero
@@ -52,14 +53,14 @@ class MenuScene: SKScene {
         menuBackground.zPosition = 0
         self.addChild(menuBackground)
         
-        //Add Logo
+        // Add Logo
         let logo = SKSpriteNode(imageNamed: "RuinaDefenseLogo")
         logo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-250)
         logo.setScale(0.4)
         logo.zPosition = 2
         self.addChild(logo)
         
-        //Add window
+        // Add window
         let menuWindow = SKSpriteNode(imageNamed: "Window3")
         menuWindow.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
         menuWindow.setScale(0.86)
@@ -68,21 +69,18 @@ class MenuScene: SKScene {
         menuWindow.zPosition = 1
         self.addChild(menuWindow)
         
-        //ADD SNOW BRAH
+        // ADD SNOW BRAH
         let path = NSBundle.mainBundle().pathForResource("snowParticle", ofType: "sks")
         let snow = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         snow.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMaxY(self.frame))
         snow.zPosition = 6
         self.addChild(snow)
         
-        
-        
         //Add clouds
         addClouds()
         NSTimer.every(15.0 .seconds) {
         self.addClouds()
         }
-        
         
         //Add all the buttons
         addButtons()
@@ -269,10 +267,7 @@ class MenuScene: SKScene {
         let transition = SKTransition.fadeWithDuration(1.0)
         
         Game_Scene.scaleMode = SKSceneScaleMode.AspectFill
-        
-        //Remove sound
-        //backgroundMusic.removeFromParent()
-        
+
         self.scene!.view?.presentScene(Game_Scene, transition: transition)
     }
 }

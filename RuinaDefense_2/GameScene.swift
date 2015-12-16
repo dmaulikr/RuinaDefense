@@ -348,14 +348,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func addGameClouds() {
         
         //Random Number
-        randomNum = Int(arc4random_uniform(2))
+        randomNum = random() % 2
         
         //Clouds
         let gameCloud1 = SKSpriteNode(imageNamed: "gameCloud.png")
         let gameCloud2 = SKSpriteNode(imageNamed: "gameCloud2.png")
         
         //Create cloud variant 1
-        //gameCloud1.name = "GameCloud1"
         gameCloud1.anchorPoint = CGPointZero
         
         //Set cloud position between y coordinates 200 and 300
@@ -366,7 +365,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameCloud1.setScale(0.7)
         
         //Create cloud variant 2
-        //gameCloud2.name = "GameCloud2"
         gameCloud2.anchorPoint = CGPointZero
         
         //Set cloud position between y coordinates 200 and 300

@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
         
         //Show the menu scene first
         if let scene = MenuScene(fileNamed: "GameScene") {
+            
             // Configure the view.
             let skView = self.view as! SKView
             skView.showsFPS = true
@@ -38,7 +39,7 @@ class GameViewController: UIViewController {
 
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
+            return .Landscape
         } else {
             return .All
         }
