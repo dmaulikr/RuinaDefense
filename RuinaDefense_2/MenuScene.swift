@@ -23,7 +23,9 @@ class MenuScene: SKScene {
     //----------Variables-----------//
     let window = SKSpriteNode(imageNamed: "popupWindow")
     let windowClose = SKLabelNode(fontNamed: "Papyrus")
+    let musicButton = SKSpriteNode(imageNamed: "pauseMusicButton")
     let userNameText = UITextField(frame: CGRectMake(190 , 80, 290, 50))
+    var musicPlaying = true
     
     //---------End variables -------//
     
@@ -122,6 +124,14 @@ class MenuScene: SKScene {
         
         print("add statistics button")
         self.addChild(statistics_button)
+        
+        musicButton.position = CGPointMake(CGRectGetMinX(self.frame)+50, CGRectGetMinY(self.frame)+50)
+        musicButton.name = "musicButton"
+        musicButton.zPosition = 2
+        musicButton.setScale(0.4)
+        self.addChild(musicButton)
+        
+        
     }
     
     //----------------------------------Add moving cloud--------------------------------------
@@ -219,6 +229,30 @@ class MenuScene: SKScene {
             windowClose.runAction(sequence)
 
         }
+        
+        //If musicbutton is pressed
+        if (node.name == "musicButton") {
+            
+            //If music is playing, stop it
+            if (musicPlaying == true) {
+                audioPlayer.pause()
+                
+                //Change texture
+                musicButton.texture = SKTexture(imageNamed: "playMusicButton")
+                
+                musicPlaying = false
+            }
+            
+            //Else music is not playing so play it
+            else {
+                audioPlayer.play()
+                
+                //Change texture
+                musicButton.texture = SKTexture(imageNamed: "pauseMusicButton")
+                
+                musicPlaying = true
+            }
+        }
     }
     
     //----------------------------Handle Username Input----------------------------------
@@ -264,7 +298,7 @@ class MenuScene: SKScene {
     //----------------------------Handle transition to gamescene-------------------------
     private func startGame() {
         let Game_Scene = GameScene(size: self.size)
-        let transition = SKTransition.fadeWithDuration(1.0)
+        let transition = SKTransition.fadeWithDuration(2.0)
         
         Game_Scene.scaleMode = SKSceneScaleMode.AspectFill
 

@@ -37,6 +37,20 @@ class GameScene: SKScene {
 
     //Upgrade Menu Nodes
     let upgradeBG = SKSpriteNode(imageNamed: "popupWindow")
+    let smallPane = SKSpriteNode(imageNamed: "smallPane1")
+    let smallPane2 = SKSpriteNode(imageNamed: "smallPane1")
+    let swordsmanUpgradeLabel = SKLabelNode(fontNamed: "Papyrus")
+    let knightUpgradeLabel = SKLabelNode(fontNamed: "Papyrus")
+    
+    let purchaseSwordsmanButton = SKSpriteNode(imageNamed: "purchaseButton")
+    let purchaseKnightButton = SKSpriteNode(imageNamed: "purchaseButton")
+    
+    var purchasedSwordsmanUpgrade = false
+    var purchasedKnightUpgrade = false
+    
+    //Upgraded Spawn Buttons -- CONNECT THIS WITH THE UPGRADED UNITS
+    let upgradedSwordsmanSpawnButton = SKSpriteNode(imageNamed: "upgradedSpawnButton")
+    let upgradedKnightSpawnButton = SKSpriteNode(imageNamed: "upgradedSpawnButton")
     
     //Handle Touches
     var selectedNode = SKSpriteNode()
@@ -378,6 +392,17 @@ class GameScene: SKScene {
                 spawnEnemy2()
                 
             }
+            
+            if upgradedSwordsmanSpawnButton.containsPoint(location) {
+                print("spawn upgraded swordsman")
+                
+                
+            }
+            
+            if upgradedKnightSpawnButton.containsPoint(location) {
+                print("spawn upgraded knight")
+                
+            }
         
 
             //------------Upgrade Menu Open-----------
@@ -438,7 +463,7 @@ class GameScene: SKScene {
 
                 
                 //Animation: moves sprite up
-                let moveUp = SKAction.moveByX(0, y: 530, duration: 1.5)
+                let moveUp = SKAction.moveByX(0, y: 530, duration: 1.0)
                 let finishedMoving = SKAction.removeFromParent()
                 let sequence = SKAction.sequence([moveUp, finishedMoving])
                 
@@ -463,7 +488,7 @@ class GameScene: SKScene {
                 
                 
                 //Animate menu offscreen
-                let moveUp = SKAction.moveByX(0, y: 530, duration: 1.5)
+                let moveUp = SKAction.moveByX(0, y: 650, duration: 1.0)
                 let finishedMoving = SKAction.removeFromParent()
                 let sequence = SKAction.sequence([moveUp, finishedMoving])
                 
@@ -471,6 +496,12 @@ class GameScene: SKScene {
                 upgradeClose.runAction(sequence)
                 upgradeBG.runAction(sequence)
                 upgradeMenuLabel.runAction(sequence)
+                smallPane.runAction(sequence)
+                smallPane2.runAction(sequence)
+                purchaseSwordsmanButton.runAction(sequence)
+                purchaseKnightButton.runAction(sequence)
+                swordsmanUpgradeLabel.runAction(sequence)
+                knightUpgradeLabel.runAction(sequence)
                 
                 //Set button to clickable
                 self.clickable = true
@@ -508,6 +539,71 @@ class GameScene: SKScene {
                     musicPlaying = true
                 }
             }
+            
+            //---------------------------Upgrade Menu Buttons---------------------------
+            
+            //If button is pressed, change its texture and replace the swordsman spawn button with a new button
+            if purchaseSwordsmanButton.containsPoint(location) {
+                print("Pressed swordsman upgrade button")
+                
+                //If you haven't purchased this upgrade yet
+                if (purchasedSwordsmanUpgrade == false) {
+                    
+                    print("Purchased Swordsman Upgrade!")
+                    
+                    //Set new texture for button
+                    purchaseSwordsmanButton.texture = SKTexture(imageNamed: "purchasedButton")
+                    
+                    //Remove original spawn buttons
+                    spawnHero1Button.position = CGPoint(x: -50,y: -50)
+                    spawnHero1Button.removeFromParent()
+                    
+                    //replace Spawn Swordsman Button
+                    upgradedSwordsmanSpawnButton.position = CGPoint(x:770, y:90)
+                    upgradedSwordsmanSpawnButton.zPosition = 3
+                    upgradedSwordsmanSpawnButton.setScale(0.6)
+                    self.addChild(upgradedSwordsmanSpawnButton)
+                    
+                    purchasedSwordsmanUpgrade = true
+                }
+            
+                else {
+                    print("you already bought this upgrade")
+                }
+            
+            
+            }
+            
+            if purchaseKnightButton.containsPoint(location) {
+                print("pressed knight upgrade button")
+            
+                //If you haven't purchased this upgrade yet
+                if (purchasedKnightUpgrade == false) {
+                 
+                    print("Purchased Knight Upgrade!")
+                    
+                    //Set new texture for button
+                    purchaseKnightButton.texture = SKTexture(imageNamed: "purchasedButton")
+                    
+                    //Remove original spawn button
+                    spawnHero2Button.position = CGPoint(x: -50,y: -50)
+                    spawnHero2Button.removeFromParent()
+                    
+                    //Replace Spawn Knight Button
+                    upgradedKnightSpawnButton.position = CGPoint(x:920, y:90)
+                    upgradedKnightSpawnButton.zPosition = 3
+                    upgradedKnightSpawnButton.setScale(0.6)
+                    self.addChild(upgradedKnightSpawnButton)
+                    
+                    purchasedKnightUpgrade = true
+                    
+                }
+                
+                else {
+                    print("you already bought this upgrade")
+                }
+            }
+            
             
             //-----------------Menu Button Pressed--------------
             if menuButton.containsPoint(location) {
@@ -576,14 +672,14 @@ class GameScene: SKScene {
     func openUpgradeMenu() {
         
         //Upgrade menu background -- PARENT NODE
-        upgradeBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
+        upgradeBG.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+70)
         upgradeBG.zPosition = 10
-        upgradeBG.setScale(0.7)
+        upgradeBG.setScale(0.9)
         
         //Upgrade Menu Label
         upgradeMenuLabel.text = "Upgrades"
         upgradeMenuLabel.fontSize = 50
-        upgradeMenuLabel.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame)+150)
+        upgradeMenuLabel.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame)+190)
         upgradeMenuLabel.zPosition = 13
         upgradeMenuLabel.fontColor = SKColor.blackColor()
         
@@ -592,14 +688,49 @@ class GameScene: SKScene {
         upgradeClose.fontColor = SKColor.blackColor()
         upgradeClose.fontSize = 50
         upgradeClose.text = "Resume"
-        upgradeClose.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame)-190)
+        upgradeClose.position = CGPoint(x: CGRectGetMidX(upgradeBG.frame), y: CGRectGetMidY(upgradeBG.frame)-260)
         upgradeClose.zPosition = 100
-
+        
+        //Small Pane
+        smallPane.position = CGPoint(x: CGRectGetMidX(self.frame)-110, y: CGRectGetMidY(self.frame)+130)
+        smallPane.zPosition = 13
+        smallPane.size.width = 450
+        
+        //Small Pane 2
+        smallPane2.position = CGPoint(x: CGRectGetMidX(self.frame)-110, y: CGRectGetMidY(self.frame)-20)
+        smallPane2.zPosition = 13
+        smallPane2.size.width = 450
+        
+        //Swordsmen Upgrade Label
+        swordsmanUpgradeLabel.text = "Upgrade Swordsman"
+        swordsmanUpgradeLabel.position = CGPoint(x: CGRectGetMidX(self.frame)-70, y: CGRectGetMidY(self.frame)+115)
+        swordsmanUpgradeLabel.zPosition = 14
+        
+        //Knight Upgrade Label
+        knightUpgradeLabel.text = "Upgrade Knight"
+        knightUpgradeLabel.position = CGPoint(x: CGRectGetMidX(self.frame)-75, y: CGRectGetMidY(self.frame)-33)
+        knightUpgradeLabel.zPosition = 14
+        
+        //Purchase Swordsman Button
+        purchaseSwordsmanButton.position = CGPoint(x: CGRectGetMidX(self.frame)+210, y: CGRectGetMidY(self.frame)+130)
+        purchaseSwordsmanButton.zPosition = 11
+        purchaseSwordsmanButton.setScale(0.7)
+        
+        //Purchase Knight Button
+        purchaseKnightButton.position = CGPoint(x: CGRectGetMidX(self.frame)+210, y: CGRectGetMidY(self.frame)-20)
+        purchaseKnightButton.zPosition = 11
+        purchaseKnightButton.setScale(0.7)
         
         //Add to view
         self.addChild(upgradeBG)
         self.addChild(upgradeClose)
         self.addChild(upgradeMenuLabel)
+        self.addChild(smallPane)
+        self.addChild(smallPane2)
+        self.addChild(swordsmanUpgradeLabel)
+        self.addChild(knightUpgradeLabel)
+        self.addChild(purchaseSwordsmanButton)
+        self.addChild(purchaseKnightButton)
     }
     
     
