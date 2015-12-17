@@ -19,6 +19,8 @@ class GameScene: SKScene {
 
     // environment
     var environment = Environment()
+    var leftBorder = CGRect(x: 0, y: 260, width: 150, height: 200)  // pos = left side, floor height.  width = left border to left spawn
+    var rightBorder = CGRect(x: 2500, y: 260, width: 174, height:  200) // pos = right castle spawn, width = right spawn to right border
     
     //Back Ground
     var background = SKSpriteNode()
@@ -92,6 +94,7 @@ class GameScene: SKScene {
         // Set up environment
         background = environment.background
         self.addChild(background)
+   
         
         // Set up hud
         let HUD = hud(gameview: self)
@@ -204,7 +207,7 @@ class GameScene: SKScene {
         let unit = Unit(spriteNode: hero1, hp: 5, def: 0, dmg: 1)
         
         //Animates the hero
-        let run = SKAction.animateWithTextures(randomHero1Animation(), timePerFrame: 0.1)
+        let run = SKAction.animateWithTextures(Hero1_Sheet.run(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         hero1.runAction(action)
         
@@ -232,7 +235,7 @@ class GameScene: SKScene {
         let unit = Unit(spriteNode: hero2, hp: 5, def: 0, dmg: 2)
         
         //Animates the hero
-        let run = SKAction.animateWithTextures(randomHero2Animation(), timePerFrame: 0.1)
+        let run = SKAction.animateWithTextures(Hero2_Sheet.run(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         hero2.runAction(action)
         
@@ -265,7 +268,7 @@ class GameScene: SKScene {
         let unit = Unit(spriteNode: enemy1, hp: 5, def: 0, dmg: 1)
         
         //Animates the hero
-        let run = SKAction.animateWithTextures(randomEnemy1Animation(), timePerFrame: 0.1)
+        let run = SKAction.animateWithTextures(Enemy1_Sheet.walk(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         enemy1.runAction(action)
         
@@ -292,7 +295,7 @@ class GameScene: SKScene {
         
         //Animates the hero
         //let run = SKAction.animateWithTextures(Enemy2_Sheet.run(), timePerFrame: 0.033)
-        let run = SKAction.animateWithTextures(randomEnemy2Animation(), timePerFrame: 0.1)
+        let run = SKAction.animateWithTextures(Enemy2_Sheet.walk(), timePerFrame: 0.1)
         let action = SKAction.repeatActionForever(run)
         enemy2.runAction(action)
         
@@ -346,6 +349,7 @@ class GameScene: SKScene {
 
         checkCollision()
         checkEndUnitIdle()
+        checkReachedCastle()
         
         if(currentTime - timeOfLastAttack < timePerAttack) {
             return
@@ -1322,6 +1326,38 @@ class GameScene: SKScene {
         // start the animation for the player's sprite
         enemyUnit.sprite.runAction(SKAction.repeatActionForever(enemyFightingAnimation))
         
+    }
+    
+    // checks if either player or enemy's units have reached the opposite castle
+    func checkReachedCastle() {
+        
+        // check for player units
+        if ( playerUnits.count() > 0 ) {
+            
+            // check if player's unit reached the enemy castle
+            if ( CGRectIntersectsRect(playerUnits.front()!.sprite.frame, rightBorder) ) {
+                
+                // damage enemy castle... TODO
+                
+                // remove player from game
+                playerUnits.front()!.sprite.removeFromParent()
+                playerUnits.pop()
+            }
+        }
+        
+        // check for enemy units
+        if ( enemyUnits.count() > 0 ) {
+            
+            // check if enemy's units reached the castle
+            if ( CGRectIntersectsRect(enemyUnits.front()!.sprite.frame, leftBorder) ) {
+                
+                // damage player castle... TODO
+                
+                // remove enemy from game
+                enemyUnits.front()!.sprite.removeFromParent()
+                enemyUnits.pop()
+            }
+        }
     }
 
 }
